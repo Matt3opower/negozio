@@ -44,31 +44,22 @@ if (isset($_POST['login'])) {
         if ($conta == 1) {
             $row = $result->fetch_assoc();
             $passc = $row['password'];
-
-
-
-
-
-            // if (password_verify($password, $passc)) {
-            //     $controllo = true;
-            // }
-
-
-
-
-            //temporanea
-            if($password == $row['password']){
+            if (password_verify($password, $passc)) {
                 $controllo = true;
-                echo "ciaooooooo";
             }
+            //temporanea
+            // if ($password == $row['password']) {
+            //     $controllo = true;
+            //     echo "ciaooooooo";
+            // }
         }
-        
+
         if ($conta == 0) {
             //echo "<script>window.location.href = 'login.php';</script>";
             $errore1 = false;
 
         }
-        
+
         if ($controllo) {
             if (!isset($_SESSION['email'])) {
                 session_start();
@@ -85,13 +76,13 @@ if (isset($_POST['login'])) {
             }
 
 
-            if ($email == "admin" and $password == "admin") {
-                echo "<script>window.location.href = 'homepage.php';</script>";
-            } else {
-                echo "<script>window.location.href = 'homepage.php';</script>";
-            }
+            // if ($email == "admin" and $password == "admin") {
+            //     echo "<script>window.location.href = 'homepage.php';</script>";
+            // } else {
+            //     echo "<script>window.location.href = 'homepage.php';</script>";
+            // }
 
-            
+
         } else {
             //echo "<script>window.location.href = 'login.php';</script>";
             $errore2 = false;
@@ -148,7 +139,11 @@ if (isset($_POST['login'])) {
                         <div class="mt-2 rounded-md shadow-sm">
                             <input type="text" name="email" id="email"
                                 class="block w-full rounded-md border-0 py-1.5 pl-2 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-blue-500 sm:text-sm sm:leading-6 focus:outline-none"
-                                placeholder="Email">
+                                placeholder="Email" value="<?php
+                                if (isset($_COOKIE['email'])) {
+                                    echo $_COOKIE['email'];
+                                }
+                                ?>">
                         </div>
                     </div>
                     <div class="my-3">
@@ -156,12 +151,14 @@ if (isset($_POST['login'])) {
                         <div class="mt-2 rounded-md shadow-sm">
                             <input type="text" name="password" id="password"
                                 class="block w-full rounded-md border-0 py-1.5 pl-2 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-blue-500 sm:text-sm sm:leading-6 focus:outline-none"
-                                placeholder="Password">
+                                placeholder="Password" value="<?php
+                                if (isset($_COOKIE['password'])) {
+                                    echo $_COOKIE['password'];
+                                }
+                                ?>">
                         </div>
                     </div>
-                    <div class="my-3">
-                    </div>
-                    <div class="grid grid-cols-1 md:grid-cols-2 grid-rows-1">
+                    <div class="grid grid-cols-1 md:grid-cols-2 grid-rows-1 ">
                         <div class="flex flex-col justify-center ">
                             <button name="login" id="login"
                                 class="mt-12 w-32 bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded mx-auto">Login</button>
