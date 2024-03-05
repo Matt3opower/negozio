@@ -23,3 +23,9 @@ function deleteCookie($email, $password)
     setcookie("email", "", time() - 3600, "/");
     setcookie("password", "", time() - 3600, "/");
 }
+
+function emptyCart()
+{
+    unset($_SESSION['carrello']);
+    header("Location:carrello.php");
+}

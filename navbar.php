@@ -2,7 +2,6 @@
 <script src="https://cdn.tailwindcss.com"></script>
 <style>
     .mynavbar {
-        margin: 20px;
         padding: 10px;
         font-size: 20px;
     }
@@ -21,7 +20,7 @@
 
 
 
-<div class="mynavbar bg-sky-200 rounded-lg">
+<div class="mynavbar bg-sky-200 ">
     <center>
         <strong>
             <a href="homepage.php">Homepage</a>

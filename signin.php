@@ -42,15 +42,15 @@ if (isset($_POST['signin'])) {
     
     if (!$check1) {
         echo "
-        <div class='alert alert-danger mt-4' role='alert'>
+        <div class='alert alert-danger mt-4 w-[1000px] mx-auto' role='alert'>
             Tutti i campi devono essere riempiti
         </div>
         ";
     }
     if (!$check2) {
         echo "
-        <div class='alert alert-danger mt-4' role='alert'>
-            Il codice fiscale inserito è già presente
+        <div class='alert alert-danger mt-4 w-[1000px] mx-auto' role='alert'>
+            L'email inserita è già presente
         </div>
         ";
     }

@@ -1,5 +1,6 @@
 <?php
 session_start();
+include "functions.php";
 $totale_carrello = 0;
 if (!isset($_SESSION['email'])) {
     header("Location: login.php");
@@ -7,6 +8,9 @@ if (!isset($_SESSION['email'])) {
     if (!isset($_SESSION['carrello'])) {
         $_SESSION['carrello'] = array();
     }
+}
+if (isset($_POST['empty'])) {
+    emptyCart();
 }
 
 ?>
@@ -23,7 +27,7 @@ if (!isset($_SESSION['email'])) {
     <!-- Bootstrap CSS v5.2.1 -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous" />
-        <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
 </head>
 
 <body>
@@ -60,40 +64,79 @@ if (!isset($_SESSION['email'])) {
 
 
         <div class="my-3">
-            <table class="table table-striped ">
-                <thead >
-                    <tr>
-                        <th scope="col">Nome prodotto</th>
-                        <th scope="col">Prezzo totale</th>
-                        <th scope="col">Quantità</th>
-                    </tr>
-                </thead>
-                <tbody>
+            <?php
+            // Controlla se l'array $_SESSION['carrello'] è vuoto
+            if (isset($_SESSION['carrello'])) {
+                ?>
 
-                    <?php foreach ($_SESSION['carrello'] as $dettagliProdotto): ?>
+                <table class="table table-striped ">
+                    <thead>
                         <tr>
-                            <!-- <td>
-                                <?php echo $dettagliProdotto['id']; ?>
-                            </td> -->
-                            <td>
-                                <?php echo $dettagliProdotto['nome']; ?>
-                            </td>
-                            <td>
-                                <?php
-                                echo $dettagliProdotto['prezzo'] * $dettagliProdotto['quantita'] . " €";
-                                $totale_carrello += $dettagliProdotto['prezzo'] * $dettagliProdotto['quantita'];
-                                ?>
-                            </td>
-                            <td>
-                                <?php echo $dettagliProdotto['quantita']; ?>
-                            </td>
+                            <th scope="col">Nome prodotto</th>
+                            <th scope="col">Prezzo totale</th>
+                            <th scope="col">Quantità</th>
                         </tr>
-                    <?php endforeach; ?>
-                </tbody>
-            </table>
-            <div class="bg-sky-200 p-2 rounded-lg w-fit mt-12">
-                <?php echo "Totale Carrello: " . $totale_carrello . "€";?>
-            </div>
+                    </thead>
+                    <tbody>
+
+                        <?php foreach ($_SESSION['carrello'] as $dettagliProdotto): ?>
+                            <tr>
+                                <td>
+                                    <?php echo $dettagliProdotto['nome']; ?>
+                                </td>
+                                <td>
+                                    <?php
+                                    echo $dettagliProdotto['prezzo'] * $dettagliProdotto['quantita'] . " €";
+                                    $totale_carrello += $dettagliProdotto['prezzo'] * $dettagliProdotto['quantita'];
+                                    ?>
+                                </td>
+                                <td>
+                                    <?php echo $dettagliProdotto['quantita']; ?>
+                                </td>
+                            </tr>
+                        <?php endforeach; ?>
+
+                    </tbody>
+                </table>
+
+                <?php
+            } else {
+                // Stampa un messaggio che indica che il carrello è vuoto
+                echo "
+                    <div class='bg-sky-200 p-2 rounded-lg w-fit mt-12 mx-auto text-2xl font-bold'>
+                        Carrello vuoto
+                    </div>
+                ";
+            }
+            ?>
+
+
+
+            <?php
+            if (isset($_SESSION['carrello'])) {
+                ?>
+
+
+                <form action='#' method='POST'>
+                    <div class="grid grid-cols-2">
+                        <div class='bg-sky-200 p-2 rounded-lg w-fit mt-12'>
+                            <?php echo 'Totale Carrello: ' . $totale_carrello . '€'; ?>
+                        </div>
+                        <div class="flex justify-end"> <button
+                                class='bg-sky-200 p-2 rounded-lg w-fit mt-12 hover:bg-sky-300 ' id='empty' name='empty '>
+                                Svuota carrello
+                            </button>
+                        </div>
+                    </div>
+                </form>
+
+
+                <?php
+            } else {
+                echo "ciao";
+            }
+            ?>
+
         </div>
     </div>
 

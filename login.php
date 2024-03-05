@@ -76,11 +76,11 @@ if (isset($_POST['login'])) {
             }
 
 
-            // if ($email == "admin" and $password == "admin") {
-            //     echo "<script>window.location.href = 'homepage.php';</script>";
-            // } else {
-            //     echo "<script>window.location.href = 'homepage.php';</script>";
-            // }
+            if ($email == "admin" and $password == "admin") {
+                echo "<script>window.location.href = 'homepage.php';</script>";
+            } else {
+                echo "<script>window.location.href = 'homepage.php';</script>";
+            }
 
 
         } else {
@@ -137,7 +137,7 @@ if (isset($_POST['login'])) {
                     <div class="my-3">
                         <label class="block text-md font-medium leading-6 text-gray-900">Email</label>
                         <div class="mt-2 rounded-md shadow-sm">
-                            <input type="text" name="email" id="email"
+                            <input type="email" name="email" id="email"
                                 class="block w-full rounded-md border-0 py-1.5 pl-2 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-blue-500 sm:text-sm sm:leading-6 focus:outline-none"
                                 placeholder="Email" value="<?php
                                 if (isset($_COOKIE['email'])) {
@@ -149,7 +149,7 @@ if (isset($_POST['login'])) {
                     <div class="my-3">
                         <label class="block text-md font-medium leading-6 text-gray-900">Password</label>
                         <div class="mt-2 rounded-md shadow-sm">
-                            <input type="text" name="password" id="password"
+                            <input type="password" name="password" id="password"
                                 class="block w-full rounded-md border-0 py-1.5 pl-2 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-blue-500 sm:text-sm sm:leading-6 focus:outline-none"
                                 placeholder="Password" value="<?php
                                 if (isset($_COOKIE['password'])) {
