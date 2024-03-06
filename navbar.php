@@ -20,7 +20,7 @@
 
 
 
-<div class="mynavbar bg-sky-200 ">
+<div class="mynavbar bg-sky-200">
     <center>
         <strong>
             <a href="homepage.php">Homepage</a>

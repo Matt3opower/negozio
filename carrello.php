@@ -13,13 +13,32 @@ if (!isset($_SESSION['email'])) {
 if (isset($_POST['empty'])) {
     emptyCart();
 }
+$check_empty_cart = true;
 $check_qnt = true;
 if (isset($_POST['buy'])) {
-    buyCart($db_connection);
+    foreach ($_SESSION['carrello'] as $prodotto):
+        $id_prod = $prodotto['id'];
+        $qnt_prod = $prodotto['quantita'];
+
+        $sql = "SELECT quantita_disponibile FROM prodotto WHERE id_prodotto = '$id_prod'";
+        $result = $db_connection->query($sql);
+        $resultt = $result->fetch_assoc();
+
+        $qnt_disponibile = $resultt['quantita_disponibile'];
+
+        if ($qnt_prod > $qnt_disponibile) {
+            //ERRORE QUANTITÀ TROPPO ELEVATA
+            $check_qnt = false;
+        } else {
+            //VIA LIBERA
+            $qnt_disponibile -= $qnt_prod;
+            $sql = "UPDATE prodotto SET quantita_disponibile = '$qnt_disponibile' WHERE id_prodotto = '$id_prod'";
+            $result = $db_connection->query($sql);
+            emptyCart();
+        }
+    endforeach;
+    header("Location:carrello.php");
 }
-
-
-
 ?>
 
 <!doctype html>
@@ -42,113 +61,107 @@ if (isset($_POST['buy'])) {
     include "navbar.php";
     ?>
     <div class="container">
-        <form action="#" method="POST">
+        <div class="lg:grid lg:grid-cols-12">
+            <div class=" lg:col-span-9 p-3 mt-14">
+                <div class="overflow-x-auto relative shadow-md sm:rounded-lg">
+                    <div class="overflow-x-auto relative shadow-md sm:rounded-lg">
+                        <?php
+                        // Controlla se l'array $_SESSION['carrello'] è vuoto
+                        if (!empty($_SESSION['carrello'])) {
+                            ?>
+                            <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+                                <thead
+                                    class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                                    <tr>
+                                        <th scope="col" class="py-3 px-6">Person</th>
+                                        <th scope="col" class="py-3 px-6">Bank Account</th>
+                                        <th scope="col" class="py-3 px-6">Amount</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <!-- <tr class="bg-white dark:bg-gray-800">
+                            <td class="py-4 px-6">Ethan Davis</td>
+                            <td class="py-4 px-6">64738290</td>
+                            <td class="py-4 px-6">$865.00</td>
+                        </tr> -->
+                                    <?php foreach ($_SESSION['carrello'] as $dettagliProdotto): ?>
+                                        <tr class="bg-white border-t dark:bg-gray-800 dark:border-gray-700">
+                                            <td class="py-4 px-6">
+                                                <?php echo $dettagliProdotto['nome']; ?>
+                                            </td>
+                                            <td class="py-4 px-6">
+                                                <?php
+                                                echo $dettagliProdotto['prezzo'] * $dettagliProdotto['quantita'] . " €";
+                                                $totale_carrello += $dettagliProdotto['prezzo'] * $dettagliProdotto['quantita'];
+                                                ?>
+                                            </td>
+                                            <td class="py-4 px-6">
+                                                <?php echo $dettagliProdotto['quantita']; ?>
+                                            </td>
+                                        </tr>
+                                    <?php endforeach; ?>
+                                </tbody>
+                            </table>
+                            <?php
+                        } else {
+                            // Stampa un messaggio che indica che il carrello è vuoto
+                            $check_empty_cart = false;
+                        }
+                        ?>
+                    </div>
+                </div>
 
-            <div class="row my-3">
+            </div>
+            <div class=" lg:col-span-3 p-3">
                 <?php
-                include "Connessione.php";
-                $conn = $db_connection;
-                $sql = "SELECT * FROM prodotto";
-                $result = $conn->query($sql);
-                $rows = $result->num_rows;
+                if (!empty($_SESSION['carrello'])) {
+                    ?>
+                    <form action='#' method='POST'>
+                        <div class='text-white font-bold bg-sky-500 p-2 rounded-lg w-full mt-14 lg:mb-[22px]'>
+                            <?php echo 'Totale Carrello: ' . $totale_carrello . '€'; ?>
+                        </div>
 
-                if ($rows > 0) {
+                        <div class="lg:grid lg:grid-cols-2 gap-3 ">
+                            <div class="">
+                                <button
+                                    class='w-full p-2 rounded-lg w-fit mt-3 text-white font-bold bg-sky-500 hover:bg-sky-600 hover:scale-105 duration-300'
+                                    id='empty' name='empty'>
+                                    Svuota carrello
+                                </button>
+                            </div>
+                            <div class="">
+                                <button
+                                    class='w-full p-2 rounded-lg w-fit mt-3 text-white font-bold bg-sky-500 hover:bg-sky-600 hover:scale-105 duration-300'
+                                    id='buy' name='buy'>
+                                    Acquista
+                                </button>
+                            </div>
+                        </div>
 
-                    while ($row = $result->fetch_assoc()) {
-                        echo "
-
-                        ";
-                    }
+                    </form>
+                    <?php
                 }
                 ?>
             </div>
-        </form>
-
-
-
-
-
-
-
-        <div class="my-3">
-            <?php
-            // Controlla se l'array $_SESSION['carrello'] è vuoto
-            if (!empty($_SESSION['carrello'])) {
-                ?>
-
-                <table class="table table-striped ">
-                    <thead>
-                        <tr>
-                            <th scope="col">Nome prodotto</th>
-                            <th scope="col">Prezzo totale</th>
-                            <th scope="col">Quantità</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-
-                        <?php foreach ($_SESSION['carrello'] as $dettagliProdotto): ?>
-                            <tr>
-                                <td>
-                                    <?php echo $dettagliProdotto['nome']; ?>
-                                </td>
-                                <td>
-                                    <?php
-                                    echo $dettagliProdotto['prezzo'] * $dettagliProdotto['quantita'] . " €";
-                                    $totale_carrello += $dettagliProdotto['prezzo'] * $dettagliProdotto['quantita'];
-                                    ?>
-                                </td>
-                                <td>
-                                    <?php echo $dettagliProdotto['quantita']; ?>
-                                </td>
-                            </tr>
-                        <?php endforeach; ?>
-
-                    </tbody>
-                </table>
-
-                <?php
-            } else {
-                // Stampa un messaggio che indica che il carrello è vuoto
-                echo "
-                    <div class='bg-sky-200 p-2 rounded-lg w-fit mt-12 mx-auto text-2xl font-bold'>
-                        Carrello vuoto
-                    </div>
-                ";
-            }
-            ?>
-
-
-
-            <?php
-            if (!empty($_SESSION['carrello'])) {
-                ?>
-                <form action='#' method='POST'>
-                    <div class="grid grid-cols-2">
-                        <div class='bg-sky-200 p-2 rounded-lg w-fit mt-12'>
-                            <?php echo 'Totale Carrello: ' . $totale_carrello . '€'; ?>
-                        </div>
-                        <div class="flex justify-end"> <button
-                                class='bg-sky-200 p-2 rounded-lg w-fit mt-12 hover:bg-sky-300 ' id='empty' name='empty'>
-                                Svuota carrello
-                            </button>
-                        </div>                        
-                    </div>
-                    <div class="flex justify-center"> <button
-                                class='bg-sky-200 p-2 rounded-lg w-fit mt-12 hover:bg-sky-300 ' id='buy' name='buy'>
-                                Acquista
-                            </button>
-                        </div>
-                </form>
-                <?php
-            }
-            ?>
         </div>
         <?php if (!$check_qnt) { ?>
             <div class="alert alert-danger mt-4 w-fit mx-auto" role="alert">
                 Quantità selezionate troppo elevate
             </div>
         <?php } ?>
+
+        <?php
+        if (!$check_empty_cart) {
+            echo "
+                    <div class='text-white font-bold bg-sky-500 p-2 rounded-lg w-fit mt-12 mx-auto text-2xl font-bold'>
+                        Carrello vuoto
+                    </div>
+                ";
+        }
+        ?>
     </div>
+
+
 
 
 

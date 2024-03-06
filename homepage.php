@@ -31,8 +31,9 @@ if (isset($_POST['aggiungi'])) {
         $check_qnt = false;
     } else {
         addToCart($id, $nome, $prezzo, $quantita);
+        header("Location:carrello.php");
     }
-
+    
 }
 ?>
 
@@ -56,11 +57,14 @@ if (isset($_POST['aggiungi'])) {
     ?>
     <div class="container">
 
-        <div class="grid lg:grid-cols-3 gap-3 mt-20 mb-8">
+        <div class="grid lg:grid-cols-3 mb-20 mt-20">
             <?php foreach ($prodotti as $prodotto): ?>
                 <div class="col-span-1">
                     <form action="#" method="POST">
-                        <div class="border-1 rounded-lg overflow-hidden">
+                        <div class=" rounded-lg overflow-hidden mx-6 my-6 shadow-[0_3px_10px_rgb(0,0,0,0.2)]">
+                            <div class="h-80 w-80 mx-auto">
+                                <img src="<?php echo 'img/products/' . $prodotto['nome'] . '.webp'; ?>" alt="" class="w-full h-full object-contain">
+                            </div>
                             <div class="rounded-lg p-3">
                                 <p class="font-size text-2xl mb-3">
                                     <?php echo $prodotto['nome'] ?>
@@ -69,7 +73,7 @@ if (isset($_POST['aggiungi'])) {
                                 <div class="row my-3">
                                     <div class="col text-lg my-auto">
                                         <p>
-                                            Disponibilità: 
+                                            Disponibilità:
                                         </p>
                                     </div>
                                     <div class="col my-auto">
@@ -86,14 +90,10 @@ if (isset($_POST['aggiungi'])) {
                                         <input type="number" class="form-control" id="quantita" name="quantita" value="1">
                                     </div>
                                 </div>
-                                <!-- <p class="card-text">Prezzo:
-                                    <?php echo $prodotto['prezzo'] ?>
-                                </p>
-                                <p class="card-text">Quantità:</p> -->
                             </div>
                             <div class="">
                                 <button type="submit" name="aggiungi" id="aggiungi"
-                                    class="text-white font-bold w-full h-12 bg-sky-500 hover:bg-sky-600 mt-3">
+                                    class="text-white font-bold w-full h-12 bg-sky-500 hover:bg-sky-600 mt-3 hover:scale-105 duration-300">
                                     Aggiungi al carrello
                                 </button>
 

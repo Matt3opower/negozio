@@ -83,28 +83,3 @@ function emptyCart()
 
 
 
-include "connessione.php";
-function buyCart($db_connection){
-    foreach ($_SESSION['carrello'] as $prodotto):
-        $id_prod = $prodotto['id'];
-        $qnt_prod = $prodotto['quantita'];
-
-        $sql = "SELECT quantita_disponibile FROM prodotto WHERE id_prodotto = '$id_prod'";
-        $result = $db_connection->query($sql);
-        $resultt = $result->fetch_assoc();
-
-        $qnt_disponibile = $resultt['quantita_disponibile'];
-
-        if ($qnt_prod > $qnt_disponibile) {
-            //ERRORE QUANTITÀ TROPPO ELEVATA
-            $check_qnt = false;
-        } else {
-            //VIA LIBERA
-            $qnt_disponibile -= $qnt_prod;
-            $sql = "UPDATE prodotto SET quantita_disponibile = '$qnt_disponibile' WHERE id_prodotto = '$id_prod'";
-            $result = $db_connection->query($sql);
-            emptyCart();
-        }
-    endforeach;
-    header("Location:carrello.php"); 
-}
