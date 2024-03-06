@@ -66,7 +66,7 @@ if (isset($_POST['empty'])) {
         <div class="my-3">
             <?php
             // Controlla se l'array $_SESSION['carrello'] è vuoto
-            if (isset($_SESSION['carrello'])) {
+            if (!empty($_SESSION['carrello'])) {
                 ?>
 
                 <table class="table table-striped ">
@@ -113,7 +113,7 @@ if (isset($_POST['empty'])) {
 
 
             <?php
-            if (isset($_SESSION['carrello'])) {
+            if (!empty($_SESSION['carrello'])) {
                 ?>
 
 
@@ -123,7 +123,7 @@ if (isset($_POST['empty'])) {
                             <?php echo 'Totale Carrello: ' . $totale_carrello . '€'; ?>
                         </div>
                         <div class="flex justify-end"> <button
-                                class='bg-sky-200 p-2 rounded-lg w-fit mt-12 hover:bg-sky-300 ' id='empty' name='empty '>
+                                class='bg-sky-200 p-2 rounded-lg w-fit mt-12 hover:bg-sky-300 ' id='empty' name='empty'>
                                 Svuota carrello
                             </button>
                         </div>
@@ -132,8 +132,6 @@ if (isset($_POST['empty'])) {
 
 
                 <?php
-            } else {
-                echo "ciao";
             }
             ?>
 

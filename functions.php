@@ -26,6 +26,7 @@ function deleteCookie($email, $password)
 
 function emptyCart()
 {
-    unset($_SESSION['carrello']);
+    $_SESSION['carrello'] = array();
+    //unset($_SESSION['carrello']);
     header("Location:carrello.php");
 }

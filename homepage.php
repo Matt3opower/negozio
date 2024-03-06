@@ -101,6 +101,15 @@ if (isset($_POST['aggiungi'])) {
                 </div>
             <?php endforeach ?>
         </div>
+    
+    <?php 
+        // echo "---";
+        // if (empty($_SESSION['carrello'])) {
+        //     echo "ciao";
+        // } else {
+        //     var_dump($_SESSION['carrello']);
+        // }
+    ?>
     </div>
 
 
