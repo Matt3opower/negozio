@@ -1,6 +1,7 @@
 <?php
 session_start();
 include "functions.php";
+include "connessione.php";
 $totale_carrello = 0;
 if (!isset($_SESSION['email'])) {
     header("Location: login.php");
@@ -12,6 +13,12 @@ if (!isset($_SESSION['email'])) {
 if (isset($_POST['empty'])) {
     emptyCart();
 }
+$check_qnt = true;
+if (isset($_POST['buy'])) {
+    buyCart($db_connection);
+}
+
+
 
 ?>
 
@@ -115,8 +122,6 @@ if (isset($_POST['empty'])) {
             <?php
             if (!empty($_SESSION['carrello'])) {
                 ?>
-
-
                 <form action='#' method='POST'>
                     <div class="grid grid-cols-2">
                         <div class='bg-sky-200 p-2 rounded-lg w-fit mt-12'>
@@ -126,16 +131,23 @@ if (isset($_POST['empty'])) {
                                 class='bg-sky-200 p-2 rounded-lg w-fit mt-12 hover:bg-sky-300 ' id='empty' name='empty'>
                                 Svuota carrello
                             </button>
-                        </div>
+                        </div>                        
                     </div>
+                    <div class="flex justify-center"> <button
+                                class='bg-sky-200 p-2 rounded-lg w-fit mt-12 hover:bg-sky-300 ' id='buy' name='buy'>
+                                Acquista
+                            </button>
+                        </div>
                 </form>
-
-
                 <?php
             }
             ?>
-
         </div>
+        <?php if (!$check_qnt) { ?>
+            <div class="alert alert-danger mt-4 w-fit mx-auto" role="alert">
+                Quantità selezionate troppo elevate
+            </div>
+        <?php } ?>
     </div>
 
 

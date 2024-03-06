@@ -6,33 +6,33 @@ session_start();
 // }
 
 include "connessione.php";
-include "addtocart.php";
-$conn = $db_connection;
+include "functions.php";
 $sql = "SELECT * FROM prodotto";
-$result = $conn->query($sql);
+$result = $db_connection->query($sql);
 $rows = $result->num_rows;
 while ($riga = $result->fetch_assoc()) {
     $prodotti[] = $riga;
 }
 
 
-
+$check_qnt = true;
 if (isset($_POST['aggiungi'])) {
+
     $id = $_POST['id_prodotto'];
     $nome = $_POST['nome'];
     $prezzo = $_POST['prezzo'];
     $quantita = $_POST['quantita'];
 
-    addToCart($id, $nome, $prezzo, $quantita);
+    $sql_2 = "SELECT * FROM prodotto WHERE id_prodotto = '$id'";
+    $result_2 = $db_connection->query($sql_2);
+    $row_2 = $result_2->fetch_assoc();
 
-    /*
-    foreach ($_SESSION['carrello'] as $dettagliProdotto): {
-            echo $dettagliProdotto['nome'];
-            echo $dettagliProdotto['quantita'];
-        }
-    endforeach;
-    */
-    header("Location: carrello.php");
+    if ($quantita > $row_2['quantita_disponibile']) {
+        $check_qnt = false;
+    } else {
+        addToCart($id, $nome, $prezzo, $quantita);
+    }
+
 }
 ?>
 
@@ -56,7 +56,7 @@ if (isset($_POST['aggiungi'])) {
     ?>
     <div class="container">
 
-        <div class="grid lg:grid-cols-3 gap-3 my-3">
+        <div class="grid lg:grid-cols-3 gap-3 mt-20 mb-8">
             <?php foreach ($prodotti as $prodotto): ?>
                 <div class="col-span-1">
                     <form action="#" method="POST">
@@ -66,6 +66,16 @@ if (isset($_POST['aggiungi'])) {
                                     <?php echo $prodotto['nome'] ?>
                                 </p>
                                 <div class="h-[1px] bg-[#e5e7eb] w-full mb-3"></div>
+                                <div class="row my-3">
+                                    <div class="col text-lg my-auto">
+                                        <p>
+                                            Disponibilità: 
+                                        </p>
+                                    </div>
+                                    <div class="col my-auto">
+                                        <?php echo $prodotto['quantita_disponibile'] ?>
+                                    </div>
+                                </div>
                                 <div class="row">
                                     <div class="col text-lg font-bold my-auto">
                                         <p>
@@ -73,8 +83,7 @@ if (isset($_POST['aggiungi'])) {
                                         </p>
                                     </div>
                                     <div class="col">
-                                        <input type="number" class="form-control" id="quantita" name="quantita"
-                                            value="<?php echo $prodotto['quantita'] ?>">
+                                        <input type="number" class="form-control" id="quantita" name="quantita" value="1">
                                     </div>
                                 </div>
                                 <!-- <p class="card-text">Prezzo:
@@ -101,15 +110,12 @@ if (isset($_POST['aggiungi'])) {
                 </div>
             <?php endforeach ?>
         </div>
-    
-    <?php 
-        // echo "---";
-        // if (empty($_SESSION['carrello'])) {
-        //     echo "ciao";
-        // } else {
-        //     var_dump($_SESSION['carrello']);
-        // }
-    ?>
+
+        <?php if (!$check_qnt) { ?>
+            <div class="alert alert-danger mt-4 w-fit mx-auto" role="alert">
+                Quantità selezionate troppo elevate
+            </div>
+        <?php } ?>
     </div>
 
 
