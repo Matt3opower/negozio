@@ -33,7 +33,7 @@ if (isset($_POST['aggiungi'])) {
         addToCart($id, $nome, $prezzo, $quantita);
         header("Location:carrello.php");
     }
-    
+
 }
 ?>
 
@@ -49,21 +49,31 @@ if (isset($_POST['aggiungi'])) {
     <!-- Bootstrap CSS v5.2.1 -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous" />
+    <style>
+
+    </style>
 </head>
 
-<body>
+<body class="bg-[#f0f3f8]">
     <?php
     include "navbar.php";
     ?>
     <div class="container">
 
+
+        <?php if (!$check_qnt) { ?>
+            <div class="alert alert-danger mt-4 w-fit mx-auto" role="alert">
+                Quantità selezionate troppo elevate
+            </div>
+        <?php } ?>
         <div class="grid lg:grid-cols-3 mb-20 mt-20">
             <?php foreach ($prodotti as $prodotto): ?>
                 <div class="col-span-1">
                     <form action="#" method="POST">
-                        <div class=" rounded-lg overflow-hidden mx-6 my-6 shadow-[0_3px_10px_rgb(0,0,0,0.2)]">
+                        <div class=" rounded-lg overflow-hidden mx-6 my-6 shadow-[0_3px_10px_rgb(0,0,0,0.2)] bg-white">
                             <div class="h-80 w-80 mx-auto">
-                                <img src="<?php echo 'img/products/' . $prodotto['nome'] . '.webp'; ?>" alt="" class="w-full h-full object-contain">
+                                <img src="<?php echo 'img/products/' . $prodotto['nome'] . '.webp'; ?>" alt=""
+                                    class="w-full h-full object-contain">
                             </div>
                             <div class="rounded-lg p-3">
                                 <p class="font-size text-2xl mb-3">
@@ -87,7 +97,8 @@ if (isset($_POST['aggiungi'])) {
                                         </p>
                                     </div>
                                     <div class="col">
-                                        <input type="number" class="form-control" id="quantita" name="quantita" value="1">
+                                        <input type="number" class="form-control bg-zinc-100" id="quantita" name="quantita"
+                                            value="1">
                                     </div>
                                 </div>
                             </div>
@@ -110,12 +121,6 @@ if (isset($_POST['aggiungi'])) {
                 </div>
             <?php endforeach ?>
         </div>
-
-        <?php if (!$check_qnt) { ?>
-            <div class="alert alert-danger mt-4 w-fit mx-auto" role="alert">
-                Quantità selezionate troppo elevate
-            </div>
-        <?php } ?>
     </div>
 
 

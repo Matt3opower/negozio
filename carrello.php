@@ -56,7 +56,7 @@ if (isset($_POST['buy'])) {
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 
-<body>
+<body class="bg-[#f0f3f8]">
     <?php
     include "navbar.php";
     ?>
@@ -73,9 +73,9 @@ if (isset($_POST['buy'])) {
                                 <thead
                                     class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                                     <tr>
-                                        <th scope="col" class="py-3 px-6">Person</th>
-                                        <th scope="col" class="py-3 px-6">Bank Account</th>
-                                        <th scope="col" class="py-3 px-6">Amount</th>
+                                        <th scope="col" class="py-3 px-6">Nome prodotto</th>
+                                        <th scope="col" class="py-3 px-6">Prezzo totale</th>
+                                        <th scope="col" class="py-3 px-6">Quantità</th>
                                     </tr>
                                 </thead>
                                 <tbody>

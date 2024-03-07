@@ -81,9 +81,6 @@ if (isset($_POST['login'])) {
         integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous" />
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        body {
-            background-color: #f0f3f8;
-        }
 
         .form-login {
             width: 1000px;
@@ -99,7 +96,7 @@ if (isset($_POST['login'])) {
     </style>
 </head>
 
-<body>
+<body class="bg-[#f0f3f8]">
     <form action="#" method="POST">
         <div class="form-login p-6">
             <div class="grid grid-cols-1 md:grid-cols-2 grid-rows-1 h-full ">

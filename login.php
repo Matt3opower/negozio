@@ -47,19 +47,11 @@ if (isset($_POST['login'])) {
             if (password_verify($password, $passc)) {
                 $controllo = true;
             }
-            //temporanea
-            // if ($password == $row['password']) {
-            //     $controllo = true;
-            //     echo "ciaooooooo";
-            // }
         }
-
         if ($conta == 0) {
-            //echo "<script>window.location.href = 'login.php';</script>";
             $errore1 = false;
 
         }
-
         if ($controllo) {
             if (!isset($_SESSION['email'])) {
                 session_start();
@@ -70,27 +62,20 @@ if (isset($_POST['login'])) {
             if (isset($_POST['ricorda'])) {
                 impostaCookieLogin($email, $password);
             }
-
             if (!isset($_POST['ricorda'])) {
                 deleteCookie("email", "password");
             }
-
-
             if ($email == "admin" and $password == "admin") {
                 echo "<script>window.location.href = 'homepage.php';</script>";
             } else {
                 echo "<script>window.location.href = 'homepage.php';</script>";
             }
-
-
         } else {
-            //echo "<script>window.location.href = 'login.php';</script>";
             $errore2 = false;
         }
     } else if (!$check) {
         $errore3 = false;
     }
-
 }
 ?>
 
@@ -108,9 +93,6 @@ if (isset($_POST['login'])) {
         integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous" />
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        body {
-            background-color: #f0f3f8;
-        }
 
         .form-login {
             width: 1000px;
@@ -126,7 +108,10 @@ if (isset($_POST['login'])) {
     </style>
 </head>
 
-<body>
+<body class="bg-[#f0f3f8]">
+<?php
+    include("navbar.php");
+?>
     <form action="#" method="POST">
         <div class="form-login p-6">
             <div class="grid grid-cols-1 md:grid-cols-2 grid-rows-1 h-full ">
