@@ -97,6 +97,9 @@ if (isset($_POST['login'])) {
 </head>
 
 <body class="bg-[#f0f3f8]">
+<?php
+    include "navbar.php";
+    ?>
     <form action="#" method="POST">
         <div class="form-login p-6">
             <div class="grid grid-cols-1 md:grid-cols-2 grid-rows-1 h-full ">

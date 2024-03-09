@@ -66,7 +66,7 @@ function addToCart($id, $nome, $prezzo, $quantita)
 
 // function buy()
 // {
-    
+
 // }
 
 
@@ -79,7 +79,5 @@ function emptyCart()
     //unset($_SESSION['carrello']);
     header("Location:carrello.php");
 }
-
-
 
 

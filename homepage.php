@@ -15,6 +15,7 @@ while ($riga = $result->fetch_assoc()) {
 }
 
 
+
 $check_qnt = true;
 if (isset($_POST['aggiungi'])) {
 
@@ -72,8 +73,11 @@ if (isset($_POST['aggiungi'])) {
                     <form action="#" method="POST">
                         <div class=" rounded-lg overflow-hidden mx-6 my-6 shadow-[0_3px_10px_rgb(0,0,0,0.2)] bg-white">
                             <div class="h-80 w-80 mx-auto">
-                                <img src="<?php echo 'img/products/' . $prodotto['nome'] . '.webp'; ?>" alt=""
-                                    class="w-full h-full object-contain">
+                                <img src="<?php 
+                                //echo 'img/products/' . $prodotto['nome'] . '.webp'; 
+                                echo $prodotto['img_path'];
+                                //$sql_img = "SELECT img_path FROM prodotto WHERE ";
+                                ?>" class="w-full h-full object-contain">
                             </div>
                             <div class="rounded-lg p-3">
                                 <p class="font-size text-2xl mb-3">
