@@ -31,6 +31,10 @@ if (isset($_POST['empty'])) {
 $check_empty_cart = true;
 $check_qnt = true;
 if (isset($_POST['buy'])) {
+
+
+
+    //CHECK QUANTITÀ
     foreach ($_SESSION['carrello'] as $prodotto):
         $id_prod = $prodotto['id'];
         $qnt_prod = $prodotto['quantita'];
@@ -46,6 +50,15 @@ if (isset($_POST['buy'])) {
             $check_qnt = false;
         } else {
             //VIA LIBERA
+            
+            //AGGIUNTA ACQUISTO AL RECORD
+            $email = $_SESSION['email'];
+            $carrello = $_SESSION['carrello'];
+            $json_carrello = json_encode($carrello);
+            $sql_cart_buy = "INSERT INTO acquisti (email, lista_acquisto) VALUES ('$email', '$json_carrello')";
+            $result_cart_buy = $db_connection->query($sql_cart_buy);
+
+            //UPDATE QUANTITÀ DISPONIBILE
             $qnt_disponibile -= $qnt_prod;
             $sql = "UPDATE prodotto SET quantita_disponibile = '$qnt_disponibile' WHERE id_prodotto = '$id_prod'";
             $result = $db_connection->query($sql);
@@ -69,6 +82,7 @@ if (isset($_POST['buy'])) {
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous" />
     <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="icon" type="image/x-icon" href="img/logo_icon.png">
 </head>
 
 <body class="bg-[#f0f3f8]">

@@ -13,6 +13,8 @@ if (!isset($_SESSION['email'])) {
     }
 }
 $email = $_SESSION['email'];
+$lista_acquisti = "";
+$totale_carrello = 0;
 
 $sql = "SELECT * FROM utente WHERE email = '$email'";
 $result = $db_connection->query($sql);
@@ -27,7 +29,7 @@ if (isset($_POST['addProduct'])) {
     $prezzo_p = $_POST['prezzo'];
     $quantita_disponibile_p = $_POST['quantita_disponibile'];
 
-    if ($nome_p=="" || $prezzo_p=="" || $quantita_disponibile_p=="" || ($_FILES['fileToUpload'])=="" ) {
+    if ($nome_p == "" || $prezzo_p == "" || $quantita_disponibile_p == "" || ($_FILES['fileToUpload']) == "") {
         $check_input_prod = 2;
     }
 
@@ -44,7 +46,7 @@ if (isset($_POST['addProduct'])) {
             $sql_upload = "INSERT INTO prodotto (nome, prezzo, quantita_disponibile, img_path) VALUES ('$nome_p', '$prezzo_p', '$quantita_disponibile_p', '$img_path');";
             $result_upload = $db_connection->query($sql_upload);
             $check_input_prod = 1;
-    
+
         } else {
             echo "Errore durante il caricamento dell'immagine";
             $check_input_prod = 2;
@@ -68,6 +70,7 @@ if (isset($_POST['addProduct'])) {
     <!-- Bootstrap CSS v5.2.1 -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous" />
+    <link rel="icon" type="image/x-icon" href="img/logo_icon.png">
     <style>
         ::-webkit-file-upload-button {
             display: none;
@@ -85,9 +88,9 @@ if (isset($_POST['addProduct'])) {
     ?>
 
 
-    <div class="container flex items-center justify-center">
+    <div class="container flex flex-col items-center justify-center">
         <?php if ($row['email'] != 'admin@admin') { ?>
-            <div class="bg-white p-4 shadow-[0_3px_10px_rgb(0,0,0,0.2)] rounded-lg w-[475px] mt-20">
+            <div class="bg-white p-4 shadow-[0_3px_10px_rgb(0,0,0,0.2)] rounded-lg w-[475px] mt-20 mb-10">
                 <div class="row mb-3">
                     <div class="col">Nome</div>
                     <div class="col">
@@ -130,55 +133,121 @@ if (isset($_POST['addProduct'])) {
                     </div>
                 </div>
             </div>
-        <?php } ?>
 
 
-        <div class="flex flex-col items-center justify-center p-4">
-            <?php if ($row['email'] == 'admin@admin') { ?>
-                <div
-                    class="bg-white p-4 shadow-[0_3px_10px_rgb(0,0,0,0.2)] rounded-lg w-[475px] mt-20 flex items-center justify-center font-bold text-2xl">
-                    <div>Benvenuto admin</div>
-                </div>
-                <div class="mt-10 w-72">
-                    <form action="#" method="POST" enctype="multipart/form-data">
-                        <div class="items-center justify-center">
 
-                            <input type="text" name="nome" id="nome"
-                                class="mx-auto mt-2 block w-full rounded-md border-0 py-1.5 pl-2 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-blue-500 sm:text-sm sm:leading-6 focus:outline-none"
-                                placeholder="Nome" value="">
+            <div class="">
 
-                            <input type="number" name="prezzo" id="prezzo" step="0.01"
-                                class="mx-auto mt-2 block w-full rounded-md border-0 py-1.5 pl-2 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-blue-500 sm:text-sm sm:leading-6 focus:outline-none"
-                                placeholder="Prezzo" value="">
+                <?php
+                $sql_temp = "SELECT * FROM acquisti WHERE email = '$email' ORDER BY id DESC";
+                $result_temp = $db_connection->query($sql_temp);
+                $num_rows_temp = $result_temp->num_rows;
 
-                            <input type="number" name="quantita_disponibile" id="quantita_disponibile"
-                                class="mx-auto mt-2 block w-full rounded-md border-0 py-1.5 pl-2 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-blue-500 sm:text-sm sm:leading-6 focus:outline-none"
-                                placeholder="Quantità disponibile" value="">
+                if ($num_rows_temp > 0) {
+                    while ($row_temp = $result_temp->fetch_assoc()) {
 
-                            <input type="file" name="fileToUpload" id="fileToUpload"
-                                class="bg-white mx-auto mt-2 block w-full rounded-md border-0 py-1.5 pl-2 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-blue-500 sm:text-sm sm:leading-6 focus:outline-none"
-                                style="width:100%; height:100%;">
-
-                            <input type="submit" name="addProduct" id="addProduct"
-                                class="hover:bg-sky-600 bg-sky-500 mx-auto mt-5 p-2 font-bold text-white block w-56 rounded-md text-gray-900 placeholder:text-gray-400 sm:text-sm sm:leading-6 focus:outline-none"
-                                style="width:100%; height:100%;">
-                                <!-- Aggiungi prodotto
-                            </button> -->
+                        $stringa_json = $row_temp['lista_acquisto'];
+                        $lista_acquisti = json_decode($stringa_json, true);
+                        ?>
+                        <div class="overflow-x-auto  shadow-md sm:rounded-lg mt-10 w-[475px]">
+                            <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+                                <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                                    <tr>
+                                        <th scope="col" class="py-3 px-6"></th>
+                                        <th scope="col" class="py-3 px-6 ">
+                                            <?php echo "ID Acquisto: " . $row_temp['id']; ?>
+                                        </th>
+                                        <th scope="col" class="py-3 px-6"></th>
+                                    </tr>
+                                </thead>
+                                <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                                    <tr>
+                                        <th scope="col" class="py-3 px-6">Nome prodotto</th>
+                                        <th scope="col" class="py-3 px-6">Prezzo totale</th>
+                                        <th scope="col" class="py-3 px-6">Quantità</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php foreach ($lista_acquisti as $dettagliProdotto): ?>
+                                        <tr class="bg-white border-t dark:bg-gray-800 dark:border-gray-700">
+                                            <td class="py-4 px-6">
+                                                <?php echo $dettagliProdotto['nome']; ?>
+                                            </td>
+                                            <td class="py-4 px-6">
+                                                <?php
+                                                echo $dettagliProdotto['prezzo'] * $dettagliProdotto['quantita'] . " €";
+                                                $totale_carrello += $dettagliProdotto['prezzo'] * $dettagliProdotto['quantita'];
+                                                ?>
+                                            </td>
+                                            <td class="py-4 px-6">
+                                                <?php echo $dettagliProdotto['quantita']; ?>
+                                            </td>
+                                        </tr>
+                                    <?php endforeach; ?>
+                                </tbody>
+                            </table>
                         </div>
-                    </form>
-                    <?php if ($check_input_prod == 1) { ?>
-                        <div class="alert alert-success mt-4 mx-auto w-full" role="alert">
-                            Prodotto inserito con successo
-                        </div>
-                    <?php } ?>
-                    <?php if ($check_input_prod == 2) { ?>
-                        <div class="alert alert-danger mt-4 mx-auto w-full" role="alert">
-                            Errore nell'inserimento del prodotto
-                        </div>
-                    <?php } ?>
-                </div>
-            <?php } ?>
+                        <?php
+                    }
+                } else {
+                    // Stampa un messaggio che indica che il carrello è vuoto
+                    $check_empty_cart = false;
+                }
+
+                ?>
+
+            </div>
+
         </div>
+    <?php } ?>
+
+
+    <div class="flex flex-col items-center justify-center p-4">
+        <?php if ($row['email'] == 'admin@admin') { ?>
+            <div
+                class="bg-white p-4 shadow-[0_3px_10px_rgb(0,0,0,0.2)] rounded-lg w-[475px] mt-20 flex items-center justify-center font-bold text-2xl">
+                <div>Benvenuto admin</div>
+            </div>
+            <div class="mt-10 w-72">
+                <form action="#" method="POST" enctype="multipart/form-data">
+                    <div class="items-center justify-center">
+
+                        <input type="text" name="nome" id="nome"
+                            class="mx-auto mt-2 block w-full rounded-md border-0 py-1.5 pl-2 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-blue-500 sm:text-sm sm:leading-6 focus:outline-none"
+                            placeholder="Nome" value="">
+
+                        <input type="number" name="prezzo" id="prezzo" step="0.01"
+                            class="mx-auto mt-2 block w-full rounded-md border-0 py-1.5 pl-2 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-blue-500 sm:text-sm sm:leading-6 focus:outline-none"
+                            placeholder="Prezzo" value="">
+
+                        <input type="number" name="quantita_disponibile" id="quantita_disponibile"
+                            class="mx-auto mt-2 block w-full rounded-md border-0 py-1.5 pl-2 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-blue-500 sm:text-sm sm:leading-6 focus:outline-none"
+                            placeholder="Quantità disponibile" value="">
+
+                        <input type="file" name="fileToUpload" id="fileToUpload"
+                            class="bg-white mx-auto mt-2 block w-full rounded-md border-0 py-1.5 pl-2 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-blue-500 sm:text-sm sm:leading-6 focus:outline-none"
+                            style="width:100%; height:100%;">
+
+                        <input type="submit" name="addProduct" id="addProduct"
+                            class="hover:bg-sky-600 bg-sky-500 mx-auto mt-5 p-2 font-bold text-white block w-56 rounded-md text-gray-900 placeholder:text-gray-400 sm:text-sm sm:leading-6 focus:outline-none"
+                            style="width:100%; height:100%;">
+                        <!-- Aggiungi prodotto
+                            </button> -->
+                    </div>
+                </form>
+                <?php if ($check_input_prod == 1) { ?>
+                    <div class="alert alert-success mt-4 mx-auto w-full" role="alert">
+                        Prodotto inserito con successo
+                    </div>
+                <?php } ?>
+                <?php if ($check_input_prod == 2) { ?>
+                    <div class="alert alert-danger mt-4 mx-auto w-full" role="alert">
+                        Errore nell'inserimento del prodotto
+                    </div>
+                <?php } ?>
+            </div>
+        <?php } ?>
+    </div>
     </div>
 
 
