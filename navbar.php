@@ -51,10 +51,12 @@
                 <a href="login.php">Login</a>
             </li>
             <?php } ?>
+            <?php if (isset($_SESSION['email'])) { ?>
             <li
                 class="h-16 p-4 flex items-center border-b-2 border-red-600 border-opacity-0 hover:border-opacity-100 hover:text-red-600 duration-200 cursor-pointer active">
                 <a href="logout.php">Logout</a>
             </li>
+            <?php } ?>
         </ul>
     </nav>
 
