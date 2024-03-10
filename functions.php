@@ -47,6 +47,7 @@ function addToCart($id, $nome, $prezzo, $quantita)
             'nome' => $nome,
             'prezzo' => $prezzo,
             'quantita' => $quantita
+            
         );
         $_SESSION['carrello'][$id] = $item;
         //print_r($_SESSION);

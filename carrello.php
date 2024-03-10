@@ -11,6 +11,17 @@ if (!isset($_SESSION['email'])) {
     } else {
         if (!isset($_SESSION['carrello'])) {
             $_SESSION['carrello'] = array();
+            $email = $_SESSION['email'];
+            //echo $email;
+            $sql_cart = "SELECT lista_carrello FROM utente WHERE email = '$email'";
+            $result_cart = $db_connection->query($sql_cart);
+            $row_cart = $result_cart->fetch_assoc();
+            //echo "ciao" . $row_cart['lista_carrello'];
+            if ($row_cart['lista_carrello'] != "") {
+                $stringa_json = $row_cart['lista_carrello'];
+                $_SESSION['carrello'] = json_decode($stringa_json, true);
+                //var_dump($_SESSION['carrello']);
+            }
         }
     }
 }
@@ -67,8 +78,8 @@ if (isset($_POST['buy'])) {
     <div class="container">
         <div class="lg:grid lg:grid-cols-12">
             <div class=" lg:col-span-9 p-3 mt-14">
-                <div class="overflow-x-auto relative shadow-md sm:rounded-lg">
-                    <div class="overflow-x-auto relative shadow-md sm:rounded-lg">
+                <div class="overflow-x-auto  shadow-md sm:rounded-lg">
+                    <div class="overflow-x-auto  shadow-md sm:rounded-lg">
                         <?php
                         // Controlla se l'array $_SESSION['carrello'] è vuoto
                         if (!empty($_SESSION['carrello'])) {
@@ -164,6 +175,7 @@ if (isset($_POST['buy'])) {
         }
         ?>
     </div>
+
 
 
 

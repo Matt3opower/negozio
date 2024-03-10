@@ -1,15 +1,21 @@
 <?php
 // Avvia la sessione
 session_start();
+include "connessione.php";
 
+//SALVATAGGIO DEL CARRELLO DELL'UTENTE
+$email = $_SESSION['email'];
+$carrello = $_SESSION['carrello'];
+$json_carrello = json_encode($carrello);
+$sql_cart_save = "UPDATE utente SET lista_carrello = '$json_carrello' WHERE email = '$email'";
+$result_cart_save = $db_connection->query($sql_cart_save);
 
-
-// Elimina tutte le variabili di sessione
+// Eliminazione di tutte le variabili di sessione
 session_unset();
 
-// Distrugge la sessione
+// Distruzione della sessione
 session_destroy();
 
-// Reindirizza l'utente alla pagina di login
+// Redirect dell'utente alla pagina di login
 header("Location: login.php");
 
