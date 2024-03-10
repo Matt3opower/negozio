@@ -11,12 +11,6 @@ function impostaCookieLogin($email, $password)
     setcookie($cookie_name, $cookie_value, time() + (86400 * 30), "/");
 
 }
-// function impostaCookieColor($colore_sfondo)
-// {
-//     $cookie_name = "colore_sfondo";
-//     $cookie_value = $colore_sfondo;
-//     setcookie($cookie_name, $cookie_value, time() + (86400 * 30), "/");
-// }
 
 
 
@@ -59,17 +53,6 @@ function addToCart($id, $nome, $prezzo, $quantita)
         //echo "Aggiunto con successo";
     }
 }
-
-
-
-
-
-// function buy()
-// {
-
-// }
-
-
 
 
 

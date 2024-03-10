@@ -6,8 +6,12 @@ $totale_carrello = 0;
 if (!isset($_SESSION['email'])) {
     header("Location: login.php");
 } else {
-    if (!isset($_SESSION['carrello'])) {
-        $_SESSION['carrello'] = array();
+    if ($_SESSION['email'] == "admin@admin") {
+        header("Location: homepage.php");
+    } else {
+        if (!isset($_SESSION['carrello'])) {
+            $_SESSION['carrello'] = array();
+        }
     }
 }
 if (isset($_POST['empty'])) {

@@ -2,6 +2,8 @@
 // Avvia la sessione
 session_start();
 
+
+
 // Elimina tutte le variabili di sessione
 session_unset();
 

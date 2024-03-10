@@ -72,12 +72,12 @@ if (isset($_POST['aggiungi'])) {
                 <div class="col-span-1">
                     <form action="#" method="POST">
                         <div class=" rounded-lg overflow-hidden mx-6 my-6 shadow-[0_3px_10px_rgb(0,0,0,0.2)] bg-white">
-                            <div class="h-80 w-80 mx-auto">
-                                <img src="<?php 
+                            <div class="h-80 w-80 mx-auto p-3">
+                                <img src="<?php
                                 //echo 'img/products/' . $prodotto['nome'] . '.webp'; 
                                 echo $prodotto['img_path'];
                                 //$sql_img = "SELECT img_path FROM prodotto WHERE ";
-                                ?>" class="w-full h-full object-contain">
+                                ?>" class="w-full h-full object-contain ">
                             </div>
                             <div class="rounded-lg p-3">
                                 <p class="font-size text-2xl mb-3">
@@ -101,17 +101,28 @@ if (isset($_POST['aggiungi'])) {
                                         </p>
                                     </div>
                                     <div class="col">
-                                        <input type="number" class="form-control bg-zinc-100" id="quantita" name="quantita"
-                                            value="1">
+                                        <?php
+                                        if (isset($_SESSION['email'])) {
+                                            if ($_SESSION['email'] != "admin@admin") {
+                                                ?>
+                                                <input type="number" class="form-control bg-zinc-100" id="quantita" name="quantita"
+                                                    value="1">
+                                            <?php }
+                                        } ?>
                                     </div>
                                 </div>
                             </div>
                             <div class="">
-                                <button type="submit" name="aggiungi" id="aggiungi"
-                                    class="text-white font-bold w-full h-12 bg-sky-500 hover:bg-sky-600 mt-3 hover:scale-105 duration-300">
-                                    Aggiungi al carrello
-                                </button>
-
+                                <?php
+                                if (isset($_SESSION['email'])) {
+                                    if ($_SESSION['email'] != "admin@admin") {
+                                        ?>
+                                        <button type="submit" name="aggiungi" id="aggiungi"
+                                            class="text-white font-bold w-full h-12 bg-sky-500 hover:bg-sky-600 mt-3 hover:scale-105 duration-300">
+                                            Aggiungi al carrello
+                                        </button>
+                                    <?php }
+                                } ?>
 
                                 <input type="hidden" class="form-control" id="id_prodotto" name="id_prodotto"
                                     value="<?php echo $prodotto['id_prodotto'] ?>">
