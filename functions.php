@@ -26,7 +26,7 @@ function deleteCookie($email, $password)
 
 
 
-function addToCart($id, $nome, $prezzo, $quantita)
+function addToCart($id, $nome, $prezzo, $quantita, $img_path)
 {
     if (!isset($_SESSION['carrello'])) {
         $_SESSION['carrello'] = array();
@@ -46,8 +46,8 @@ function addToCart($id, $nome, $prezzo, $quantita)
             'id' => $id,
             'nome' => $nome,
             'prezzo' => $prezzo,
-            'quantita' => $quantita
-            
+            'quantita' => $quantita,
+            'img_path' => $img_path
         );
         $_SESSION['carrello'][$id] = $item;
         //print_r($_SESSION);

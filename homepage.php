@@ -23,6 +23,7 @@ if (isset($_POST['aggiungi'])) {
     $nome = $_POST['nome'];
     $prezzo = $_POST['prezzo'];
     $quantita = $_POST['quantita'];
+    $img_path = $_POST['img_path'];
 
     $sql_2 = "SELECT * FROM prodotto WHERE id_prodotto = '$id'";
     $result_2 = $db_connection->query($sql_2);
@@ -31,7 +32,7 @@ if (isset($_POST['aggiungi'])) {
     if ($quantita > $row_2['quantita_disponibile']) {
         $check_qnt = false;
     } else {
-        addToCart($id, $nome, $prezzo, $quantita);
+        addToCart($id, $nome, $prezzo, $quantita, $img_path);
         header("Location:carrello.php");
     }
 
@@ -129,6 +130,8 @@ if (isset($_POST['aggiungi'])) {
                                     value="<?php echo $prodotto['nome'] ?>">
                                 <input type="hidden" class="form-control" id="prezzo" name="prezzo"
                                     value="<?php echo $prodotto['prezzo'] ?>">
+                                <input type="hidden" class="form-control" id="img_path" name="img_path"
+                                    value="<?php echo $prodotto['img_path'] ?>">
                             </div>
                         </div>
                     </form>

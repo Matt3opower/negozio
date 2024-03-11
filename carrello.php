@@ -50,7 +50,7 @@ if (isset($_POST['buy'])) {
             $check_qnt = false;
         } else {
             //VIA LIBERA
-            
+
             //AGGIUNTA ACQUISTO AL RECORD
             $email = $_SESSION['email'];
             $carrello = $_SESSION['carrello'];
@@ -98,23 +98,22 @@ if (isset($_POST['buy'])) {
                         // Controlla se l'array $_SESSION['carrello'] è vuoto
                         if (!empty($_SESSION['carrello'])) {
                             ?>
-                            <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+                            <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400 ">
                                 <thead
                                     class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
-                                    <tr>
+                                    <tr class="">
+                                        <th scope="col" class="py-3 px-6">Immagine prodotto</th>
                                         <th scope="col" class="py-3 px-6">Nome prodotto</th>
                                         <th scope="col" class="py-3 px-6">Prezzo totale</th>
                                         <th scope="col" class="py-3 px-6">Quantità</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <!-- <tr class="bg-white dark:bg-gray-800">
-                            <td class="py-4 px-6">Ethan Davis</td>
-                            <td class="py-4 px-6">64738290</td>
-                            <td class="py-4 px-6">$865.00</td>
-                        </tr> -->
                                     <?php foreach ($_SESSION['carrello'] as $dettagliProdotto): ?>
-                                        <tr class="bg-white border-t dark:bg-gray-800 dark:border-gray-700">
+                                        <tr class="bg-white border-t dark:bg-gray-800 dark:border-gray-700 ">
+                                            <td class="py-4 px-6">
+                                                <img src="<?php echo $dettagliProdotto['img_path']; ?>" class="h-24">
+                                            </td>
                                             <td class="py-4 px-6">
                                                 <?php echo $dettagliProdotto['nome']; ?>
                                             </td>
