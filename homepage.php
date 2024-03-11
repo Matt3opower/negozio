@@ -69,7 +69,7 @@ if (isset($_POST['aggiungi'])) {
         <div class="grid lg:grid-cols-3 mb-20 mt-20">
             <?php foreach ($prodotti as $prodotto): ?>
                 <div class="col-span-1">
-                    <form action="#" method="POST">
+                    <form action="#" method="POST" autocomplete="off">
                         <div class=" rounded-lg overflow-hidden mx-6 my-6 shadow-[0_3px_10px_rgb(0,0,0,0.2)] bg-white">
                             <div class="h-80 w-80 mx-auto p-3">
                                 <img src="<?php
