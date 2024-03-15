@@ -88,46 +88,98 @@ if (isset($_POST['addProduct'])) {
     ?>
 
     <!-- tolti dal prossimo div: flex flex-col items-center justify-center -->
-    <div class="container sm:grid sm:grid-cols-2">
+    <div class="container sm:grid sm:grid-cols-2 gap-20">
+        <!-- riga 1 colonna 1 -->
+
         <!-- COLONNA DATI UTENTE -->
-        <div class="border-0 flex flex-col items-center ">
+        <div class="flex flex-col items-center mt-20">
+            <div class="bg-white p-5 shadow-[0_3px_10px_rgb(0,0,0,0.2)] rounded-lg w-full mb-10 h-full">
+                <div class="row mb-4">
+                    <div class="col">Quantità ordini effettuati</div>
+                    <div class="col">
+                        <?php
+                        //echo $row['nome'];
+                        $sql11 = "SELECT * FROM acquisti WHERE email = '$email'";
+                        $result11 = $db_connection->query($sql11);
+                        $num_rows11 = $result11->num_rows;
+                        echo $num_rows11;
+                        ?>
+                    </div>
+                </div>
+                <div class="h-[1px] bg-[#e5e7eb] w-full mb-4"></div>
+                <div class="row">
+                    <div class="col">Totale (€) ordini effettuati</div>
+                    <div class="col">
+                        <?php
+                        $totale_ordini = 0;
+                        $totale_singolo = 0;
+                        $sql_temp = "SELECT * FROM acquisti WHERE email = '$email' ORDER BY id DESC";
+                        $result_temp = $db_connection->query($sql_temp);
+                        $num_rows_temp = $result_temp->num_rows;
+
+                        if ($num_rows_temp > 0) {
+                            while ($row_temp = $result_temp->fetch_assoc()) {
+
+                                $stringa_json = $row_temp['lista_acquisto'];
+                                $lista_acquisti = json_decode($stringa_json, true);
+
+                                $totale_singolo = 0;
+                                foreach ($lista_acquisti as $dettagliProdotto):
+                                    $totale_singolo += $dettagliProdotto['prezzo'] * $dettagliProdotto['quantita'];
+                                endforeach;
+                                $totale_ordini += $totale_singolo;
+                            }
+                        }
+
+                        echo "€ " . $totale_ordini;
+
+
+
+                        $sql12 = "SELECT SUM(amount) AS total_amount
+                        FROM my_table
+                        WHERE email = 'b@b';
+                        ";
+                        ?>
+                    </div>
+                </div>
+            </div>
             <?php if ($row['email'] != 'admin@admin') { ?>
-                <div class="bg-white p-4 shadow-[0_3px_10px_rgb(0,0,0,0.2)] rounded-lg w-[475px] mt-20 mb-10">
-                    <div class="row mb-3">
+                <div class="bg-white p-5 shadow-[0_3px_10px_rgb(0,0,0,0.2)] rounded-lg w-full h-fit">
+                    <div class="row mb-4">
                         <div class="col">Nome</div>
                         <div class="col">
                             <?php echo $row['nome'] ?>
                         </div>
                     </div>
-                    <div class="h-[1px] bg-[#e5e7eb] w-full mb-3"></div>
-                    <div class="row mb-3">
+                    <div class="h-[1px] bg-[#e5e7eb] w-full mb-4"></div>
+                    <div class="row mb-4">
                         <div class="col">Cognome</div>
                         <div class="col">
                             <?php echo $row['cognome'] ?>
                         </div>
                     </div>
-                    <div class="h-[1px] bg-[#e5e7eb] w-full mb-3"></div>
-                    <div class="row mb-3">
+                    <div class="h-[1px] bg-[#e5e7eb] w-full mb-4"></div>
+                    <div class="row mb-4">
                         <div class="col">Email</div>
                         <div class="col">
                             <?php echo $row['email'] ?>
                         </div>
                     </div>
-                    <div class="h-[1px] bg-[#e5e7eb] w-full mb-3"></div>
-                    <div class="row mb-3">
+                    <div class="h-[1px] bg-[#e5e7eb] w-full mb-4"></div>
+                    <div class="row mb-4">
                         <div class="col">Indirizzo</div>
                         <div class="col">
                             <?php echo $row['indirizzo'] ?>
                         </div>
                     </div>
-                    <div class="h-[1px] bg-[#e5e7eb] w-full mb-3"></div>
-                    <div class="row mb-3">
+                    <div class="h-[1px] bg-[#e5e7eb] w-full mb-4"></div>
+                    <div class="row mb-4">
                         <div class="col">Città</div>
                         <div class="col">
                             <?php echo $row['citta'] ?>
                         </div>
                     </div>
-                    <div class="h-[1px] bg-[#e5e7eb] w-full mb-3"></div>
+                    <div class="h-[1px] bg-[#e5e7eb] w-full mb-4"></div>
                     <div class="row">
                         <div class="col">Provincia</div>
                         <div class="col">
@@ -138,8 +190,10 @@ if (isset($_POST['addProduct'])) {
             </div>
 
             <!-- COLONNA RECORD ACQUISTI -->
-            <div class="mt-20 h-[750px] scroll-auto overflow-y-auto flex flex-col items-center p-4 bg-white shadow-[0_3px_10px_rgb(0,0,0,0.2)] rounded-lg">
-                <div class="">
+
+            <div class="mt-20 h-[720px] scroll-auto overflow-y-auto flex flex-col items-center rounded-lg">
+
+                <div class="w-full">
                     <?php
                     $sql_temp = "SELECT * FROM acquisti WHERE email = '$email' ORDER BY id DESC";
                     $result_temp = $db_connection->query($sql_temp);
@@ -151,7 +205,7 @@ if (isset($_POST['addProduct'])) {
                             $stringa_json = $row_temp['lista_acquisto'];
                             $lista_acquisti = json_decode($stringa_json, true);
                             ?>
-                            <div class="overflow-x-auto  shadow-md sm:rounded-lg mb-10 w-[475px]">
+                            <div class="overflow-x-auto shadow-md sm:rounded-lg mb-10">
                                 <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
                                     <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                                         <tr>
