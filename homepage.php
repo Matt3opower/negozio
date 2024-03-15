@@ -37,7 +37,7 @@ if (isset($_POST['aggiungi'])) {
         header("Location:homepage.php");
     }
 
-    
+
 }
 ?>
 
@@ -79,7 +79,7 @@ if (isset($_POST['aggiungi'])) {
                                 //echo 'img/products/' . $prodotto['nome'] . '.webp'; 
                                 echo $prodotto['img_path'];
                                 //$sql_img = "SELECT img_path FROM prodotto WHERE ";
-                                ?>" class="w-full h-full object-contain ">
+                                ?>" class="w-full h-full object-contain">
                             </div>
                             <div class="rounded-lg p-3">
                                 <p class="font-size text-2xl mb-3">

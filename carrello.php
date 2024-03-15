@@ -105,7 +105,7 @@ if (isset($_POST['buy'])) {
     include "navbar.php";
     ?>
     <div class="container">
-        <div class="lg:grid lg:grid-cols-12">
+        <div class="lg:grid lg:grid-cols-12 mb-20">
             <div class=" lg:col-span-9 p-3 mt-14">
                 <div class="overflow-x-auto shadow-md sm:rounded-lg">
                     <div class="overflow-x-auto shadow-md sm:rounded-lg">
@@ -126,7 +126,10 @@ if (isset($_POST['buy'])) {
                                     <?php foreach ($_SESSION['carrello'] as $dettagliProdotto): ?>
                                         <tr class="bg-white border-t dark:bg-gray-800 dark:border-gray-700 ">
                                             <td class="py-4 px-6">
-                                                <img src="<?php echo $dettagliProdotto['img_path']; ?>" class="h-24">
+                                                <div class="h-24 w-24">
+                                                    <img src="<?php echo $dettagliProdotto['img_path']; ?>"
+                                                        class="w-full h-full object-contain">
+                                                </div>
                                             </td>
                                             <td class="py-4 px-6">
                                                 <?php echo $dettagliProdotto['nome']; ?>
@@ -179,18 +182,18 @@ if (isset($_POST['buy'])) {
                                 </button>
                             </div>
                         </div>
-
+                        <?php if (!$check_qnt) { ?>
+                            <div class="alert alert-danger mt-4 w-full " role="alert">
+                                Quantità selezionate troppo elevate
+                            </div>
+                        <?php } ?>
                     </form>
                     <?php
                 }
                 ?>
             </div>
         </div>
-        <?php if (!$check_qnt) { ?>
-            <div class="alert alert-danger mt-4 w-fit mx-auto" role="alert">
-                Quantità selezionate troppo elevate
-            </div>
-        <?php } ?>
+
 
         <?php
         if (!$check_empty_cart) {
