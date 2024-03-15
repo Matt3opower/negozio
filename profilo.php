@@ -87,117 +87,117 @@ if (isset($_POST['addProduct'])) {
     include "navbar.php";
     ?>
 
-
-    <div class="container flex flex-col items-center justify-center">
-        <?php if ($row['email'] != 'admin@admin') { ?>
-            <div class="bg-white p-4 shadow-[0_3px_10px_rgb(0,0,0,0.2)] rounded-lg w-[475px] mt-20 mb-10">
-                <div class="row mb-3">
-                    <div class="col">Nome</div>
-                    <div class="col">
-                        <?php echo $row['nome'] ?>
-                    </div>
-                </div>
-                <div class="h-[1px] bg-[#e5e7eb] w-full mb-3"></div>
-                <div class="row mb-3">
-                    <div class="col">Cognome</div>
-                    <div class="col">
-                        <?php echo $row['cognome'] ?>
-                    </div>
-                </div>
-                <div class="h-[1px] bg-[#e5e7eb] w-full mb-3"></div>
-                <div class="row mb-3">
-                    <div class="col">Email</div>
-                    <div class="col">
-                        <?php echo $row['email'] ?>
-                    </div>
-                </div>
-                <div class="h-[1px] bg-[#e5e7eb] w-full mb-3"></div>
-                <div class="row mb-3">
-                    <div class="col">Indirizzo</div>
-                    <div class="col">
-                        <?php echo $row['indirizzo'] ?>
-                    </div>
-                </div>
-                <div class="h-[1px] bg-[#e5e7eb] w-full mb-3"></div>
-                <div class="row mb-3">
-                    <div class="col">Città</div>
-                    <div class="col">
-                        <?php echo $row['citta'] ?>
-                    </div>
-                </div>
-                <div class="h-[1px] bg-[#e5e7eb] w-full mb-3"></div>
-                <div class="row">
-                    <div class="col">Provincia</div>
-                    <div class="col">
-                        <?php echo $row['provincia'] ?>
-                    </div>
-                </div>
-            </div>
-
-
-
-            <div class="">
-
-                <?php
-                $sql_temp = "SELECT * FROM acquisti WHERE email = '$email' ORDER BY id DESC";
-                $result_temp = $db_connection->query($sql_temp);
-                $num_rows_temp = $result_temp->num_rows;
-
-                if ($num_rows_temp > 0) {
-                    while ($row_temp = $result_temp->fetch_assoc()) {
-
-                        $stringa_json = $row_temp['lista_acquisto'];
-                        $lista_acquisti = json_decode($stringa_json, true);
-                        ?>
-                        <div class="overflow-x-auto  shadow-md sm:rounded-lg mt-10 w-[475px]">
-                            <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
-                                <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
-                                    <tr>
-                                        <th scope="col" class="py-3 px-6"></th>
-                                        <th scope="col" class="py-3 px-6 ">
-                                            <?php echo "ID Acquisto: " . $row_temp['id']; ?>
-                                        </th>
-                                        <th scope="col" class="py-3 px-6"></th>
-                                    </tr>
-                                </thead>
-                                <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
-                                    <tr>
-                                        <th scope="col" class="py-3 px-6">Nome prodotto</th>
-                                        <th scope="col" class="py-3 px-6">Prezzo totale</th>
-                                        <th scope="col" class="py-3 px-6">Quantità</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <?php foreach ($lista_acquisti as $dettagliProdotto): ?>
-                                        <tr class="bg-white border-t dark:bg-gray-800 dark:border-gray-700">
-                                            <td class="py-4 px-6">
-                                                <?php echo $dettagliProdotto['nome']; ?>
-                                            </td>
-                                            <td class="py-4 px-6">
-                                                <?php
-                                                echo $dettagliProdotto['prezzo'] * $dettagliProdotto['quantita'] . " €";
-                                                $totale_carrello += $dettagliProdotto['prezzo'] * $dettagliProdotto['quantita'];
-                                                ?>
-                                            </td>
-                                            <td class="py-4 px-6">
-                                                <?php echo $dettagliProdotto['quantita']; ?>
-                                            </td>
-                                        </tr>
-                                    <?php endforeach; ?>
-                                </tbody>
-                            </table>
+    <!-- tolti dal prossimo div: flex flex-col items-center justify-center -->
+    <div class="container sm:grid sm:grid-cols-2">
+        <!-- COLONNA DATI UTENTE -->
+        <div class="border-0 flex flex-col items-center ">
+            <?php if ($row['email'] != 'admin@admin') { ?>
+                <div class="bg-white p-4 shadow-[0_3px_10px_rgb(0,0,0,0.2)] rounded-lg w-[475px] mt-20 mb-10">
+                    <div class="row mb-3">
+                        <div class="col">Nome</div>
+                        <div class="col">
+                            <?php echo $row['nome'] ?>
                         </div>
-                        <?php
-                    }
-                } else {
-                    // Stampa un messaggio che indica che il carrello è vuoto
-                    $check_empty_cart = false;
-                }
-
-                ?>
-
+                    </div>
+                    <div class="h-[1px] bg-[#e5e7eb] w-full mb-3"></div>
+                    <div class="row mb-3">
+                        <div class="col">Cognome</div>
+                        <div class="col">
+                            <?php echo $row['cognome'] ?>
+                        </div>
+                    </div>
+                    <div class="h-[1px] bg-[#e5e7eb] w-full mb-3"></div>
+                    <div class="row mb-3">
+                        <div class="col">Email</div>
+                        <div class="col">
+                            <?php echo $row['email'] ?>
+                        </div>
+                    </div>
+                    <div class="h-[1px] bg-[#e5e7eb] w-full mb-3"></div>
+                    <div class="row mb-3">
+                        <div class="col">Indirizzo</div>
+                        <div class="col">
+                            <?php echo $row['indirizzo'] ?>
+                        </div>
+                    </div>
+                    <div class="h-[1px] bg-[#e5e7eb] w-full mb-3"></div>
+                    <div class="row mb-3">
+                        <div class="col">Città</div>
+                        <div class="col">
+                            <?php echo $row['citta'] ?>
+                        </div>
+                    </div>
+                    <div class="h-[1px] bg-[#e5e7eb] w-full mb-3"></div>
+                    <div class="row">
+                        <div class="col">Provincia</div>
+                        <div class="col">
+                            <?php echo $row['provincia'] ?>
+                        </div>
+                    </div>
+                </div>
             </div>
 
+            <!-- COLONNA RECORD ACQUISTI -->
+            <div class="mt-20 h-[750px] scroll-auto overflow-y-auto flex flex-col items-center p-4 bg-white shadow-[0_3px_10px_rgb(0,0,0,0.2)] rounded-lg">
+                <div class="">
+                    <?php
+                    $sql_temp = "SELECT * FROM acquisti WHERE email = '$email' ORDER BY id DESC";
+                    $result_temp = $db_connection->query($sql_temp);
+                    $num_rows_temp = $result_temp->num_rows;
+
+                    if ($num_rows_temp > 0) {
+                        while ($row_temp = $result_temp->fetch_assoc()) {
+
+                            $stringa_json = $row_temp['lista_acquisto'];
+                            $lista_acquisti = json_decode($stringa_json, true);
+                            ?>
+                            <div class="overflow-x-auto  shadow-md sm:rounded-lg mb-10 w-[475px]">
+                                <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+                                    <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                                        <tr>
+                                            <th scope="col" class="py-3 px-6"></th>
+                                            <th scope="col" class="py-3 px-6 ">
+                                                <?php echo "ID Acquisto: " . $row_temp['id']; ?>
+                                            </th>
+                                            <th scope="col" class="py-3 px-6"></th>
+                                        </tr>
+                                    </thead>
+                                    <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                                        <tr>
+                                            <th scope="col" class="py-3 px-6">Nome prodotto</th>
+                                            <th scope="col" class="py-3 px-6">Prezzo totale</th>
+                                            <th scope="col" class="py-3 px-6">Quantità</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <?php foreach ($lista_acquisti as $dettagliProdotto): ?>
+                                            <tr class="bg-white border-t dark:bg-gray-800 dark:border-gray-700">
+                                                <td class="py-4 px-6">
+                                                    <?php echo $dettagliProdotto['nome']; ?>
+                                                </td>
+                                                <td class="py-4 px-6">
+                                                    <?php
+                                                    echo $dettagliProdotto['prezzo'] * $dettagliProdotto['quantita'] . " €";
+                                                    $totale_carrello += $dettagliProdotto['prezzo'] * $dettagliProdotto['quantita'];
+                                                    ?>
+                                                </td>
+                                                <td class="py-4 px-6">
+                                                    <?php echo $dettagliProdotto['quantita']; ?>
+                                                </td>
+                                            </tr>
+                                        <?php endforeach; ?>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <?php
+                        }
+                    } else {
+                        // Stampa un messaggio che indica che il carrello è vuoto
+                        $check_empty_cart = false;
+                    }
+                    ?>
+                </div>
+            </div>
         </div>
     <?php } ?>
 
