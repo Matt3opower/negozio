@@ -33,9 +33,11 @@ if (isset($_POST['aggiungi'])) {
         $check_qnt = false;
     } else {
         addToCart($id, $nome, $prezzo, $quantita, $img_path);
-        header("Location:carrello.php");
+        //header("Location:carrello.php");
+        header("Location:homepage.php");
     }
 
+    
 }
 ?>
 

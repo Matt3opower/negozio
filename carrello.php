@@ -31,8 +31,7 @@ if (isset($_POST['empty'])) {
 $check_empty_cart = true;
 $check_qnt = true;
 if (isset($_POST['buy'])) {
-
-
+    $check_qnt = true;
 
     //CHECK QUANTITÀ
     foreach ($_SESSION['carrello'] as $prodotto):
@@ -48,24 +47,40 @@ if (isset($_POST['buy'])) {
         if ($qnt_prod > $qnt_disponibile) {
             //ERRORE QUANTITÀ TROPPO ELEVATA
             $check_qnt = false;
-        } else {
-            //VIA LIBERA
+        }
+    endforeach;
 
-            //AGGIUNTA ACQUISTO AL RECORD
-            $email = $_SESSION['email'];
-            $carrello = $_SESSION['carrello'];
-            $json_carrello = json_encode($carrello);
-            $sql_cart_buy = "INSERT INTO acquisti (email, lista_acquisto) VALUES ('$email', '$json_carrello')";
-            $result_cart_buy = $db_connection->query($sql_cart_buy);
+
+
+    if ($check_qnt) {
+        //VIA LIBERA
+
+        //AGGIUNTA ACQUISTO AL RECORD
+        $email = $_SESSION['email'];
+        $carrello = $_SESSION['carrello'];
+        $json_carrello = json_encode($carrello);
+        var_dump($json_carrello);
+        $sql_cart_buy = "INSERT INTO acquisti (email, lista_acquisto) VALUES ('$email', '$json_carrello')";
+        $result_cart_buy = $db_connection->query($sql_cart_buy);
+
+        foreach ($_SESSION['carrello'] as $prodotto):
+
+            $id_prod = $prodotto['id'];
+            $qnt_prod = $prodotto['quantita'];
+
+            $sql = "SELECT quantita_disponibile FROM prodotto WHERE id_prodotto = '$id_prod'";
+            $result = $db_connection->query($sql);
+            $resultt = $result->fetch_assoc();
+            $qnt_disponibile = $resultt['quantita_disponibile'];
 
             //UPDATE QUANTITÀ DISPONIBILE
             $qnt_disponibile -= $qnt_prod;
             $sql = "UPDATE prodotto SET quantita_disponibile = '$qnt_disponibile' WHERE id_prodotto = '$id_prod'";
             $result = $db_connection->query($sql);
-            emptyCart();
-        }
-    endforeach;
-    header("Location:carrello.php");
+        endforeach;
+        emptyCart();
+    }
+    //header("Location:carrello.php");
 }
 ?>
 
@@ -99,8 +114,7 @@ if (isset($_POST['buy'])) {
                         if (!empty($_SESSION['carrello'])) {
                             ?>
                             <table class="w-full text-left text-gray-700 text-md">
-                                <thead
-                                    class="text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                                <thead class="text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                                     <tr class="">
                                         <th scope="col" class="py-3 px-6">Immagine prodotto</th>
                                         <th scope="col" class="py-3 px-6">Nome prodotto</th>

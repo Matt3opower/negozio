@@ -28,6 +28,7 @@ function deleteCookie($email, $password)
 
 function addToCart($id, $nome, $prezzo, $quantita, $img_path)
 {
+    include "connessione.php";
     if (!isset($_SESSION['carrello'])) {
         $_SESSION['carrello'] = array();
     }
@@ -53,14 +54,27 @@ function addToCart($id, $nome, $prezzo, $quantita, $img_path)
         //print_r($_SESSION);
         //echo "Aggiunto con successo";
     }
+
+    $email = $_SESSION['email'];
+    $carrello = $_SESSION['carrello'];
+    $json_carrello = json_encode($carrello);
+    $sql_cart_save = "UPDATE utente SET lista_carrello = '$json_carrello' WHERE email = '$email'";
+    $result_cart_save = $db_connection->query($sql_cart_save);
 }
 
 
 
 function emptyCart()
 {
+    include "connessione.php";
     $_SESSION['carrello'] = array();
-    //unset($_SESSION['carrello']);
+
+    $email = $_SESSION['email'];
+    $carrello = $_SESSION['carrello'];
+    $json_carrello = json_encode($carrello);
+    $sql_cart_save = "UPDATE utente SET lista_carrello = '$json_carrello' WHERE email = '$email'";
+    $result_cart_save = $db_connection->query($sql_cart_save);
+
     header("Location:carrello.php");
 }
 

@@ -32,30 +32,38 @@
     <!-- navigation -->
     <nav class="nav font-semibold text-lg">
         <ul class="flex items-center">
-            <li
-                class="h-16 p-4 flex items-center border-b-2 border-sky-500 border-opacity-0 hover:border-opacity-100 hover:text-sky-500 duration-200 cursor-pointer active">
-                <a href="homepage.php">Homepage</a>
-            </li>
+            <a href="homepage.php">
+                <li
+                    class="h-16 p-4 flex items-center border-b-2 border-sky-500 border-opacity-0 hover:border-opacity-100 hover:text-sky-500 duration-200 cursor-pointer active">
+                    Homepage
+                </li>
+            </a>
             <!-- <li class="h-24 p-4 flex items-center border-b-2 border-green-500 border-opacity-0 hover:border-opacity-100 hover:text-green-500 duration-200 cursor-pointer active">
               <a href="carrello.php">Carrello</a>
             </li> -->
             <?php if (isset($_SESSION['email'])) { ?>
-                <li
-                    class="h-16 p-4 flex items-center border-b-2 border-sky-500 border-opacity-0 hover:border-opacity-100 hover:text-sky-500 duration-200 cursor-pointer active">
-                    <a href="profilo.php">Profilo</a>
-                </li>
+                <a href="profilo.php">
+                    <li
+                        class="h-16 p-4 flex items-center border-b-2 border-sky-500 border-opacity-0 hover:border-opacity-100 hover:text-sky-500 duration-200 cursor-pointer active">
+                        Profilo
+                    </li>
+                </a>
             <?php } ?>
             <?php if (!isset($_SESSION['email'])) { ?>
-            <li
-                class="h-16 p-4 flex items-center border-b-2 border-sky-500 border-opacity-0 hover:border-opacity-100 hover:text-sky-500 duration-200 cursor-pointer active">
-                <a href="login.php">Login</a>
-            </li>
+                <a href="login.php">
+                    <li
+                        class="h-16 p-4 flex items-center border-b-2 border-sky-500 border-opacity-0 hover:border-opacity-100 hover:text-sky-500 duration-200 cursor-pointer active">
+                        Login
+                    </li>
+                </a>
             <?php } ?>
             <?php if (isset($_SESSION['email'])) { ?>
-            <li
-                class="h-16 p-4 flex items-center border-b-2 border-red-600 border-opacity-0 hover:border-opacity-100 hover:text-red-600 duration-200 cursor-pointer active">
-                <a href="logout.php">Logout</a>
-            </li>
+                <a href="logout.php">
+                    <li
+                        class="h-16 p-4 flex items-center border-b-2 border-red-600 border-opacity-0 hover:border-opacity-100 hover:text-red-600 duration-200 cursor-pointer active">
+                        Logout
+                    </li>
+                </a>
             <?php } ?>
         </ul>
     </nav>
