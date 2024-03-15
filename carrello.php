@@ -92,13 +92,13 @@ if (isset($_POST['buy'])) {
     <div class="container">
         <div class="lg:grid lg:grid-cols-12">
             <div class=" lg:col-span-9 p-3 mt-14">
-                <div class="overflow-x-auto  shadow-md sm:rounded-lg">
-                    <div class="overflow-x-auto  shadow-md sm:rounded-lg">
+                <div class="overflow-x-auto shadow-md sm:rounded-lg">
+                    <div class="overflow-x-auto shadow-md sm:rounded-lg">
                         <?php
                         // Controlla se l'array $_SESSION['carrello'] è vuoto
                         if (!empty($_SESSION['carrello'])) {
                             ?>
-                            <table class="w-full text-left text-gray-700 text-lg">
+                            <table class="w-full text-left text-gray-700 text-md">
                                 <thead
                                     class="text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                                     <tr class="">

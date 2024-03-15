@@ -93,56 +93,6 @@ if (isset($_POST['addProduct'])) {
 
         <!-- COLONNA DATI UTENTE -->
         <div class="flex flex-col items-center mt-20">
-            <div class="bg-white p-5 shadow-[0_3px_10px_rgb(0,0,0,0.2)] rounded-lg w-full mb-10 h-full">
-                <div class="row mb-4">
-                    <div class="col">Quantità ordini effettuati</div>
-                    <div class="col">
-                        <?php
-                        //echo $row['nome'];
-                        $sql11 = "SELECT * FROM acquisti WHERE email = '$email'";
-                        $result11 = $db_connection->query($sql11);
-                        $num_rows11 = $result11->num_rows;
-                        echo $num_rows11;
-                        ?>
-                    </div>
-                </div>
-                <div class="h-[1px] bg-[#e5e7eb] w-full mb-4"></div>
-                <div class="row">
-                    <div class="col">Totale (€) ordini effettuati</div>
-                    <div class="col">
-                        <?php
-                        $totale_ordini = 0;
-                        $totale_singolo = 0;
-                        $sql_temp = "SELECT * FROM acquisti WHERE email = '$email' ORDER BY id DESC";
-                        $result_temp = $db_connection->query($sql_temp);
-                        $num_rows_temp = $result_temp->num_rows;
-
-                        if ($num_rows_temp > 0) {
-                            while ($row_temp = $result_temp->fetch_assoc()) {
-
-                                $stringa_json = $row_temp['lista_acquisto'];
-                                $lista_acquisti = json_decode($stringa_json, true);
-
-                                $totale_singolo = 0;
-                                foreach ($lista_acquisti as $dettagliProdotto):
-                                    $totale_singolo += $dettagliProdotto['prezzo'] * $dettagliProdotto['quantita'];
-                                endforeach;
-                                $totale_ordini += $totale_singolo;
-                            }
-                        }
-
-                        echo "€ " . $totale_ordini;
-
-
-
-                        $sql12 = "SELECT SUM(amount) AS total_amount
-                        FROM my_table
-                        WHERE email = 'b@b';
-                        ";
-                        ?>
-                    </div>
-                </div>
-            </div>
             <?php if ($row['email'] != 'admin@admin') { ?>
                 <div class="bg-white p-5 shadow-[0_3px_10px_rgb(0,0,0,0.2)] rounded-lg w-full h-fit">
                     <div class="row mb-4">
@@ -184,6 +134,48 @@ if (isset($_POST['addProduct'])) {
                         <div class="col">Provincia</div>
                         <div class="col">
                             <?php echo $row['provincia'] ?>
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-white p-5 shadow-[0_3px_10px_rgb(0,0,0,0.2)] rounded-lg w-full mt-10 h-full">
+                    <div class="row mb-4">
+                        <div class="col">Quantità ordini effettuati</div>
+                        <div class="col">
+                            <?php
+                            //echo $row['nome'];
+                            $sql11 = "SELECT * FROM acquisti WHERE email = '$email'";
+                            $result11 = $db_connection->query($sql11);
+                            $num_rows11 = $result11->num_rows;
+                            echo $num_rows11;
+                            ?>
+                        </div>
+                    </div>
+                    <div class="h-[1px] bg-[#e5e7eb] w-full mb-4"></div>
+                    <div class="row">
+                        <div class="col">Totale (€) ordini effettuati</div>
+                        <div class="col">
+                            <?php
+                            $totale_ordini = 0;
+                            $totale_singolo = 0;
+                            $sql_temp = "SELECT * FROM acquisti WHERE email = '$email' ORDER BY id DESC";
+                            $result_temp = $db_connection->query($sql_temp);
+                            $num_rows_temp = $result_temp->num_rows;
+
+                            if ($num_rows_temp > 0) {
+                                while ($row_temp = $result_temp->fetch_assoc()) {
+
+                                    $stringa_json = $row_temp['lista_acquisto'];
+                                    $lista_acquisti = json_decode($stringa_json, true);
+
+                                    $totale_singolo = 0;
+                                    foreach ($lista_acquisti as $dettagliProdotto):
+                                        $totale_singolo += $dettagliProdotto['prezzo'] * $dettagliProdotto['quantita'];
+                                    endforeach;
+                                    $totale_ordini += $totale_singolo;
+                                }
+                            }
+                            echo "€ " . $totale_ordini;
+                            ?>
                         </div>
                     </div>
                 </div>
