@@ -17,7 +17,7 @@ while ($riga = $result->fetch_assoc()) {
 
 
 $check_qnt = true;
-if (isset($_POST['aggiungi'])) {
+if (isset ($_POST['aggiungi'])) {
 
     $id = $_POST['id_prodotto'];
     $nome = $_POST['nome'];
@@ -36,8 +36,6 @@ if (isset($_POST['aggiungi'])) {
         //header("Location:carrello.php");
         header("Location:homepage.php");
     }
-
-
 }
 ?>
 
@@ -55,6 +53,12 @@ if (isset($_POST['aggiungi'])) {
         integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous" />
 
     <link rel="icon" type="image/x-icon" href="img/logo_icon.png">
+
+    <style>
+        body.modal-open {
+            overflow: auto !important;
+        }
+    </style>
 </head>
 
 <body class="bg-[#f0f3f8]">
@@ -65,15 +69,41 @@ if (isset($_POST['aggiungi'])) {
 
 
         <?php if (!$check_qnt) { ?>
-            <div class="alert alert-danger mt-4 w-fit mx-auto" role="alert">
+            <!-- <div class="alert alert-danger mt-4 w-fit mx-auto" role="alert">
                 Quantità selezionate troppo elevate
+            </div> -->
+            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header ">
+                            <h5 class="modal-title" id="exampleModalLabel">Attenzione!</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            Quantità selezionate troppo elevate
+                        </div>
+                        <div class="modal-footer">
+                            <a href="homepage.php"><button type="button"
+                                    class="bg-sky-500 hover:bg-sky-600 p-2 rounded-lg text-white font-bold">Chiudi</button></a>
+                        </div>
+                    </div>
+                </div>
             </div>
+
+            <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+                integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+                crossorigin="anonymous"></script>
+
+            <script>
+                var myModal = new bootstrap.Modal(document.getElementById('exampleModal'));
+                myModal.show();
+            </script>
         <?php } ?>
         <div class="grid lg:grid-cols-3 mb-20 mt-20">
             <?php foreach ($prodotti as $prodotto): ?>
                 <div class="col-span-1">
                     <form action="#" method="POST" autocomplete="off">
-                        <div class=" rounded-lg overflow-hidden mx-6 my-6 shadow-[0_3px_10px_rgb(0,0,0,0.2)] bg-white">
+                        <div class=" rounded-lg overflow-hidden lg:mx-6 my-6 shadow-[0_3px_10px_rgb(0,0,0,0.2)] bg-white">
                             <div class="h-80 w-80 mx-auto p-3">
                                 <img src="<?php
                                 //echo 'img/products/' . $prodotto['nome'] . '.webp'; 
@@ -104,7 +134,7 @@ if (isset($_POST['aggiungi'])) {
                                     </div>
                                     <div class="col">
                                         <?php
-                                        if (isset($_SESSION['email'])) {
+                                        if (isset ($_SESSION['email'])) {
                                             if ($_SESSION['email'] != "admin@admin") {
                                                 ?>
                                                 <input type="number" class="form-control bg-zinc-100" id="quantita" name="quantita"
@@ -116,7 +146,7 @@ if (isset($_POST['aggiungi'])) {
                             </div>
                             <div class="">
                                 <?php
-                                if (isset($_SESSION['email'])) {
+                                if (isset ($_SESSION['email'])) {
                                     if ($_SESSION['email'] != "admin@admin") {
                                         ?>
                                         <button type="submit" name="aggiungi" id="aggiungi"

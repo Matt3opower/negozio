@@ -9,7 +9,7 @@ if (!isset ($_SESSION['email'])) {
     if ($_SESSION['email'] == "admin@admin") {
         header("Location: homepage.php");
     } else {
-        if (!isset ($_SESSION['carrello'])) {
+        // if (!isset ($_SESSION['carrello'])) {
             $_SESSION['carrello'] = array();
             $email = $_SESSION['email'];
             //echo $email;
@@ -22,7 +22,7 @@ if (!isset ($_SESSION['email'])) {
                 $_SESSION['carrello'] = json_decode($stringa_json, true);
                 //var_dump($_SESSION['carrello']);
             }
-        }
+        // }
     }
 }
 if (isset ($_POST['empty'])) {
@@ -97,19 +97,25 @@ if (isset ($_POST['rimuovi'])) {
 
 }*/
 if (isset ($_POST['rimuovi'])) {
-   
+
     $car = $_SESSION['carrello'];
 
-    $id_remove =$_POST['rimuovi'];
+    $id_remove = $_POST['rimuovi'];
 
-    if(isset($car[$id_remove])) {
+    if (isset ($car[$id_remove])) {
         // Rimuove il prodotto specificato dal carrello
         unset($car[$id_remove]);
-        
+
         // Aggiorna il carrello nella sessione
         $_SESSION['carrello'] = $car;
+    }
 
-}
+    $email = $_SESSION['email'];
+    $carrello = $_SESSION['carrello'];
+    $json_carrello = json_encode($carrello);
+    $sql_cart_save = "UPDATE utente SET lista_carrello = '$json_carrello' WHERE email = '$email'";
+    $result_cart_save = $db_connection->query($sql_cart_save);
+    header("Location: carrello.php");
 }
 
 ?>
@@ -178,7 +184,8 @@ if (isset ($_POST['rimuovi'])) {
                                                 <td class="py-4 px-6">
                                                     <button
                                                         class='w-full p-2 rounded-lg w-fit mt-3 text-white font-bold bg-red-500 hover:bg-red-700'
-                                                        id="rimuovi" name="rimuovi" type="submit" value="<?php echo $dettagliProdotto['id']; ?>">
+                                                        id="rimuovi" name="rimuovi" type="submit"
+                                                        value="<?php echo $dettagliProdotto['id']; ?>">
                                                         Rimuovi
                                                     </button>
                                                 </td>
