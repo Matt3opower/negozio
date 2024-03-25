@@ -3,13 +3,13 @@ session_start();
 include "functions.php";
 include "connessione.php";
 $totale_carrello = 0;
-if (!isset($_SESSION['email'])) {
+if (!isset ($_SESSION['email'])) {
     header("Location: login.php");
 } else {
     if ($_SESSION['email'] == "admin@admin") {
         header("Location: homepage.php");
     } else {
-        if (!isset($_SESSION['carrello'])) {
+        if (!isset ($_SESSION['carrello'])) {
             $_SESSION['carrello'] = array();
             $email = $_SESSION['email'];
             //echo $email;
@@ -25,12 +25,12 @@ if (!isset($_SESSION['email'])) {
         }
     }
 }
-if (isset($_POST['empty'])) {
+if (isset ($_POST['empty'])) {
     emptyCart();
 }
 $check_empty_cart = true;
 $check_qnt = true;
-if (isset($_POST['buy'])) {
+if (isset ($_POST['buy'])) {
     $check_qnt = true;
 
     //CHECK QUANTITÀ
@@ -82,6 +82,36 @@ if (isset($_POST['buy'])) {
     }
     //header("Location:carrello.php");
 }
+
+/*
+if (isset ($_POST['rimuovi'])) {
+    $id_remove = $_POST['rimuovi'];
+    echo $id_remove;
+
+    
+    unset($_SESSION['carrello']['id']['$id_remove']);
+
+    //header("Location: carrello.php");
+
+    var_dump($_SESSION['carrello']);
+
+}*/
+if (isset ($_POST['rimuovi'])) {
+   
+    $car = $_SESSION['carrello'];
+
+    $id_remove =$_POST['rimuovi'];
+
+    if(isset($car[$id_remove])) {
+        // Rimuove il prodotto specificato dal carrello
+        unset($car[$id_remove]);
+        
+        // Aggiorna il carrello nella sessione
+        $_SESSION['carrello'] = $car;
+
+}
+}
+
 ?>
 
 <!doctype html>
@@ -111,7 +141,7 @@ if (isset($_POST['buy'])) {
                     <div class="overflow-x-auto shadow-md sm:rounded-lg">
                         <?php
                         // Controlla se l'array $_SESSION['carrello'] è vuoto
-                        if (!empty($_SESSION['carrello'])) {
+                        if (!empty ($_SESSION['carrello'])) {
                             ?>
                             <table class="w-full text-left text-gray-700 text-md">
                                 <thead class="text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
@@ -120,30 +150,40 @@ if (isset($_POST['buy'])) {
                                         <th scope="col" class="py-3 px-6">Nome prodotto</th>
                                         <th scope="col" class="py-3 px-6">Prezzo totale</th>
                                         <th scope="col" class="py-3 px-6">Quantità</th>
+                                        <th scope="col" class="py-3 px-6">Rimuovi</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <?php foreach ($_SESSION['carrello'] as $dettagliProdotto): ?>
-                                        <tr class="bg-white border-t dark:bg-gray-800 dark:border-gray-700 ">
-                                            <td class="py-4 px-6">
-                                                <div class="h-24 w-24">
-                                                    <img src="<?php echo $dettagliProdotto['img_path']; ?>"
-                                                        class="w-full h-full object-contain">
-                                                </div>
-                                            </td>
-                                            <td class="py-4 px-6">
-                                                <?php echo $dettagliProdotto['nome']; ?>
-                                            </td>
-                                            <td class="py-4 px-6">
-                                                <?php
-                                                echo $dettagliProdotto['prezzo'] * $dettagliProdotto['quantita'] . " €";
-                                                $totale_carrello += $dettagliProdotto['prezzo'] * $dettagliProdotto['quantita'];
-                                                ?>
-                                            </td>
-                                            <td class="py-4 px-6">
-                                                <?php echo $dettagliProdotto['quantita']; ?>
-                                            </td>
-                                        </tr>
+                                        <form action="#" method="post">
+                                            <tr class="bg-white border-t dark:bg-gray-800 dark:border-gray-700 ">
+                                                <td class="py-4 px-6">
+                                                    <div class="h-24 w-24">
+                                                        <img src="<?php echo $dettagliProdotto['img_path']; ?>"
+                                                            class="w-full h-full object-contain">
+                                                    </div>
+                                                </td>
+                                                <td class="py-4 px-6">
+                                                    <?php echo $dettagliProdotto['nome']; ?>
+                                                </td>
+                                                <td class="py-4 px-6">
+                                                    <?php
+                                                    echo $dettagliProdotto['prezzo'] * $dettagliProdotto['quantita'] . " €";
+                                                    $totale_carrello += $dettagliProdotto['prezzo'] * $dettagliProdotto['quantita'];
+                                                    ?>
+                                                </td>
+                                                <td class="py-4 px-6">
+                                                    <?php echo $dettagliProdotto['quantita']; ?>
+                                                </td>
+                                                <td class="py-4 px-6">
+                                                    <button
+                                                        class='w-full p-2 rounded-lg w-fit mt-3 text-white font-bold bg-red-500 hover:bg-red-700'
+                                                        id="rimuovi" name="rimuovi" type="submit" value="<?php echo $dettagliProdotto['id']; ?>">
+                                                        Rimuovi
+                                                    </button>
+                                                </td>
+                                            </tr>
+                                        </form>
                                     <?php endforeach; ?>
                                 </tbody>
                             </table>
@@ -159,7 +199,7 @@ if (isset($_POST['buy'])) {
             </div>
             <div class=" lg:col-span-3 p-3">
                 <?php
-                if (!empty($_SESSION['carrello'])) {
+                if (!empty ($_SESSION['carrello'])) {
                     ?>
                     <form action='#' method='POST'>
                         <div class='text-white font-bold bg-sky-500 p-2 rounded-lg w-full mt-14 lg:mb-[22px]'>

@@ -5,10 +5,10 @@ session_start();
 include "connessione.php";
 include "functions.php";
 
-if (!isset($_SESSION['email'])) {
+if (!isset ($_SESSION['email'])) {
     header("Location: login.php");
 } else {
-    if (!isset($_SESSION['carrello'])) {
+    if (!isset ($_SESSION['carrello'])) {
         $_SESSION['carrello'] = array();
     }
 }
@@ -24,7 +24,7 @@ $row = $result->fetch_assoc();
 
 
 $check_input_prod = 0;
-if (isset($_POST['addProduct'])) {
+if (isset ($_POST['addProduct'])) {
     $nome_p = $_POST['nome'];
     $prezzo_p = $_POST['prezzo'];
     $quantita_disponibile_p = $_POST['quantita_disponibile'];
@@ -88,7 +88,9 @@ if (isset($_POST['addProduct'])) {
     ?>
 
     <!-- tolti dal prossimo div: flex flex-col items-center justify-center -->
-    <div class="container sm:grid sm:grid-cols-2 gap-20">
+    <div <?php if ($row['email'] != 'admin@admin') {
+        echo "class='container sm:grid sm:grid-cols-2 gap-20'";
+    } ?>>
         <!-- riga 1 colonna 1 -->
 
         <!-- COLONNA DATI UTENTE -->
@@ -248,50 +250,59 @@ if (isset($_POST['addProduct'])) {
     <?php } ?>
 
 
-    <div class="flex flex-col items-center justify-center p-4">
+
+    <div class="flex flex-col items-center justify-center mt-10">
         <?php if ($row['email'] == 'admin@admin') { ?>
             <div
-                class="bg-white p-4 shadow-[0_3px_10px_rgb(0,0,0,0.2)] rounded-lg w-[475px] mt-20 flex items-center justify-center font-bold text-2xl">
-                <div>Benvenuto admin</div>
+                class="bg-white p-4 shadow-[0_3px_10px_rgb(0,0,0,0.2)] rounded-lg w-[475px] flex items-center justify-center font-bold text-2xl">
+                <div>Benvenuto Admin</div>
             </div>
-            <div class="mt-10 w-72">
-                <form action="#" method="POST" enctype="multipart/form-data">
-                    <div class="items-center justify-center">
 
-                        <input type="text" name="nome" id="nome"
-                            class="mx-auto mt-2 block w-full rounded-md border-0 py-1.5 pl-2 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-blue-500 sm:text-sm sm:leading-6 focus:outline-none"
-                            placeholder="Nome" value="">
 
-                        <input type="number" name="prezzo" id="prezzo" step="0.01"
-                            class="mx-auto mt-2 block w-full rounded-md border-0 py-1.5 pl-2 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-blue-500 sm:text-sm sm:leading-6 focus:outline-none"
-                            placeholder="Prezzo" value="">
 
-                        <input type="number" name="quantita_disponibile" id="quantita_disponibile"
-                            class="mx-auto mt-2 block w-full rounded-md border-0 py-1.5 pl-2 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-blue-500 sm:text-sm sm:leading-6 focus:outline-none"
-                            placeholder="Quantità disponibile" value="">
+            <div
+                class="bg-white p-5 shadow-[0_3px_10px_rgb(0,0,0,0.2)] rounded-lg w-[475px] mt-10 flex flex-col items-center justify-center font-bold text-2xl">
+                <div>Inserisci Prodotto</div>
+                <div class="mt-10 w-72">
+                    <form action="#" method="POST" enctype="multipart/form-data">
+                        <div class="items-center justify-center">
 
-                        <input type="file" name="fileToUpload" id="fileToUpload"
-                            class="bg-white mx-auto mt-2 block w-full rounded-md border-0 py-1.5 pl-2 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-blue-500 sm:text-sm sm:leading-6 focus:outline-none"
-                            style="width:100%; height:100%;">
+                            <input type="text" name="nome" id="nome"
+                                class="mx-auto mt-2 block w-full rounded-md border-0 py-1.5 pl-2 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-blue-500 sm:text-sm sm:leading-6 focus:outline-none"
+                                placeholder="Nome" value="">
 
-                        <input type="submit" name="addProduct" id="addProduct"
-                            class="hover:bg-sky-600 bg-sky-500 mx-auto mt-5 p-2 font-bold text-white block w-56 rounded-md text-gray-900 placeholder:text-gray-400 sm:text-sm sm:leading-6 focus:outline-none"
-                            style="width:100%; height:100%;">
-                        <!-- Aggiungi prodotto
+                            <input type="number" name="prezzo" id="prezzo" step="0.01"
+                                class="mx-auto mt-2 block w-full rounded-md border-0 py-1.5 pl-2 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-blue-500 sm:text-sm sm:leading-6 focus:outline-none"
+                                placeholder="Prezzo" value="">
+
+                            <input type="number" name="quantita_disponibile" id="quantita_disponibile"
+                                class="mx-auto mt-2 block w-full rounded-md border-0 py-1.5 pl-2 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-blue-500 sm:text-sm sm:leading-6 focus:outline-none"
+                                placeholder="Quantità disponibile" value="">
+
+                            <input type="file" name="fileToUpload" id="fileToUpload"
+                                class="bg-white mx-auto mt-2 block w-full rounded-md border-0 py-1.5 pl-2 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-blue-500 sm:text-sm sm:leading-6 focus:outline-none"
+                                style="width:100%; height:100%;">
+
+                            <input type="submit" name="addProduct" id="addProduct"
+                                class="hover:bg-sky-600 bg-sky-500 mx-auto mt-5 p-2 font-bold text-white block w-56 rounded-md text-gray-900 placeholder:text-gray-400 sm:text-sm sm:leading-6 focus:outline-none"
+                                style="width:100%; height:100%;">
+                            <!-- Aggiungi prodotto
                             </button> -->
-                    </div>
-                </form>
-                <?php if ($check_input_prod == 1) { ?>
-                    <div class="alert alert-success mt-4 mx-auto w-full" role="alert">
-                        Prodotto inserito con successo
-                    </div>
-                <?php } ?>
-                <?php if ($check_input_prod == 2) { ?>
-                    <div class="alert alert-danger mt-4 mx-auto w-full" role="alert">
-                        Errore nell'inserimento del prodotto
-                    </div>
-                <?php } ?>
+                        </div>
+                    </form>
+                    <?php if ($check_input_prod == 1) { ?>
+                        <div class="alert alert-success mt-4 mx-auto w-full" role="alert">
+                            Prodotto inserito con successo
+                        </div>
+                    <?php } ?>
+                    <?php if ($check_input_prod == 2) { ?>
+                        <div class="alert alert-danger mt-4 mx-auto w-full" role="alert">
+                            Errore nell'inserimento del prodotto
+                        </div>
+                    <?php } ?>
+                </div>
             </div>
+
         <?php } ?>
     </div>
     </div>
