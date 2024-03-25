@@ -10,18 +10,18 @@ if (!isset ($_SESSION['email'])) {
         header("Location: homepage.php");
     } else {
         // if (!isset ($_SESSION['carrello'])) {
-            $_SESSION['carrello'] = array();
-            $email = $_SESSION['email'];
-            //echo $email;
-            $sql_cart = "SELECT lista_carrello FROM utente WHERE email = '$email'";
-            $result_cart = $db_connection->query($sql_cart);
-            $row_cart = $result_cart->fetch_assoc();
-            //echo "ciao" . $row_cart['lista_carrello'];
-            if ($row_cart['lista_carrello'] != "") {
-                $stringa_json = $row_cart['lista_carrello'];
-                $_SESSION['carrello'] = json_decode($stringa_json, true);
-                //var_dump($_SESSION['carrello']);
-            }
+        $_SESSION['carrello'] = array();
+        $email = $_SESSION['email'];
+        //echo $email;
+        $sql_cart = "SELECT lista_carrello FROM utente WHERE email = '$email'";
+        $result_cart = $db_connection->query($sql_cart);
+        $row_cart = $result_cart->fetch_assoc();
+        //echo "ciao" . $row_cart['lista_carrello'];
+        if ($row_cart['lista_carrello'] != "") {
+            $stringa_json = $row_cart['lista_carrello'];
+            $_SESSION['carrello'] = json_decode($stringa_json, true);
+            //var_dump($_SESSION['carrello']);
+        }
         // }
     }
 }
@@ -83,19 +83,7 @@ if (isset ($_POST['buy'])) {
     //header("Location:carrello.php");
 }
 
-/*
-if (isset ($_POST['rimuovi'])) {
-    $id_remove = $_POST['rimuovi'];
-    echo $id_remove;
 
-    
-    unset($_SESSION['carrello']['id']['$id_remove']);
-
-    //header("Location: carrello.php");
-
-    var_dump($_SESSION['carrello']);
-
-}*/
 if (isset ($_POST['rimuovi'])) {
 
     $car = $_SESSION['carrello'];
@@ -116,6 +104,79 @@ if (isset ($_POST['rimuovi'])) {
     $sql_cart_save = "UPDATE utente SET lista_carrello = '$json_carrello' WHERE email = '$email'";
     $result_cart_save = $db_connection->query($sql_cart_save);
     header("Location: carrello.php");
+}
+
+
+
+if (isset ($_POST['less'])) {
+    $car = $_SESSION['carrello'];
+
+    $id_less = $_POST['less'];
+
+    if (isset ($car[$id_less])) {
+        if ($car[$id_less]['quantita'] <= 1) {
+            unset($car[$id_less]);
+        } else {
+            $car[$id_less]['quantita']--;
+        }
+
+
+        // Aggiorna il carrello nella sessione
+        $_SESSION['carrello'] = $car;
+    }
+
+    $email = $_SESSION['email'];
+    $carrello = $_SESSION['carrello'];
+    $json_carrello = json_encode($carrello);
+    $sql_cart_save = "UPDATE utente SET lista_carrello = '$json_carrello' WHERE email = '$email'";
+    $result_cart_save = $db_connection->query($sql_cart_save);
+    header("Location: carrello.php");
+}
+
+
+if (isset ($_POST['more'])) {
+    $car = $_SESSION['carrello'];
+
+    $id_more = $_POST['more'];
+
+
+
+    if (isset ($car[$id_more])) {
+
+
+        $id_prod = $car[$id_more]['id'];
+        $qnt_prod = $car[$id_more]['quantita'];
+
+
+        $sql = "SELECT quantita_disponibile FROM prodotto WHERE id_prodotto = '$id_prod'";
+        $result = $db_connection->query($sql);
+        $resultt = $result->fetch_assoc();
+
+        $qnt_disponibile = $resultt['quantita_disponibile'];
+
+        // if ($qnt_prod > $qnt_disponibile) {
+        //     //ERRORE QUANTITÀ TROPPO ELEVATA
+        //     $check_qnt = false;
+        // }
+
+        if ($car[$id_more]['quantita'] == $qnt_disponibile) {
+            $check_qnt = false;
+        } 
+        if($check_qnt){
+            $car[$id_more]['quantita']++;
+        }
+
+
+        // Aggiorna il carrello nella sessione
+        $_SESSION['carrello'] = $car;
+    }
+
+    $email = $_SESSION['email'];
+    $carrello = $_SESSION['carrello'];
+    $json_carrello = json_encode($carrello);
+    $sql_cart_save = "UPDATE utente SET lista_carrello = '$json_carrello' WHERE email = '$email'";
+    $result_cart_save = $db_connection->query($sql_cart_save);
+    //header("Location: carrello.php");
 }
 
 ?>
@@ -156,7 +217,7 @@ if (isset ($_POST['rimuovi'])) {
                                         <th scope="col" class="py-3 px-6">Nome prodotto</th>
                                         <th scope="col" class="py-3 px-6">Prezzo totale</th>
                                         <th scope="col" class="py-3 px-6">Quantità</th>
-                                        <th scope="col" class="py-3 px-6">Rimuovi</th>
+                                        <th scope="col" class="py-3 px-6">Modifica</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -182,12 +243,28 @@ if (isset ($_POST['rimuovi'])) {
                                                     <?php echo $dettagliProdotto['quantita']; ?>
                                                 </td>
                                                 <td class="py-4 px-6">
-                                                    <button
-                                                        class='w-full p-2 rounded-lg w-fit mt-3 text-white font-bold bg-red-500 hover:bg-red-700'
-                                                        id="rimuovi" name="rimuovi" type="submit"
-                                                        value="<?php echo $dettagliProdotto['id']; ?>">
-                                                        Rimuovi
-                                                    </button>
+
+                                                    <div class="flex-col">
+                                                        <button
+                                                            class='p-2 rounded-lg mt-3 text-white font-bold bg-sky-500 hover:bg-sky-700 w-8 h-8  flex-col justify-center items-center'
+                                                            id="more" name="more" type="submit"
+                                                            value="<?php echo $dettagliProdotto['id']; ?>" title="Aggiungi 1 prodotto">
+                                                            +
+                                                        </button>
+                                                        <button
+                                                            class='p-2 rounded-lg mt-3 text-white font-bold bg-sky-500 hover:bg-sky-700 w-8 h-8  flex-col justify-center items-center'
+                                                            id="less" name="less" type="submit"
+                                                            value="<?php echo $dettagliProdotto['id']; ?>" title="Togli 1 prodotto">
+                                                            -
+                                                        </button>
+                                                        <button
+                                                            class='p-2 rounded-lg mt-3 text-white font-bold bg-red-500 hover:bg-red-700 w-8 h-8  flex-col justify-center items-center'
+                                                            id="rimuovi" name="rimuovi" type="submit"
+                                                            value="<?php echo $dettagliProdotto['id']; ?>" title="Rimuovi dal carrello">
+                                                            X
+                                                        </button>
+                                                    </div>
+
                                                 </td>
                                             </tr>
                                         </form>
@@ -230,9 +307,37 @@ if (isset ($_POST['rimuovi'])) {
                             </div>
                         </div>
                         <?php if (!$check_qnt) { ?>
-                            <div class="alert alert-danger mt-4 w-full " role="alert">
+                            <!-- <div class="alert alert-danger mt-4 w-full " role="alert">
                                 Quantità selezionate troppo elevate
+                            </div> -->
+                            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                                aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header ">
+                                            <h5 class="modal-title" id="exampleModalLabel">Attenzione!</h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            Quantità selezionate troppo elevate
+                                        </div>
+                                        <div class="modal-footer">
+                                            <a href="carrello.php"><button type="button"
+                                                    class="bg-sky-500 hover:bg-sky-600 p-2 rounded-lg text-white font-bold">Chiudi</button></a>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
+
+                            <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+                                integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+                                crossorigin="anonymous"></script>
+
+                            <script>
+                                var myModal = new bootstrap.Modal(document.getElementById('exampleModal'));
+                                myModal.show();
+                            </script>
                         <?php } ?>
                     </form>
                     <?php
