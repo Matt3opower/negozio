@@ -25,158 +25,38 @@ if (!isset ($_SESSION['email'])) {
         // }
     }
 }
+
+//SVUOTA CARRELLO
 if (isset ($_POST['empty'])) {
     emptyCart();
 }
+
+//COMPRA
 $check_empty_cart = true;
 $check_qnt = true;
 if (isset ($_POST['buy'])) {
     $check_qnt = true;
-
-    //CHECK QUANTITÀ
-    foreach ($_SESSION['carrello'] as $prodotto):
-        $id_prod = $prodotto['id'];
-        $qnt_prod = $prodotto['quantita'];
-
-        $sql = "SELECT quantita_disponibile FROM prodotto WHERE id_prodotto = '$id_prod'";
-        $result = $db_connection->query($sql);
-        $resultt = $result->fetch_assoc();
-
-        $qnt_disponibile = $resultt['quantita_disponibile'];
-
-        if ($qnt_prod > $qnt_disponibile) {
-            //ERRORE QUANTITÀ TROPPO ELEVATA
-            $check_qnt = false;
-        }
-    endforeach;
-
-
-
-    if ($check_qnt) {
-        //VIA LIBERA
-
-        //AGGIUNTA ACQUISTO AL RECORD
-        $email = $_SESSION['email'];
-        $carrello = $_SESSION['carrello'];
-        $json_carrello = json_encode($carrello);
-        var_dump($json_carrello);
-        $sql_cart_buy = "INSERT INTO acquisti (email, lista_acquisto) VALUES ('$email', '$json_carrello')";
-        $result_cart_buy = $db_connection->query($sql_cart_buy);
-
-        foreach ($_SESSION['carrello'] as $prodotto):
-
-            $id_prod = $prodotto['id'];
-            $qnt_prod = $prodotto['quantita'];
-
-            $sql = "SELECT quantita_disponibile FROM prodotto WHERE id_prodotto = '$id_prod'";
-            $result = $db_connection->query($sql);
-            $resultt = $result->fetch_assoc();
-            $qnt_disponibile = $resultt['quantita_disponibile'];
-
-            //UPDATE QUANTITÀ DISPONIBILE
-            $qnt_disponibile -= $qnt_prod;
-            $sql = "UPDATE prodotto SET quantita_disponibile = '$qnt_disponibile' WHERE id_prodotto = '$id_prod'";
-            $result = $db_connection->query($sql);
-        endforeach;
-        emptyCart();
-    }
-    //header("Location:carrello.php");
+    $check_qnt = buy($check_qnt);
+    //echo $check_qnt;
 }
 
-
+//RIMUOVI ELEMENTO INTERO
 if (isset ($_POST['rimuovi'])) {
-
-    $car = $_SESSION['carrello'];
-
-    $id_remove = $_POST['rimuovi'];
-
-    if (isset ($car[$id_remove])) {
-        // Rimuove il prodotto specificato dal carrello
-        unset($car[$id_remove]);
-
-        // Aggiorna il carrello nella sessione
-        $_SESSION['carrello'] = $car;
-    }
-
-    $email = $_SESSION['email'];
-    $carrello = $_SESSION['carrello'];
-    $json_carrello = json_encode($carrello);
-    $sql_cart_save = "UPDATE utente SET lista_carrello = '$json_carrello' WHERE email = '$email'";
-    $result_cart_save = $db_connection->query($sql_cart_save);
+    itemRemove();
     header("Location: carrello.php");
 }
 
-
-
+//TOGLI -1 PRODOTTO
 if (isset ($_POST['less'])) {
-    $car = $_SESSION['carrello'];
-
-    $id_less = $_POST['less'];
-
-    if (isset ($car[$id_less])) {
-        if ($car[$id_less]['quantita'] <= 1) {
-            unset($car[$id_less]);
-        } else {
-            $car[$id_less]['quantita']--;
-        }
-
-
-        // Aggiorna il carrello nella sessione
-        $_SESSION['carrello'] = $car;
-    }
-
-    $email = $_SESSION['email'];
-    $carrello = $_SESSION['carrello'];
-    $json_carrello = json_encode($carrello);
-    $sql_cart_save = "UPDATE utente SET lista_carrello = '$json_carrello' WHERE email = '$email'";
-    $result_cart_save = $db_connection->query($sql_cart_save);
+    itemLessOne();
     header("Location: carrello.php");
 }
 
-
+//AGGIUNGI +1 PRODOTTO
 if (isset ($_POST['more'])) {
-    $car = $_SESSION['carrello'];
+    $check_qnt = itemMoreOne($check_qnt);
 
-    $id_more = $_POST['more'];
-
-
-
-    if (isset ($car[$id_more])) {
-
-
-        $id_prod = $car[$id_more]['id'];
-        $qnt_prod = $car[$id_more]['quantita'];
-
-
-        $sql = "SELECT quantita_disponibile FROM prodotto WHERE id_prodotto = '$id_prod'";
-        $result = $db_connection->query($sql);
-        $resultt = $result->fetch_assoc();
-
-        $qnt_disponibile = $resultt['quantita_disponibile'];
-
-        // if ($qnt_prod > $qnt_disponibile) {
-        //     //ERRORE QUANTITÀ TROPPO ELEVATA
-        //     $check_qnt = false;
-        // }
-
-        if ($car[$id_more]['quantita'] == $qnt_disponibile) {
-            $check_qnt = false;
-        } 
-        if($check_qnt){
-            $car[$id_more]['quantita']++;
-        }
-
-
-        // Aggiorna il carrello nella sessione
-        $_SESSION['carrello'] = $car;
-    }
-
-    $email = $_SESSION['email'];
-    $carrello = $_SESSION['carrello'];
-    $json_carrello = json_encode($carrello);
-    $sql_cart_save = "UPDATE utente SET lista_carrello = '$json_carrello' WHERE email = '$email'";
-    $result_cart_save = $db_connection->query($sql_cart_save);
-    //header("Location: carrello.php");
+    header("Location: carrello.php");
 }
 
 ?>
