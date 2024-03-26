@@ -116,7 +116,7 @@ if (isset($_POST['login'])) {
                 <div class="flex justify-center items-center">
                     <img src="img/logo.png" alt="" class="lg:w-full lg:h-auto h-32 w-32">
                 </div>
-                <div class="flex flex-col justify-center ">
+                <div class="flex flex-col justify-center">
                     <div class="my-3">
                         <label class="block text-md font-medium leading-6 text-gray-900">Email</label>
                         <div class=" rounded-md shadow-sm">

@@ -5,13 +5,13 @@ session_start();
 
 
 
-if (isset($_POST['signin'])) {
+if (isset ($_POST['signin'])) {
     $email = $_POST["email"];
     $password = password_hash($_POST["password"], PASSWORD_DEFAULT);
 
     $cognome = $_POST["cognome"];
     $nome = $_POST["nome"];
-    
+
     $indirizzo = $_POST["indirizzo"];
     $citta = $_POST["citta"];
     $provincia = $_POST["provincia"];
@@ -29,17 +29,17 @@ if (isset($_POST['signin'])) {
     if ($nome == null or $cognome == null or $email == null or $password == null or $indirizzo == null or $citta == null or $provincia == null) {
         $check1 = false;
     }
-    if($num_rows_duplicate > 0){
+    if ($num_rows_duplicate > 0) {
         $check2 = false;
     }
 
-    if ($check1 AND $check2) {
+    if ($check1 and $check2) {
         $sql = "INSERT INTO utente (email, password, cognome, nome, indirizzo, citta, provincia) VALUES ('$email', '$password' ,'$cognome', '$nome', '$indirizzo', '$citta', '$provincia')";
         $db_connection->query($sql);
         $db_connection->close();
         echo "<script>window.location.href = 'login.php';</script>";
     }
-    
+
     if (!$check1) {
         echo "
         <div class='alert alert-danger mt-4 w-[1000px] mx-auto' role='alert'>
@@ -58,11 +58,11 @@ if (isset($_POST['signin'])) {
 
 
 
-if (isset($_SESSION['email'])) {
+if (isset ($_SESSION['email'])) {
     header("Location: homepage.php");
 }
 
-if (isset($_POST['login'])) {
+if (isset ($_POST['login'])) {
     echo "<script>window.location.href = 'login.php';</script>";
 }
 ?>
@@ -76,13 +76,10 @@ if (isset($_POST['login'])) {
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
 
-    <!-- Bootstrap CSS v5.2.1 -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous" />
+
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="icon" type="image/x-icon" href="img/logo_icon.png">
     <style>
-
         .form-login {
             background-color: white;
             border-radius: 25px;
@@ -96,7 +93,7 @@ if (isset($_POST['login'])) {
 </head>
 
 <body class="bg-white sm:bg-[#f0f3f8]">
-<?php
+    <?php
     include "navbar.php";
     ?>
     <form action="#" method="POST">
@@ -105,9 +102,11 @@ if (isset($_POST['login'])) {
                 <div class="flex justify-center items-center">
                     <img src="img/logo.png" alt="" class="lg:w-full lg:h-auto h-32 w-32">
                 </div>
-                <div class="flex flex-col justify-center ">
-                    <div class="row">
-                        <div class="my-3 col">
+
+
+                <div class="flex flex-col justify-center">
+                    <div class="grid grid-cols-2 gap-2">
+                        <div class="my-3 ">
                             <label class="block text-md font-medium leading-6 text-gray-900">Email</label>
                             <div class="mt-2 rounded-md shadow-sm">
                                 <input type="email" name="email" id="email"
@@ -115,7 +114,7 @@ if (isset($_POST['login'])) {
                                     placeholder="Email">
                             </div>
                         </div>
-                        <div class="my-3 col">
+                        <div class="my-3">
                             <label class="block text-md font-medium leading-6 text-gray-900">Password</label>
                             <div class="mt-2 rounded-md shadow-sm">
                                 <input type="password" name="password" id="password"
@@ -126,9 +125,8 @@ if (isset($_POST['login'])) {
                     </div>
 
 
-
-                    <div class="row">
-                        <div class="my-3 col">
+                    <div class="grid grid-cols-2 gap-2">
+                        <div class="my-3">
                             <label class="block text-md font-medium leading-6 text-gray-900">Cognome</label>
                             <div class="mt-2 rounded-md shadow-sm">
                                 <input type="text" name="cognome" id="cognome"
@@ -136,7 +134,7 @@ if (isset($_POST['login'])) {
                                     placeholder="Cognome">
                             </div>
                         </div>
-                        <div class="my-3 col">
+                        <div class="my-3">
                             <label class="block text-md font-medium leading-6 text-gray-900">Nome</label>
                             <div class="mt-2 rounded-md shadow-sm">
                                 <input type="text" name="nome" id="nome"
@@ -148,8 +146,8 @@ if (isset($_POST['login'])) {
 
 
 
-                    <div class="row">
-                        <div class="my-3 col">
+                    <div class="grid grid-cols-3 gap-2">
+                        <div class="my-3 ">
                             <label class="block text-md font-medium leading-6 text-gray-900">Indirizzo</label>
                             <div class="mt-2 rounded-md shadow-sm">
                                 <input type="text" name="indirizzo" id="indirizzo"
@@ -157,7 +155,7 @@ if (isset($_POST['login'])) {
                                     placeholder="Indirizzo">
                             </div>
                         </div>
-                        <div class="my-3 col">
+                        <div class="my-3 ">
                             <label class="block text-md font-medium leading-6 text-gray-900">Città</label>
                             <div class="mt-2 rounded-md shadow-sm">
                                 <input type="text" name="citta" id="citta"
@@ -165,7 +163,7 @@ if (isset($_POST['login'])) {
                                     placeholder="Città">
                             </div>
                         </div>
-                        <div class="my-3 col">
+                        <div class="my-3 ">
                             <label class="block text-md font-medium leading-6 text-gray-900">Provincia</label>
                             <div class="mt-2 rounded-md shadow-sm">
                                 <input type="text" name="provincia" id="provincia"
@@ -175,7 +173,7 @@ if (isset($_POST['login'])) {
                         </div>
                     </div>
 
-                    
+
                     <div class="grid grid-cols-1 md:grid-cols-2 grid-rows-1">
                         <div class="flex flex-col justify-center ">
                             <button name="login" id="login"
