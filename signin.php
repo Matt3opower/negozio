@@ -84,8 +84,6 @@ if (isset($_POST['login'])) {
     <style>
 
         .form-login {
-            width: 1000px;
-            height: 450px;
             background-color: white;
             border-radius: 25px;
             position: absolute;
@@ -97,15 +95,15 @@ if (isset($_POST['login'])) {
     </style>
 </head>
 
-<body class="bg-[#f0f3f8]">
+<body class="bg-white sm:bg-[#f0f3f8]">
 <?php
     include "navbar.php";
     ?>
     <form action="#" method="POST">
-        <div class="form-login p-6">
-            <div class="grid grid-cols-1 md:grid-cols-2 grid-rows-1 h-full ">
+        <div class="form-login p-6 lg:w-[1000px] lg:h-[450px] mt-8 lg:mt-0 bg-white/0 sm:bg-white/100 w-screen">
+            <div class="grid grid-cols-1 md:grid-cols-2 grid-rows-1 h-full">
                 <div class="flex justify-center items-center">
-                    <img src="img/logo.png" alt="" class="max-w-full h-auto">
+                    <img src="img/logo.png" alt="" class="lg:w-full lg:h-auto h-32 w-32">
                 </div>
                 <div class="flex flex-col justify-center ">
                     <div class="row">
