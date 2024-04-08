@@ -148,7 +148,7 @@ if (isset($_POST['login'])) {
                         </div>
                         <div class="flex flex-col justify-center ">
                             <button name="signin" id="signin"
-                                class="mt-12 w-32 bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded mx-auto">Registrati</button>
+                                class="mt-12 w-32 bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded mx-auto">Registrati →</button>
                         </div>
                     </div>
                     <div class="mx-auto mt-6">

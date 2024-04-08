@@ -82,14 +82,15 @@ if (isset ($_POST['more'])) {
     include "navbar.php";
     ?>
     <div class="container">
-        <div class="lg:grid lg:grid-cols-12 mb-20">
-            <div class=" lg:col-span-9 p-3 mt-14">
-                <div class="overflow-x-auto shadow-md sm:rounded-lg">
+        <?php
+        // Controlla se l'array $_SESSION['carrello'] è vuoto
+        if (!empty ($_SESSION['carrello'])) {
+            ?>
+            <div class="lg:grid lg:grid-cols-12 mb-20">
+                <div class=" lg:col-span-9 p-3 mt-14">
                     <div class="overflow-x-auto shadow-md sm:rounded-lg">
-                        <?php
-                        // Controlla se l'array $_SESSION['carrello'] è vuoto
-                        if (!empty ($_SESSION['carrello'])) {
-                            ?>
+                        <div class="overflow-x-auto shadow-md sm:rounded-lg">
+
                             <table class="w-full text-left text-gray-700 text-md">
                                 <thead class="text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                                     <tr class="">
@@ -128,19 +129,22 @@ if (isset ($_POST['more'])) {
                                                         <button
                                                             class='p-2 rounded-lg mt-3 text-white font-bold bg-sky-500 hover:bg-sky-700 w-8 h-8  flex-col justify-center items-center'
                                                             id="more" name="more" type="submit"
-                                                            value="<?php echo $dettagliProdotto['id']; ?>" title="Aggiungi 1 prodotto">
+                                                            value="<?php echo $dettagliProdotto['id']; ?>"
+                                                            title="Aggiungi 1 prodotto">
                                                             +
                                                         </button>
                                                         <button
                                                             class='p-2 rounded-lg mt-3 text-white font-bold bg-sky-500 hover:bg-sky-700 w-8 h-8  flex-col justify-center items-center'
                                                             id="less" name="less" type="submit"
-                                                            value="<?php echo $dettagliProdotto['id']; ?>" title="Togli 1 prodotto">
+                                                            value="<?php echo $dettagliProdotto['id']; ?>"
+                                                            title="Togli 1 prodotto">
                                                             -
                                                         </button>
                                                         <button
                                                             class='p-2 rounded-lg mt-3 text-white font-bold bg-red-500 hover:bg-red-700 w-8 h-8  flex-col justify-center items-center'
                                                             id="rimuovi" name="rimuovi" type="submit"
-                                                            value="<?php echo $dettagliProdotto['id']; ?>" title="Rimuovi dal carrello">
+                                                            value="<?php echo $dettagliProdotto['id']; ?>"
+                                                            title="Rimuovi dal carrello">
                                                             X
                                                         </button>
                                                     </div>
@@ -152,19 +156,19 @@ if (isset ($_POST['more'])) {
                                 </tbody>
                             </table>
                             <?php
-                        } else {
-                            // Stampa un messaggio che indica che il carrello è vuoto
-                            $check_empty_cart = false;
-                        }
-                        ?>
+        } else {
+            // Stampa un messaggio che indica che il carrello è vuoto
+            $check_empty_cart = false;
+        }
+        ?>
                     </div>
                 </div>
 
             </div>
-            <div class=" lg:col-span-3 p-3">
-                <?php
-                if (!empty ($_SESSION['carrello'])) {
-                    ?>
+            <?php
+            if (!empty ($_SESSION['carrello'])) {
+                ?>
+                <div class=" lg:col-span-3 p-3">
                     <form action='#' method='POST'>
                         <div class='text-white font-bold bg-sky-500 p-2 rounded-lg w-full mt-14 lg:mb-[22px]'>
                             <?php echo 'Totale Carrello: ' . $totale_carrello . '€'; ?>
@@ -221,8 +225,8 @@ if (isset ($_POST['more'])) {
                         <?php } ?>
                     </form>
                     <?php
-                }
-                ?>
+            }
+            ?>
             </div>
         </div>
 

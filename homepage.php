@@ -66,6 +66,15 @@ if (isset ($_POST['aggiungi'])) {
     include "navbar.php";
     ?>
     <div class="container">
+        <?php
+        if (empty ($prodotti)) {
+            echo "
+                    <div class='text-white font-bold bg-sky-500 p-2 rounded-lg w-fit mt-12 mx-auto text-2xl font-bold'>
+                        Non sono presenti articoli
+                    </div>
+                ";
+        }
+        ?>
 
 
         <?php if (!$check_qnt) { ?>
@@ -100,7 +109,7 @@ if (isset ($_POST['aggiungi'])) {
             </script>
         <?php } ?>
         <div class="grid lg:grid-cols-3 mb-20 mt-20">
-            <?php foreach ($prodotti as $prodotto): ?>
+            <?php if (!empty ($prodotti)) {foreach ($prodotti as $prodotto): ?>
                 <div class="col-span-1">
                     <form action="#" method="POST" autocomplete="off">
                         <div class=" rounded-lg overflow-hidden lg:mx-6 my-6 shadow-[0_3px_10px_rgb(0,0,0,0.2)] bg-white">
@@ -168,7 +177,7 @@ if (isset ($_POST['aggiungi'])) {
                         </div>
                     </form>
                 </div>
-            <?php endforeach ?>
+            <?php endforeach; }?>
         </div>
     </div>
 

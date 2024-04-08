@@ -22,12 +22,23 @@ $row = $result->fetch_assoc();
 
 
 
-
 $check_input_prod = 0;
 if (isset ($_POST['addProduct'])) {
     $nome_p = $_POST['nome'];
     $prezzo_p = $_POST['prezzo'];
     $quantita_disponibile_p = $_POST['quantita_disponibile'];
+
+    //cerco ultimo id inserito nella tabella prodotto
+    $sql_lastid = "SELECT MAX(id_prodotto) as last_id FROM prodotto";
+    $result_lastid = $db_connection->query($sql_lastid);
+
+    if ($result_lastid->num_rows > 0) {
+        // Estrai l'ultimo ID autoincrementale
+        $row_lastid = $result_lastid->fetch_assoc();
+        $last_id_prodotto = $row_lastid["last_id"];
+        $last_id_prodotto += 1;
+    }
+
 
     if ($nome_p == "" || $prezzo_p == "" || $quantita_disponibile_p == "" || ($_FILES['fileToUpload']) == "") {
         $check_input_prod = 2;
@@ -39,7 +50,7 @@ if (isset ($_POST['addProduct'])) {
         $target_dir = "img/products/";
 
         $imgname = $nome_p . "." . pathinfo($_FILES["fileToUpload"]["name"])["extension"];
-        $img_path = $target_dir . $nome_p . "." . pathinfo($_FILES["fileToUpload"]["name"])["extension"];
+        $img_path = $target_dir . $last_id_prodotto . $nome_p . "." . pathinfo($_FILES["fileToUpload"]["name"])["extension"];
 
         if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $img_path)) {
 
@@ -251,17 +262,17 @@ if (isset ($_POST['addProduct'])) {
 
 
 
-    <div class="flex flex-col items-center justify-center mt-10">
+    <div class="flex flex-col items-center mt-20">
         <?php if ($row['email'] == 'admin@admin') { ?>
             <div
-                class="bg-white p-4 shadow-[0_3px_10px_rgb(0,0,0,0.2)] rounded-lg w-[475px] flex items-center justify-center font-bold text-2xl">
+                class="bg-white p-5 shadow-[0_3px_10px_rgb(0,0,0,0.2)] rounded-lg lg:w-full h-fit items-center justify-center flex text-2xl font-bold">
                 <div>Benvenuto Admin</div>
             </div>
 
 
 
             <div
-                class="bg-white p-5 shadow-[0_3px_10px_rgb(0,0,0,0.2)] rounded-lg w-[475px] mt-10 flex flex-col items-center justify-center font-bold text-2xl">
+                class="bg-white p-5 shadow-[0_3px_10px_rgb(0,0,0,0.2)] rounded-lg lg:w-full mt-10 flex flex-col items-center justify-center font-bold text-2xl">
                 <div>Inserisci Prodotto</div>
                 <div class="mt-10 w-72">
                     <form action="#" method="POST" enctype="multipart/form-data">
