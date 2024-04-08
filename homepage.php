@@ -29,7 +29,7 @@ while ($riga = $result->fetch_assoc()) {
 
 
 $check_qnt = true;
-if (isset ($_POST['aggiungi'])) {
+if (isset($_POST['aggiungi'])) {
 
     $id = $_POST['id_prodotto'];
     $nome = $_POST['nome'];
@@ -50,10 +50,27 @@ if (isset ($_POST['aggiungi'])) {
     }
 }
 
-if (isset ($_POST['rimuovi_listino'])) {
+
+//RIMOZIONE 1 ITEM DA HOMEPAGE
+if (isset($_POST['rimuovi_listino'])) {
     $id_rimuovi_listino = $_POST['rimuovi_listino'];
+
+    $sql_rimuovi_listino = "SELECT img_path FROM prodotto WHERE id_prodotto = '$id_rimuovi_listino'";
+    $result_rimuovi_listino = $db_connection->query($sql_rimuovi_listino);
+
+    // Estrazione risultato come stringa
+    if ($result_rimuovi_listino && $result_rimuovi_listino->num_rows > 0) {
+        $row = $result_rimuovi_listino->fetch_assoc();
+        $img_path_stringa = $row['img_path'];
+        echo "Risultato della query come stringa: " . $img_path_stringa;
+        unlink($img_path_stringa);
+    }
+
+
     $sql_rimuovi_listino = "DELETE FROM prodotto WHERE id_prodotto = '$id_rimuovi_listino'";
     $result_rimuovi_listino = $db_connection->query($sql_rimuovi_listino);
+
+
     header("Location: homepage.php");
 }
 ?>
@@ -86,7 +103,7 @@ if (isset ($_POST['rimuovi_listino'])) {
     ?>
     <div class="container">
         <?php
-        if (empty ($prodotti)) {
+        if (empty($prodotti)) {
             echo "
                     <div class='text-white font-bold bg-sky-500 p-2 rounded-lg w-fit mt-12 mx-auto text-2xl font-bold'>
                         Non sono presenti articoli
@@ -128,7 +145,7 @@ if (isset ($_POST['rimuovi_listino'])) {
             </script>
         <?php } ?>
         <div class="grid lg:grid-cols-3 mb-20 mt-20">
-            <?php if (!empty ($prodotti)) {
+            <?php if (!empty($prodotti)) {
                 foreach ($prodotti as $prodotto): ?>
                     <div class="col-span-1">
                         <form action="#" method="POST" autocomplete="off">
@@ -162,13 +179,13 @@ if (isset ($_POST['rimuovi_listino'])) {
                                             </p>
                                         </div>
                                         <div class="col">
-                                            <?php if (isset ($_SESSION['email'])) {
+                                            <?php if (isset($_SESSION['email'])) {
                                                 if ($_SESSION['email'] != "admin@admin") { ?>
                                                     <input type="number" class="form-control bg-zinc-100" id="quantita" name="quantita"
                                                         value="1">
                                                 <?php }
                                             } ?>
-                                            <?php if (isset ($_SESSION['email'])) {
+                                            <?php if (isset($_SESSION['email'])) {
                                                 if ($_SESSION['email'] == "admin@admin") { ?>
                                                     <button
                                                         class='p-2 rounded-lg mt-3 text-white font-bold bg-red-500 hover:bg-red-700 flex-col justify-center items-center'
@@ -183,7 +200,7 @@ if (isset ($_POST['rimuovi_listino'])) {
                                 </div>
                                 <div class="">
                                     <?php
-                                    if (isset ($_SESSION['email'])) {
+                                    if (isset($_SESSION['email'])) {
                                         if ($_SESSION['email'] != "admin@admin") {
                                             ?>
                                             <button type="submit" name="aggiungi" id="aggiungi"
