@@ -1,12 +1,24 @@
 <?php
 
 session_start();
-// if (!isset($_SESSION['carrello'])) {
-//     $_SESSION['carrello'] = array();
-// }
+
 
 include "connessione.php";
 include "functions.php";
+
+$_SESSION['carrello'] = array();
+$email = $_SESSION['email'];
+//echo $email;
+$sql_cart = "SELECT lista_carrello FROM utente WHERE email = '$email'";
+$result_cart = $db_connection->query($sql_cart);
+$row_cart = $result_cart->fetch_assoc();
+//echo "ciao" . $row_cart['lista_carrello'];
+if ($row_cart['lista_carrello'] != "") {
+    $stringa_json = $row_cart['lista_carrello'];
+    $_SESSION['carrello'] = json_decode($stringa_json, true);
+    //var_dump($_SESSION['carrello']);
+}
+
 $sql = "SELECT * FROM prodotto";
 $result = $db_connection->query($sql);
 $rows = $result->num_rows;
@@ -36,6 +48,13 @@ if (isset ($_POST['aggiungi'])) {
         //header("Location:carrello.php");
         header("Location:homepage.php");
     }
+}
+
+if (isset ($_POST['rimuovi_listino'])) {
+    $id_rimuovi_listino = $_POST['rimuovi_listino'];
+    $sql_rimuovi_listino = "DELETE FROM prodotto WHERE id_prodotto = '$id_rimuovi_listino'";
+    $result_rimuovi_listino = $db_connection->query($sql_rimuovi_listino);
+    header("Location: homepage.php");
 }
 ?>
 
@@ -109,75 +128,85 @@ if (isset ($_POST['aggiungi'])) {
             </script>
         <?php } ?>
         <div class="grid lg:grid-cols-3 mb-20 mt-20">
-            <?php if (!empty ($prodotti)) {foreach ($prodotti as $prodotto): ?>
-                <div class="col-span-1">
-                    <form action="#" method="POST" autocomplete="off">
-                        <div class=" rounded-lg overflow-hidden lg:mx-6 my-6 shadow-[0_3px_10px_rgb(0,0,0,0.2)] bg-white">
-                            <div class="h-80 w-80 mx-auto p-3">
-                                <img src="<?php
-                                //echo 'img/products/' . $prodotto['nome'] . '.webp'; 
-                                echo $prodotto['img_path'];
-                                //$sql_img = "SELECT img_path FROM prodotto WHERE ";
-                                ?>" class="w-full h-full object-contain">
-                            </div>
-                            <div class="rounded-lg p-3">
-                                <p class="font-size text-2xl mb-3">
-                                    <?php echo $prodotto['nome'] ?>
-                                </p>
-                                <div class="h-[1px] bg-[#e5e7eb] w-full mb-3"></div>
-                                <div class="row my-3">
-                                    <div class="col text-lg my-auto">
-                                        <p>
-                                            Disponibilità:
-                                        </p>
+            <?php if (!empty ($prodotti)) {
+                foreach ($prodotti as $prodotto): ?>
+                    <div class="col-span-1">
+                        <form action="#" method="POST" autocomplete="off">
+                            <div class=" rounded-lg overflow-hidden lg:mx-6 my-6 shadow-[0_3px_10px_rgb(0,0,0,0.2)] bg-white">
+                                <div class="h-80 w-80 mx-auto p-3">
+                                    <img src="<?php
+                                    //echo 'img/products/' . $prodotto['nome'] . '.webp'; 
+                                    echo $prodotto['img_path'];
+                                    //$sql_img = "SELECT img_path FROM prodotto WHERE ";
+                                    ?>" class="w-full h-full object-contain">
+                                </div>
+                                <div class="rounded-lg p-3">
+                                    <p class="font-size text-2xl mb-3">
+                                        <?php echo $prodotto['nome'] ?>
+                                    </p>
+                                    <div class="h-[1px] bg-[#e5e7eb] w-full mb-3"></div>
+                                    <div class="row my-3">
+                                        <div class="col text-lg my-auto">
+                                            <p>
+                                                Disponibilità:
+                                            </p>
+                                        </div>
+                                        <div class="col my-auto">
+                                            <?php echo $prodotto['quantita_disponibile'] ?>
+                                        </div>
                                     </div>
-                                    <div class="col my-auto">
-                                        <?php echo $prodotto['quantita_disponibile'] ?>
+                                    <div class="row">
+                                        <div class="col text-lg font-bold my-auto">
+                                            <p>
+                                                <?php echo "€ " . $prodotto['prezzo'] ?>
+                                            </p>
+                                        </div>
+                                        <div class="col">
+                                            <?php if (isset ($_SESSION['email'])) {
+                                                if ($_SESSION['email'] != "admin@admin") { ?>
+                                                    <input type="number" class="form-control bg-zinc-100" id="quantita" name="quantita"
+                                                        value="1">
+                                                <?php }
+                                            } ?>
+                                            <?php if (isset ($_SESSION['email'])) {
+                                                if ($_SESSION['email'] == "admin@admin") { ?>
+                                                    <button
+                                                        class='p-2 rounded-lg mt-3 text-white font-bold bg-red-500 hover:bg-red-700 flex-col justify-center items-center'
+                                                        id="rimuovi_listino" name="rimuovi_listino" type="submit"
+                                                        value="<?php echo $prodotto['id_prodotto']; ?>" title="Rimuovi dal listino">
+                                                        Elimina
+                                                    </button>
+                                                <?php }
+                                            } ?>
+                                        </div>
                                     </div>
                                 </div>
-                                <div class="row">
-                                    <div class="col text-lg font-bold my-auto">
-                                        <p>
-                                            <?php echo "€ " . $prodotto['prezzo'] ?>
-                                        </p>
-                                    </div>
-                                    <div class="col">
-                                        <?php
-                                        if (isset ($_SESSION['email'])) {
-                                            if ($_SESSION['email'] != "admin@admin") {
-                                                ?>
-                                                <input type="number" class="form-control bg-zinc-100" id="quantita" name="quantita"
-                                                    value="1">
-                                            <?php }
-                                        } ?>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="">
-                                <?php
-                                if (isset ($_SESSION['email'])) {
-                                    if ($_SESSION['email'] != "admin@admin") {
-                                        ?>
-                                        <button type="submit" name="aggiungi" id="aggiungi"
-                                            class="text-white font-bold w-full h-12 bg-sky-500 hover:bg-sky-600 mt-3 hover:scale-105 duration-300">
-                                            Aggiungi al carrello
-                                        </button>
-                                    <?php }
-                                } ?>
+                                <div class="">
+                                    <?php
+                                    if (isset ($_SESSION['email'])) {
+                                        if ($_SESSION['email'] != "admin@admin") {
+                                            ?>
+                                            <button type="submit" name="aggiungi" id="aggiungi"
+                                                class="text-white font-bold w-full h-12 bg-sky-500 hover:bg-sky-600 mt-3 hover:scale-105 duration-300">
+                                                Aggiungi al carrello
+                                            </button>
+                                        <?php }
+                                    } ?>
 
-                                <input type="hidden" class="form-control" id="id_prodotto" name="id_prodotto"
-                                    value="<?php echo $prodotto['id_prodotto'] ?>">
-                                <input type="hidden" class="form-control" id="nome" name="nome"
-                                    value="<?php echo $prodotto['nome'] ?>">
-                                <input type="hidden" class="form-control" id="prezzo" name="prezzo"
-                                    value="<?php echo $prodotto['prezzo'] ?>">
-                                <input type="hidden" class="form-control" id="img_path" name="img_path"
-                                    value="<?php echo $prodotto['img_path'] ?>">
+                                    <input type="hidden" class="form-control" id="id_prodotto" name="id_prodotto"
+                                        value="<?php echo $prodotto['id_prodotto'] ?>">
+                                    <input type="hidden" class="form-control" id="nome" name="nome"
+                                        value="<?php echo $prodotto['nome'] ?>">
+                                    <input type="hidden" class="form-control" id="prezzo" name="prezzo"
+                                        value="<?php echo $prodotto['prezzo'] ?>">
+                                    <input type="hidden" class="form-control" id="img_path" name="img_path"
+                                        value="<?php echo $prodotto['img_path'] ?>">
+                                </div>
                             </div>
-                        </div>
-                    </form>
-                </div>
-            <?php endforeach; }?>
+                        </form>
+                    </div>
+                <?php endforeach;
+            } ?>
         </div>
     </div>
 
