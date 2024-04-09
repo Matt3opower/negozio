@@ -6,18 +6,24 @@ session_start();
 include "connessione.php";
 include "functions.php";
 
+$email = "";
 $_SESSION['carrello'] = array();
-$email = $_SESSION['email'];
-//echo $email;
-$sql_cart = "SELECT lista_carrello FROM utente WHERE email = '$email'";
-$result_cart = $db_connection->query($sql_cart);
-$row_cart = $result_cart->fetch_assoc();
-//echo "ciao" . $row_cart['lista_carrello'];
-if ($row_cart['lista_carrello'] != "") {
-    $stringa_json = $row_cart['lista_carrello'];
-    $_SESSION['carrello'] = json_decode($stringa_json, true);
-    //var_dump($_SESSION['carrello']);
+
+if (isset($_SESSION['email'])) {
+    $email = $_SESSION['email'];
+    $sql_cart = "SELECT lista_carrello FROM utente WHERE email = '$email'";
+    $result_cart = $db_connection->query($sql_cart);
+    $row_cart = $result_cart->fetch_assoc();
+    if ($row_cart['lista_carrello'] != "") {
+        $stringa_json = $row_cart['lista_carrello'];
+        $_SESSION['carrello'] = json_decode($stringa_json, true);
+    }
 }
+
+
+
+
+
 
 $sql = "SELECT * FROM prodotto";
 $result = $db_connection->query($sql);

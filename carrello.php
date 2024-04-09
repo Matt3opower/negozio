@@ -104,14 +104,14 @@ if (isset($_POST['more'])) {
                                 <tbody>
                                     <?php foreach ($_SESSION['carrello'] as $dettagliProdotto): ?>
                                         <form action="#" method="post">
-                                            <tr class="bg-white border-t dark:bg-gray-800 dark:border-gray-700 ">
+                                            <tr class="bg-white border-t dark:bg-gray-800 dark:border-gray-700">
                                                 <td class="py-4 px-6">
                                                     <div class="h-24 w-24">
                                                         <img src="<?php echo $dettagliProdotto['img_path']; ?>"
                                                             class="w-full h-full object-contain">
                                                     </div>
                                                 </td>
-                                                <td class="py-4 px-6">
+                                                <td class="py-4 px-6 ">
                                                     <?php echo $dettagliProdotto['nome']; ?>
                                                 </td>
                                                 <td class="py-4 px-6">
@@ -195,14 +195,14 @@ if (isset($_POST['more'])) {
                         <div class="lg:grid lg:grid-cols-2 gap-3 ">
                             <div class="">
                                 <button
-                                    class='w-full p-2 rounded-lg w-fit mt-3 text-white font-bold bg-sky-500 hover:bg-sky-600 hover:scale-105 duration-300'
+                                    class='w-full p-2 rounded-lg w-full mt-3 text-white font-bold bg-sky-500 hover:bg-sky-600 hover:scale-105 duration-300'
                                     id='empty' name='empty'>
                                     Svuota carrello
                                 </button>
                             </div>
                             <div class="">
                                 <button
-                                    class='w-full p-2 rounded-lg w-fit mt-3 text-white font-bold bg-sky-500 hover:bg-sky-600 hover:scale-105 duration-300'
+                                    class='w-full p-2 rounded-lg w-full mt-3 text-white font-bold bg-sky-500 hover:bg-sky-600 hover:scale-105 duration-300'
                                     id='buy' name='buy'>
                                     Acquista
                                 </button>
