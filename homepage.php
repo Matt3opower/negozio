@@ -203,10 +203,13 @@ if (isset($_POST['rimuovi_listino'])) {
                                     if (isset($_SESSION['email'])) {
                                         if ($_SESSION['email'] != "admin@admin") {
                                             ?>
-                                            <button type="submit" name="aggiungi" id="aggiungi"
-                                                class="text-white font-bold w-full h-12 bg-sky-500 hover:bg-sky-600 mt-3 hover:scale-105 duration-300">
-                                                Aggiungi al carrello
-                                            </button>
+                                            <div class="flex">
+                                                <button type="submit" name="aggiungi" id="aggiungi"
+                                                    class="text-white font-bold w-full h-12 bg-sky-500 hover:bg-sky-600 mt-3 hover:scale-105 duration-300">
+                                                    Aggiungi al carrello
+                                                </button>
+                                            </div>
+
                                         <?php }
                                     } ?>
 

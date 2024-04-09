@@ -3,7 +3,7 @@ session_start();
 include "functions.php";
 include "connessione.php";
 $totale_carrello = 0;
-if (!isset ($_SESSION['email'])) {
+if (!isset($_SESSION['email'])) {
     header("Location: login.php");
 } else {
     if ($_SESSION['email'] == "admin@admin") {
@@ -27,33 +27,33 @@ if (!isset ($_SESSION['email'])) {
 }
 
 //SVUOTA CARRELLO
-if (isset ($_POST['empty'])) {
+if (isset($_POST['empty'])) {
     emptyCart();
 }
 
 //COMPRA
 $check_empty_cart = true;
 $check_qnt = true;
-if (isset ($_POST['buy'])) {
+if (isset($_POST['buy'])) {
     $check_qnt = true;
     $check_qnt = buy($check_qnt);
     //echo $check_qnt;
 }
 
 //RIMUOVI ELEMENTO INTERO
-if (isset ($_POST['rimuovi'])) {
+if (isset($_POST['rimuovi'])) {
     itemRemove();
     header("Location: carrello.php");
 }
 
 //TOGLI -1 PRODOTTO
-if (isset ($_POST['less'])) {
+if (isset($_POST['less'])) {
     itemLessOne();
     header("Location: carrello.php");
 }
 
 //AGGIUNGI +1 PRODOTTO
-if (isset ($_POST['more'])) {
+if (isset($_POST['more'])) {
     $check_qnt = itemMoreOne($check_qnt);
 
     header("Location: carrello.php");
@@ -84,7 +84,7 @@ if (isset ($_POST['more'])) {
     <div class="container">
         <?php
         // Controlla se l'array $_SESSION['carrello'] è vuoto
-        if (!empty ($_SESSION['carrello'])) {
+        if (!empty($_SESSION['carrello'])) {
             ?>
             <div class="lg:grid lg:grid-cols-12 mb-20">
                 <div class=" lg:col-span-9 p-3 mt-14">
@@ -131,21 +131,39 @@ if (isset ($_POST['more'])) {
                                                             id="more" name="more" type="submit"
                                                             value="<?php echo $dettagliProdotto['id']; ?>"
                                                             title="Aggiungi 1 prodotto">
-                                                            +
+                                                            <svg width="24" height="24">
+                                                                <path
+                                                                    d="M11.883 3.007L12 3a1 1 0 0 1 .993.883L13 4v7h7a1 1 0 0 1 .993.883L21 12a1 1 0 0 1-.883.993L20 13h-7v7a1 1 0 0 1-.883.993L12 21a1 1 0 0 1-.993-.883L11 20v-7H4a1 1 0 0 1-.993-.883L3 12a1 1 0 0 1 .883-.993L4 11h7V4a1 1 0 0 1 .883-.993L12 3l-.117.007z"
+                                                                    fill="currentColor"></path>
+                                                            </svg>
                                                         </button>
                                                         <button
                                                             class='p-2 rounded-lg mt-3 text-white font-bold bg-sky-500 hover:bg-sky-700 w-8 h-8  flex-col justify-center items-center'
                                                             id="less" name="less" type="submit"
                                                             value="<?php echo $dettagliProdotto['id']; ?>"
                                                             title="Togli 1 prodotto">
-                                                            -
+                                                            <svg width="24" height="24">
+                                                                <path
+                                                                    d="M18 13H6c-.55 0-1-.45-1-1s.45-1 1-1h12c.55 0 1 .45 1 1s-.45 1-1 1z"
+                                                                    fill="currentColor"></path>
+                                                            </svg>
                                                         </button>
                                                         <button
                                                             class='p-2 rounded-lg mt-3 text-white font-bold bg-red-500 hover:bg-red-700 w-8 h-8  flex-col justify-center items-center'
                                                             id="rimuovi" name="rimuovi" type="submit"
                                                             value="<?php echo $dettagliProdotto['id']; ?>"
                                                             title="Rimuovi dal carrello">
-                                                            X
+                                                            <svg width="24" height="24">
+                                                                <g fill="none" stroke="currentColor" stroke-width="2"
+                                                                    stroke-linecap="round" stroke-linejoin="round">
+                                                                    <path d="M4 7h16"></path>
+                                                                    <path d="M10 11v6"></path>
+                                                                    <path d="M14 11v6"></path>
+                                                                    <path d="M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2l1-12">
+                                                                    </path>
+                                                                    <path d="M9 7V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v3"></path>
+                                                                </g>
+                                                            </svg>
                                                         </button>
                                                     </div>
 
@@ -166,7 +184,7 @@ if (isset ($_POST['more'])) {
 
             </div>
             <?php
-            if (!empty ($_SESSION['carrello'])) {
+            if (!empty($_SESSION['carrello'])) {
                 ?>
                 <div class=" lg:col-span-3 p-3">
                     <form action='#' method='POST'>
