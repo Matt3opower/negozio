@@ -16,13 +16,43 @@ if (!isset($_SESSION['email'])) {
         $sql_cart = "SELECT lista_carrello FROM utente WHERE email = '$email'";
         $result_cart = $db_connection->query($sql_cart);
         $row_cart = $result_cart->fetch_assoc();
-        //echo "ciao" . $row_cart['lista_carrello'];
+
         if ($row_cart['lista_carrello'] != "") {
             $stringa_json = $row_cart['lista_carrello'];
             $_SESSION['carrello'] = json_decode($stringa_json, true);
-            //var_dump($_SESSION['carrello']);
+
         }
         // }
+
+        foreach ($_SESSION['carrello'] as $dettagliProdotto):
+            $sql_check_present = "SELECT id_prodotto FROM prodotto";
+            $result_check_present = $db_connection->query($sql_check_present);
+            $rows_check_present = $result_check_present->num_rows;
+            while ($row_check_present = $result_check_present->fetch_assoc()) {
+                if ($row_check_present['id_prodotto'] != $dettagliProdotto['id']) {
+                    $car = $_SESSION['carrello'];
+                    if (isset($car[$dettagliProdotto['id']])) {
+                        // Rimuove il prodotto specificato dal carrello
+                        unset($car[$dettagliProdotto['id']]);
+                        // Aggiorna il carrello nella sessione
+                        $_SESSION['carrello'] = $car;
+                    }
+                    saveCart();
+                }
+            }
+        endforeach;
+
+        $sql_check_present = "SELECT COUNT(*) AS count FROM prodotto";
+        $result_check_present = $db_connection->query($sql_check_present);
+        $row_db = $result_check_present->fetch_assoc();
+        
+        if($row_db['count'] == 0){
+            $_SESSION['carrello'] = array();
+            saveCart();
+        }
+
+        
+
     }
 }
 
