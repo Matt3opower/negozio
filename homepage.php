@@ -207,15 +207,30 @@ if (isset($_POST['rimuovi_listino'])) {
                                 <div class="">
                                     <?php
                                     if (isset($_SESSION['email'])) {
+                                        $id_stock = $prodotto['id_prodotto'];
+                                        $sql_stock = "SELECT quantita_disponibile FROM prodotto WHERE id_prodotto = '$id_stock'";
+                                        $result_stock = $db_connection->query($sql_stock);
+                                        $row_stock = $result_stock->fetch_assoc();
+                                        $stock = $row_stock['quantita_disponibile'];
+
                                         if ($_SESSION['email'] != "admin@admin") {
                                             ?>
-                                            <div class="flex">
-                                                <button type="submit" name="aggiungi" id="aggiungi"
-                                                    class="text-white font-bold w-full h-12 bg-sky-500 hover:bg-sky-600 mt-3 hover:scale-105 duration-300">
-                                                    Aggiungi al carrello
-                                                </button>
-                                            </div>
-
+                                            <?php if ($stock > 0) { ?>
+                                                <div class="flex">
+                                                    <button type="submit" name="aggiungi" id="aggiungi"
+                                                        class="text-white font-bold w-full h-12 bg-sky-500 hover:bg-sky-600 mt-3 hover:scale-105 duration-300">
+                                                        Aggiungi al carrello
+                                                    </button>
+                                                </div>
+                                            <?php } ?>
+                                            <?php if ($stock == 0) { ?>
+                                                <div class="flex">
+                                                    <button type="submit" name="aggiungi" id="aggiungi" disabled
+                                                        class="text-white font-bold w-full h-12 bg-red-500 mt-3">
+                                                        Prodotto esaurito
+                                                    </button>
+                                                </div>
+                                            <?php } ?>
                                         <?php }
                                     } ?>
 
