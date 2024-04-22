@@ -52,7 +52,7 @@ if (isset($_POST['aggiungi'])) {
     } else {
         addToCart($id, $nome, $prezzo, $quantita, $img_path);
         //header("Location:carrello.php");
-        header("Location:homepage.php");
+        //header("Location:homepage.php");
     }
 }
 
@@ -225,7 +225,7 @@ if (isset($_POST['rimuovi_listino'])) {
                                             <?php } ?>
                                             <?php if ($stock == 0) { ?>
                                                 <div class="flex">
-                                                    <button type="submit" name="aggiungi" id="aggiungi" disabled
+                                                    <button type="" name="" id="" disabled
                                                         class="text-white font-bold w-full h-12 bg-red-500 mt-3">
                                                         Prodotto esaurito
                                                     </button>

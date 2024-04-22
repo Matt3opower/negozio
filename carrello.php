@@ -24,24 +24,50 @@ if (!isset($_SESSION['email'])) {
         }
         // }
 
+
+
+
+
+
         foreach ($_SESSION['carrello'] as $dettagliProdotto):
             $sql_check_present = "SELECT id_prodotto FROM prodotto";
             $result_check_present = $db_connection->query($sql_check_present);
             $rows_check_present = $result_check_present->num_rows;
+
             while ($row_check_present = $result_check_present->fetch_assoc()) {
                 if ($row_check_present['id_prodotto'] != $dettagliProdotto['id']) {
+                    
                     $car = $_SESSION['carrello'];
-                    if (isset($car[$dettagliProdotto['id']])) {
+                    //var_dump($car);
+                    //echo "1---------------------";
+
+                    if (!isset($car[$dettagliProdotto['id']])) {
+                        //var_dump($car[$dettagliProdotto['id']]);
+                        //echo $dettagliProdotto['id'];
+                        //echo "1.5---------------------";
                         // Rimuove il prodotto specificato dal carrello
                         unset($car[$dettagliProdotto['id']]);
                         // Aggiorna il carrello nella sessione
-                        $_SESSION['carrello'] = $car;
+                        //var_dump($_SESSION['carrello']);
+                        //echo "2---------------------";
+
+                        //var_dump($car);
+                        $car_json = json_encode($car);
+                        $_SESSION['carrello'] = $car_json;
+                        //echo "3---------------------";
+
+                        //var_dump($_SESSION['carrello']);
+
+
                     }
-                    saveCart();
+                    //saveCart();
                 }
             }
         endforeach;
 
+
+
+        // se non ci sono prodotti nel database in automatico l'array carrello diventa nullo
         $sql_check_present = "SELECT COUNT(*) AS count FROM prodotto";
         $result_check_present = $db_connection->query($sql_check_present);
         $row_db = $result_check_present->fetch_assoc();
