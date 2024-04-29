@@ -10,7 +10,9 @@
 
 
 
-<header class="bg-white z-index-20" >
+
+
+<header class="bg-white z-index-20 md:sticky top-0 shadow-md">
     <nav class="flex mx-auto justify-between">
         <div>
             <a href="homepage.php">
@@ -29,7 +31,7 @@
                 <!-- <li class="h-24 p-4 flex items-center border-b-2 border-green-500 border-opacity-0 hover:border-opacity-100 hover:text-green-500 duration-200 cursor-pointer active">
               <a href="carrello.php">Carrello</a>
             </li> -->
-                <?php if (isset ($_SESSION['email'])) { ?>
+                <?php if (isset($_SESSION['email'])) { ?>
                     <a href="profilo.php">
                         <li
                             class="h-16 p-4 flex items-center md:border-b-2 border-sky-500 border-opacity-0 hover:border-opacity-100 hover:text-sky-500 duration-200 cursor-pointer active">
@@ -37,7 +39,7 @@
                         </li>
                     </a>
                 <?php } ?>
-                <?php if (!isset ($_SESSION['email'])) { ?>
+                <?php if (!isset($_SESSION['email'])) { ?>
                     <a href="login.php">
                         <li
                             class="h-16 p-4 flex items-center md:border-b-2 border-sky-500 border-opacity-0 hover:border-opacity-100 hover:text-sky-500 duration-200 cursor-pointer active">
@@ -45,7 +47,7 @@
                         </li>
                     </a>
                 <?php } ?>
-                <?php if (isset ($_SESSION['email'])) { ?>
+                <?php if (isset($_SESSION['email'])) { ?>
                     <a href="logout.php">
                         <li
                             class="h-16 p-4 flex items-center md:border-b-2 border-red-600 border-opacity-0 hover:border-opacity-100 hover:text-red-600 duration-200 cursor-pointer active">
@@ -79,4 +81,8 @@
         e.name = e.name === 'menu' ? 'close' : 'menu'
         navLinks.classList.toggle('top-[0%]')
     }
+
+
+
+    
 </script>
