@@ -122,8 +122,8 @@ if (isset($_POST['more'])) {
         // Controlla se l'array $_SESSION['carrello'] è vuoto
         if (!empty($_SESSION['carrello'])) {
             ?>
-            <div class="lg:grid lg:grid-cols-12 mb-20">
-                <div class=" lg:col-span-9 p-3 mt-14">
+            <div class="lg:grid lg:grid-cols-9 mb-20 sm:mx-32">
+                <div class=" lg:col-span-7 p-3 mt-14">
                     <div class="overflow-x-auto shadow-md sm:rounded-lg">
                         <div class="overflow-x-auto shadow-md sm:rounded-lg">
 
@@ -140,7 +140,7 @@ if (isset($_POST['more'])) {
                                 <tbody>
                                     <?php foreach ($_SESSION['carrello'] as $dettagliProdotto): ?>
                                         <form action="#" method="post">
-                                            <tr class="bg-white border-t dark:bg-gray-800 dark:border-gray-700">
+                                            <tr class="bg-white border-t dark:bg-gray-800 dark:border-gray-400">
                                                 <td class="py-4 px-6">
                                                     <div class="h-24 w-24">
                                                         <img src="<?php echo $dettagliProdotto['img_path']; ?>"
@@ -163,7 +163,7 @@ if (isset($_POST['more'])) {
 
                                                     <div class="flex-col">
                                                         <button
-                                                            class='p-2 rounded-lg mt-3 text-white font-bold bg-sky-500 hover:bg-sky-700 w-8 h-8  flex-col justify-center items-center'
+                                                            class='p-2 rounded-lg mt-3 text-white font-bold bg-blue-500 hover:bg-blue-700 w-8 h-8  flex-col justify-center items-center'
                                                             id="more" name="more" type="submit"
                                                             value="<?php echo $dettagliProdotto['id']; ?>"
                                                             title="Aggiungi 1 prodotto">
@@ -174,7 +174,7 @@ if (isset($_POST['more'])) {
                                                             </svg>
                                                         </button>
                                                         <button
-                                                            class='p-2 rounded-lg mt-3 text-white font-bold bg-sky-500 hover:bg-sky-700 w-8 h-8  flex-col justify-center items-center'
+                                                            class='p-2 rounded-lg mt-3 text-white font-bold bg-blue-500 hover:bg-blue-700 w-8 h-8  flex-col justify-center items-center'
                                                             id="less" name="less" type="submit"
                                                             value="<?php echo $dettagliProdotto['id']; ?>"
                                                             title="Togli 1 prodotto">
@@ -222,61 +222,78 @@ if (isset($_POST['more'])) {
             <?php
             if (!empty($_SESSION['carrello'])) {
                 ?>
-                <div class=" lg:col-span-3 p-3">
+                <div class=" lg:col-span-2 p-3">
                     <form action='#' method='POST'>
-                        <div class='text-white font-bold bg-sky-500 p-2 rounded-lg w-full mt-14 lg:mb-[22px]'>
-                            <?php echo 'Totale Carrello: ' . $totale_carrello . '€'; ?>
-                        </div>
+                        <div class="bg-white shadow-md rounded-lg mt-14 p-4">
 
-                        <div class="lg:grid lg:grid-cols-2 gap-3 ">
+
+
                             <div class="">
-                                <button
-                                    class='w-full p-2 rounded-lg w-full mt-3 text-white font-bold bg-sky-500 hover:bg-sky-600 hover:scale-105 duration-300'
-                                    id='empty' name='empty'>
-                                    Svuota carrello
-                                </button>
+                                <div class="grid grid-cols-2">
+                                    <div >
+                                        Totale:
+                                    </div>
+                                    <div class="text-right">
+                                        <?php echo $totale_carrello . '€'; ?>
+                                    </div>
+                                </div>
+
                             </div>
-                            <div class="">
-                                <button
-                                    class='w-full p-2 rounded-lg w-full mt-3 text-white font-bold bg-sky-500 hover:bg-sky-600 hover:scale-105 duration-300'
-                                    id='buy' name='buy'>
-                                    Acquista
-                                </button>
+
+                            <div >
+                                <div class="">
+                                    <button
+                                        class='w-full p-2 rounded-lg mt-5 text-white font-bold bg-red-500 hover:bg-red-700 hover:scale-105 duration-300'
+                                        id='empty' name='empty'>
+                                        Svuota carrello
+                                    </button>
+                                </div>
+                                <div class="h-[1px] bg-gray-400 my-3">
+
+                                </div>
+                                <div class="">
+                                    <button
+                                        class='w-full p-2 rounded-lg text-white font-bold bg-blue-500 hover:bg-blue-700 hover:scale-105 duration-300'
+                                        id='buy' name='buy'>
+                                        Acquista
+                                    </button>
+                                </div>
                             </div>
-                        </div>
-                        <?php if (!$check_qnt) { ?>
-                            <!-- <div class="alert alert-danger mt-4 w-full " role="alert">
+                            <?php if (!$check_qnt) { ?>
+                                <!-- <div class="alert alert-danger mt-4 w-full " role="alert">
                                 Quantità selezionate troppo elevate
                             </div> -->
-                            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
-                                aria-hidden="true">
-                                <div class="modal-dialog">
-                                    <div class="modal-content">
-                                        <div class="modal-header ">
-                                            <h5 class="modal-title" id="exampleModalLabel">Attenzione!</h5>
-                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                                aria-label="Close"></button>
-                                        </div>
-                                        <div class="modal-body">
-                                            Quantità selezionate troppo elevate
-                                        </div>
-                                        <div class="modal-footer">
-                                            <a href="carrello.php"><button type="button"
-                                                    class="bg-sky-500 hover:bg-sky-600 p-2 rounded-lg text-white font-bold">Chiudi</button></a>
+                                <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                                    aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header ">
+                                                <h5 class="modal-title" id="exampleModalLabel">Attenzione!</h5>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                    aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body">
+                                                Quantità selezionate troppo elevate
+                                            </div>
+                                            <div class="modal-footer">
+                                                <a href="carrello.php"><button type="button"
+                                                        class="bg-sky-500 hover:bg-sky-600 p-2 rounded-lg text-white font-bold">Chiudi</button></a>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
 
-                            <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
-                                integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
-                                crossorigin="anonymous"></script>
+                                <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+                                    integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+                                    crossorigin="anonymous"></script>
 
-                            <script>
-                                var myModal = new bootstrap.Modal(document.getElementById('exampleModal'));
-                                myModal.show();
-                            </script>
-                        <?php } ?>
+                                <script>
+                                    var myModal = new bootstrap.Modal(document.getElementById('exampleModal'));
+                                    myModal.show();
+                                </script>
+                            <?php } ?>
+                        </div>
+
                     </form>
                     <?php
             }
