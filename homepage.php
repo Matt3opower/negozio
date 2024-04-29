@@ -52,7 +52,7 @@ if (isset($_POST['aggiungi'])) {
     } else {
         addToCart($id, $nome, $prezzo, $quantita, $img_path);
         //header("Location:carrello.php");
-        //header("Location:homepage.php");
+        header("Location:homepage.php");
     }
 }
 
@@ -103,7 +103,7 @@ if (isset($_POST['rimuovi_listino'])) {
     </style>
 </head>
 
-<body class="bg-[#f0f3f8]">
+<body class="bg-[#f8f8f8]">
     <?php
     include "navbar.php";
     ?>

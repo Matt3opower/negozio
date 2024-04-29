@@ -92,7 +92,7 @@ if (isset ($_POST['login'])) {
     </style>
 </head>
 
-<body class="bg-white sm:bg-[#f0f3f8]">
+<body class="bg-white sm:bg-[#f8f8f8]">
     <?php
     include "navbar.php";
     ?>

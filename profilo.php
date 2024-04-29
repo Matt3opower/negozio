@@ -93,7 +93,7 @@ if (isset ($_POST['addProduct'])) {
     </style>
 </head>
 
-<body class="bg-[#f0f3f8]">
+<body class="bg-[#f8f8f8]">
     <?php
     include "navbar.php";
     ?>
@@ -302,12 +302,12 @@ if (isset ($_POST['addProduct'])) {
                         </div>
                     </form>
                     <?php if ($check_input_prod == 1) { ?>
-                        <div class="alert alert-success mt-4 mx-auto w-full" role="alert">
+                        <div class="text-sm alert alert-success mt-4 mx-auto w-full " role="alert">
                             Prodotto inserito con successo
                         </div>
                     <?php } ?>
                     <?php if ($check_input_prod == 2) { ?>
-                        <div class="alert alert-danger mt-4 mx-auto w-full" role="alert">
+                        <div class="text-sm alert alert-danger mt-4 mx-auto w-full " role="alert">
                             Errore nell'inserimento del prodotto
                         </div>
                     <?php } ?>
