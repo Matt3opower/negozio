@@ -123,107 +123,90 @@ if (isset($_POST['more'])) {
         // Controlla se l'array $_SESSION['carrello'] è vuoto
         if (!empty($_SESSION['carrello'])) {
             ?>
-            <div class="lg:grid lg:grid-cols-10 mb-20 lg:mx-32 mt-14">
-                <div class=" lg:col-span-8 p-3">
-                    <div class="overflow-x-auto shadow-md sm:rounded-lg">
-                        <div class="overflow-x-auto shadow-md sm:rounded-lg">
-                            <table class="w-full text-left text-gray-700 text-md">
-                                <thead class="text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
-                                    <tr class="">
-                                        <th scope="col" class="py-3 px-6">Immagine prodotto</th>
-                                        <th scope="col" class="py-3 px-6">Nome prodotto</th>
-                                        <th scope="col" class="py-3 px-6">Prezzo totale</th>
-                                        <th scope="col" class="py-3 px-6">Quantità</th>
-                                        <th scope="col" class="py-3 px-6">Modifica</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <?php foreach ($_SESSION['carrello'] as $dettagliProdotto): ?>
-                                        <form action="#" method="post">
-                                            <tr class="bg-white border-t dark:bg-gray-800 dark:border-gray-400">
-                                                <td class="py-4 px-6">
-                                                    <div class="h-24 w-24">
-                                                        <img src="<?php echo $dettagliProdotto['img_path']; ?>"
-                                                            class="w-full h-full object-contain">
-                                                    </div>
-                                                </td>
-                                                <td class="py-4 px-6 ">
-                                                    <?php echo $dettagliProdotto['nome']; ?>
-                                                </td>
-                                                <td class="py-4 px-6">
-                                                    <?php
-                                                    echo $dettagliProdotto['prezzo'] * $dettagliProdotto['quantita'] . " €";
-                                                    $totale_carrello += $dettagliProdotto['prezzo'] * $dettagliProdotto['quantita'];
-                                                    ?>
-                                                </td>
-                                                <td class="py-4 px-6">
-                                                    <?php echo $dettagliProdotto['quantita']; ?>
-                                                </td>
-                                                <td class="py-4 px-6">
+            <div class="lg:grid lg:grid-cols-10 mb-20 lg:mx-44 mt-14">
+                <div class=" lg:col-span-7 p-3">
+                    <div>
+                        <div class="grid gap-4">
+                            <?php foreach ($_SESSION['carrello'] as $dettagliProdotto): ?>
+                                <form action="#" method="post">
+                                    <!-- effettiva riga -->
+                                    <div class="bg-white shadow-sm rounded-[20px] grid grid-cols-5 p-1">
+                                        <div class="py-4 px-6 ">
+                                            <div class="h-24 w-24">
+                                                <img src="<?php echo $dettagliProdotto['img_path']; ?>"
+                                                    class="w-full h-full object-contain">
+                                            </div>
+                                        </div>
+                                        <div class="py-4 px-6 flex justify-center items-center">
+                                            <?php echo $dettagliProdotto['nome']; ?>
+                                        </div>
+                                        <div class="py-4 px-6 flex justify-center items-center">
+                                            <?php
+                                            echo $dettagliProdotto['prezzo'] * $dettagliProdotto['quantita'] . " €";
+                                            $totale_carrello += $dettagliProdotto['prezzo'] * $dettagliProdotto['quantita'];
+                                            ?>
+                                        </div>
+                                        <div class="py-4 px-6 flex justify-center items-center">
+                                            <button
+                                                class='p-2 mx-2 rounded-lg text-white font-bold w-8 h-8 flex-col justify-center items-center'
+                                                id="more" name="more" type="submit"
+                                                value="<?php echo $dettagliProdotto['id']; ?>" title="Aggiungi 1 prodotto">
+                                                <svg width="24" height="24" class="fill-gray-500 hover:fill-blue-500 duration-300">
+                                                    <path
+                                                        d="M11.883 3.007L12 3a1 1 0 0 1 .993.883L13 4v7h7a1 1 0 0 1 .993.883L21 12a1 1 0 0 1-.883.993L20 13h-7v7a1 1 0 0 1-.883.993L12 21a1 1 0 0 1-.993-.883L11 20v-7H4a1 1 0 0 1-.993-.883L3 12a1 1 0 0 1 .883-.993L4 11h7V4a1 1 0 0 1 .883-.993L12 3l-.117.007z" />
+                                                </svg>
+                                            </button>
+                                            <span class="py-2"><?php echo $dettagliProdotto['quantita']; ?></span>
+                                            <button
+                                                class='p-2 mx-2 rounded-lg text-white font-bold w-8 h-8 flex-col justify-center items-center'
+                                                id="less" name="less" type="submit"
+                                                value="<?php echo $dettagliProdotto['id']; ?>" title="Togli 1 prodotto">
+                                                <svg width="24" height="24" class="fill-gray-500 hover:fill-blue-500 duration-300">
+                                                    <path
+                                                        d="M18 13H6c-.55 0-1-.45-1-1s.45-1 1-1h12c.55 0 1 .45 1 1s-.45 1-1 1z" />
+                                                </svg>
+                                            </button>
+                                        </div>
 
-                                                    <div class="flex-col">
-                                                        <button
-                                                            class='p-2 rounded-lg mt-3 text-white font-bold bg-blue-500 hover:bg-blue-700 w-8 h-8  flex-col justify-center items-center'
-                                                            id="more" name="more" type="submit"
-                                                            value="<?php echo $dettagliProdotto['id']; ?>"
-                                                            title="Aggiungi 1 prodotto">
-                                                            <svg width="24" height="24">
-                                                                <path
-                                                                    d="M11.883 3.007L12 3a1 1 0 0 1 .993.883L13 4v7h7a1 1 0 0 1 .993.883L21 12a1 1 0 0 1-.883.993L20 13h-7v7a1 1 0 0 1-.883.993L12 21a1 1 0 0 1-.993-.883L11 20v-7H4a1 1 0 0 1-.993-.883L3 12a1 1 0 0 1 .883-.993L4 11h7V4a1 1 0 0 1 .883-.993L12 3l-.117.007z"
-                                                                    fill="currentColor"></path>
-                                                            </svg>
-                                                        </button>
-                                                        <button
-                                                            class='p-2 rounded-lg mt-3 text-white font-bold bg-blue-500 hover:bg-blue-700 w-8 h-8  flex-col justify-center items-center'
-                                                            id="less" name="less" type="submit"
-                                                            value="<?php echo $dettagliProdotto['id']; ?>"
-                                                            title="Togli 1 prodotto">
-                                                            <svg width="24" height="24">
-                                                                <path
-                                                                    d="M18 13H6c-.55 0-1-.45-1-1s.45-1 1-1h12c.55 0 1 .45 1 1s-.45 1-1 1z"
-                                                                    fill="currentColor"></path>
-                                                            </svg>
-                                                        </button>
-                                                        <button
-                                                            class='p-2 rounded-lg mt-3 text-white font-bold bg-red-500 hover:bg-red-700 w-8 h-8  flex-col justify-center items-center'
-                                                            id="rimuovi" name="rimuovi" type="submit"
-                                                            value="<?php echo $dettagliProdotto['id']; ?>"
-                                                            title="Rimuovi dal carrello">
-                                                            <svg width="24" height="24">
-                                                                <g fill="none" stroke="currentColor" stroke-width="2"
-                                                                    stroke-linecap="round" stroke-linejoin="round">
-                                                                    <path d="M4 7h16"></path>
-                                                                    <path d="M10 11v6"></path>
-                                                                    <path d="M14 11v6"></path>
-                                                                    <path d="M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2l1-12">
-                                                                    </path>
-                                                                    <path d="M9 7V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v3"></path>
-                                                                </g>
-                                                            </svg>
-                                                        </button>
-                                                    </div>
+                                        <div class="py-4 px-6 flex justify-center items-center">
 
-                                                </td>
-                                            </tr>
-                                        </form>
-                                    <?php endforeach; ?>
-                                </tbody>
-                            </table>
-                            <?php
+                                            <div class="flex-col">
+                                                <button
+                                                    class='p-2 rounded-lg text-white font-bold w-8 h-8  flex-col justify-center items-center'
+                                                    id="rimuovi" name="rimuovi" type="submit"
+                                                    value="<?php echo $dettagliProdotto['id']; ?>" title="Rimuovi dal carrello">
+                                                    <svg width="24" height="24" class="stroke-gray-500 hover:stroke-red-500 duration-300">
+                                                        <g fill="none"  stroke-width="2"
+                                                            stroke-linecap="round" stroke-linejoin="round">
+                                                            <path d="M4 7h16"></path>
+                                                            <path d="M10 11v6"></path>
+                                                            <path d="M14 11v6"></path>
+                                                            <path d="M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2l1-12"></path>
+                                                            <path d="M9 7V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v3"></path>
+                                                        </g>
+                                                    </svg>
+                                                </button>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </form>
+                            <?php endforeach; ?>
+                        </div>
+                        <?php
         } else {
             // Stampa un messaggio che indica che il carrello è vuoto
             $check_empty_cart = false;
         }
         ?>
-                    </div>
                 </div>
 
             </div>
             <?php
             if (!empty($_SESSION['carrello'])) {
                 ?>
-                <div class="lg:col-span-2 p-3">
-                    <div class="shadow-md sm:rounded-lg bg-white p-3">
+                <div class="lg:col-span-3 p-3">
+                    <div class="shadow-md sm:rounded-[20px] bg-white p-3">
                         <form action='#' method='POST'>
                             <div class="grid grid-cols-2 grid-rows-1">
                                 <div>
@@ -310,7 +293,7 @@ if (isset($_POST['more'])) {
                 <svg class="h-48 fill-gray-400" aria-hidden="true" focusable="false" data-prefix="far"
                     data-icon="shopping-cart" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"
                     class="svg-inline--fa fa-shopping-cart fa-w-18 fa-7x">
-                    <path 
+                    <path
                         d="M551.991 64H144.28l-8.726-44.608C133.35 8.128 123.478 0 112 0H12C5.373 0 0 5.373 0 12v24c0 6.627 5.373 12 12 12h80.24l69.594 355.701C150.796 415.201 144 430.802 144 448c0 35.346 28.654 64 64 64s64-28.654 64-64a63.681 63.681 0 0 0-8.583-32h145.167a63.681 63.681 0 0 0-8.583 32c0 35.346 28.654 64 64 64 35.346 0 64-28.654 64-64 0-18.136-7.556-34.496-19.676-46.142l1.035-4.757c3.254-14.96-8.142-29.101-23.452-29.101H203.76l-9.39-48h312.405c11.29 0 21.054-7.869 23.452-18.902l45.216-208C578.695 78.139 567.299 64 551.991 64zM208 472c-13.234 0-24-10.766-24-24s10.766-24 24-24 24 10.766 24 24-10.766 24-24 24zm256 0c-13.234 0-24-10.766-24-24s10.766-24 24-24 24 10.766 24 24-10.766 24-24 24zm23.438-200H184.98l-31.31-160h368.548l-34.78 160z"
                         class=""></path>
                 </svg>
