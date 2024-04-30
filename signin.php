@@ -5,7 +5,7 @@ session_start();
 
 
 
-if (isset ($_POST['signin'])) {
+if (isset($_POST['signin'])) {
     $email = $_POST["email"];
     $password = password_hash($_POST["password"], PASSWORD_DEFAULT);
 
@@ -58,11 +58,11 @@ if (isset ($_POST['signin'])) {
 
 
 
-if (isset ($_SESSION['email'])) {
+if (isset($_SESSION['email'])) {
     header("Location: homepage.php");
 }
 
-if (isset ($_POST['login'])) {
+if (isset($_POST['login'])) {
     echo "<script>window.location.href = 'login.php';</script>";
 }
 ?>
@@ -76,7 +76,7 @@ if (isset ($_POST['login'])) {
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
 
-
+    <link rel="stylesheet" href="style.css">
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="icon" type="image/x-icon" href="img/logo_icon.png">
     <style>
@@ -174,7 +174,7 @@ if (isset ($_POST['login'])) {
                     </div>
 
 
-                    
+
                     <div class="grid grid-cols-1 md:grid-cols-2 grid-rows-1">
                         <div class="flex flex-col justify-center ">
                             <button name="signin" id="signin"
@@ -182,7 +182,8 @@ if (isset ($_POST['login'])) {
                         </div>
                         <div class="flex flex-col justify-center ">
                             <button name="login" id="login"
-                                class="mt-12 w-32 bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded mx-auto">Login →</button>
+                                class="mt-12 w-32 bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded mx-auto">Login
+                                →</button>
                         </div>
                     </div>
                 </div>

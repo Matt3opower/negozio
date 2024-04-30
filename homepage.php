@@ -93,7 +93,7 @@ if (isset($_POST['rimuovi_listino'])) {
     <!-- Bootstrap CSS v5.2.1 -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous" />
-
+    <link rel="stylesheet" href="style.css">
     <link rel="icon" type="image/x-icon" href="img/logo_icon.png">
 
     <style>
@@ -155,8 +155,8 @@ if (isset($_POST['rimuovi_listino'])) {
                 foreach ($prodotti as $prodotto): ?>
                     <div class="col-span-1">
                         <form action="#" method="POST" autocomplete="off">
-                            <div class=" rounded-lg overflow-hidden lg:mx-6 my-6 shadow-[0_3px_10px_rgb(0,0,0,0.2)] bg-white">
-                                <div class="h-80 w-80 mx-auto p-3">
+                            <div class="rounded-lg overflow-hidden lg:mx-6 my-6 shadow-[0_3px_8px_rgb(0.2,0.2,0.2,0.2)] bg-white">
+                                <div class="h-80 min-w-40 mx-auto p-3">
                                     <img src="<?php
                                     //echo 'img/products/' . $prodotto['nome'] . '.webp'; 
                                     echo $prodotto['img_path'];
@@ -218,7 +218,7 @@ if (isset($_POST['rimuovi_listino'])) {
                                             <?php if ($stock > 0) { ?>
                                                 <div class="flex">
                                                     <button type="submit" name="aggiungi" id="aggiungi"
-                                                        class="text-white font-bold w-full h-12 bg-sky-500 hover:bg-sky-600 mt-3 hover:scale-105 duration-300">
+                                                        class="text-white font-bold w-full h-12 bg-blue-500 hover:bg-blue-700 mt-3  duration-300">
                                                         Aggiungi al carrello
                                                     </button>
                                                 </div>

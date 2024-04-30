@@ -110,6 +110,7 @@ if (isset($_POST['more'])) {
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous" />
     <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="style.css">
     <link rel="icon" type="image/x-icon" href="img/logo_icon.png">
 </head>
 
@@ -122,11 +123,10 @@ if (isset($_POST['more'])) {
         // Controlla se l'array $_SESSION['carrello'] è vuoto
         if (!empty($_SESSION['carrello'])) {
             ?>
-            <div class="lg:grid lg:grid-cols-9 mb-20 sm:mx-32">
-                <div class=" lg:col-span-7 p-3 mt-14">
+            <div class="lg:grid lg:grid-cols-10 mb-20 lg:mx-32 mt-14">
+                <div class=" lg:col-span-8 p-3">
                     <div class="overflow-x-auto shadow-md sm:rounded-lg">
                         <div class="overflow-x-auto shadow-md sm:rounded-lg">
-
                             <table class="w-full text-left text-gray-700 text-md">
                                 <thead class="text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                                     <tr class="">
@@ -222,38 +222,29 @@ if (isset($_POST['more'])) {
             <?php
             if (!empty($_SESSION['carrello'])) {
                 ?>
-                <div class=" lg:col-span-2 p-3">
-                    <form action='#' method='POST'>
-                        <div class="bg-white shadow-md rounded-lg mt-14 p-4">
-
-
-
-                            <div class="">
-                                <div class="grid grid-cols-2">
-                                    <div >
-                                        Totale:
-                                    </div>
-                                    <div class="text-right">
-                                        <?php echo $totale_carrello . '€'; ?>
-                                    </div>
+                <div class="lg:col-span-2 p-3">
+                    <div class="shadow-md sm:rounded-lg bg-white p-3">
+                        <form action='#' method='POST'>
+                            <div class="grid grid-cols-2 grid-rows-1">
+                                <div>
+                                    Totale carrello:
+                                </div>
+                                <div class="text-right">
+                                    <?php echo $totale_carrello . '€'; ?>
                                 </div>
 
-                            </div>
-
-                            <div >
+                            <div class="mt-10">
                                 <div class="">
                                     <button
-                                        class='w-full p-2 rounded-lg mt-5 text-white font-bold bg-red-500 hover:bg-red-700 hover:scale-105 duration-300'
+                                        class='w-full p-2 rounded-lg w-full mt-3 text-white font-bold bg-red-500 hover:bg-red-700 hover:scale-105 duration-300'
                                         id='empty' name='empty'>
                                         Svuota carrello
                                     </button>
                                 </div>
-                                <div class="h-[1px] bg-gray-400 my-3">
-
-                                </div>
+                                <div class="h-[1px] bg-gray-300 my-3"></div>
                                 <div class="">
                                     <button
-                                        class='w-full p-2 rounded-lg text-white font-bold bg-blue-500 hover:bg-blue-700 hover:scale-105 duration-300'
+                                        class='w-full p-2 rounded-lg w-full text-white font-bold bg-blue-500 hover:bg-blue-700 hover:scale-105 duration-300'
                                         id='buy' name='buy'>
                                         Acquista
                                     </button>
@@ -292,9 +283,9 @@ if (isset($_POST['more'])) {
                                     myModal.show();
                                 </script>
                             <?php } ?>
-                        </div>
+                        </form>
+                    </div>
 
-                    </form>
                     <?php
             }
             ?>

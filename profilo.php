@@ -5,10 +5,10 @@ session_start();
 include "connessione.php";
 include "functions.php";
 
-if (!isset ($_SESSION['email'])) {
+if (!isset($_SESSION['email'])) {
     header("Location: login.php");
 } else {
-    if (!isset ($_SESSION['carrello'])) {
+    if (!isset($_SESSION['carrello'])) {
         $_SESSION['carrello'] = array();
     }
 }
@@ -23,7 +23,7 @@ $row = $result->fetch_assoc();
 
 
 $check_input_prod = 0;
-if (isset ($_POST['addProduct'])) {
+if (isset($_POST['addProduct'])) {
     $nome_p = $_POST['nome'];
     $prezzo_p = $_POST['prezzo'];
     $quantita_disponibile_p = $_POST['quantita_disponibile'];
@@ -81,6 +81,7 @@ if (isset ($_POST['addProduct'])) {
     <!-- Bootstrap CSS v5.2.1 -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous" />
+    <link rel="stylesheet" href="style.css">
     <link rel="icon" type="image/x-icon" href="img/logo_icon.png">
     <style>
         ::-webkit-file-upload-button {
@@ -100,7 +101,7 @@ if (isset ($_POST['addProduct'])) {
 
     <!-- tolti dal prossimo div: flex flex-col items-center justify-center -->
     <div <?php if ($row['email'] != 'admin@admin') {
-        echo "class='container sm:grid sm:grid-cols-2 gap-20'";
+        echo "class='container sm:grid sm:grid-cols-2 gap-20 '";
     } ?>>
         <!-- riga 1 colonna 1 -->
 
@@ -262,7 +263,7 @@ if (isset ($_POST['addProduct'])) {
 
 
 
-    <div class="flex flex-col items-center mt-20">
+    <div class="flex flex-col items-center mt-0">
         <?php if ($row['email'] == 'admin@admin') { ?>
             <div
                 class="bg-white p-5 shadow-[0_3px_10px_rgb(0,0,0,0.2)] rounded-lg lg:w-full h-fit items-center justify-center flex text-2xl font-bold">
@@ -313,7 +314,6 @@ if (isset ($_POST['addProduct'])) {
                     <?php } ?>
                 </div>
             </div>
-
         <?php } ?>
     </div>
     </div>

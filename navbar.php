@@ -1,9 +1,6 @@
 <script src="https://cdn.tailwindcss.com"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.js"></script>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700&display=swap"
-    rel="stylesheet">
+
 <script src="https://unpkg.com/ionicons@4.5.10-0/dist/ionicons.js"></script>
 
 
@@ -13,7 +10,9 @@
 
 
 
-<header class="bg-white z-index-20" >
+
+
+<header class="bg-white z-index-20 md:sticky top-0 shadow-md">
     <nav class="flex mx-auto justify-between">
         <div>
             <a href="homepage.php">
@@ -32,7 +31,7 @@
                 <!-- <li class="h-24 p-4 flex items-center border-b-2 border-green-500 border-opacity-0 hover:border-opacity-100 hover:text-green-500 duration-200 cursor-pointer active">
               <a href="carrello.php">Carrello</a>
             </li> -->
-                <?php if (isset ($_SESSION['email'])) { ?>
+                <?php if (isset($_SESSION['email'])) { ?>
                     <a href="profilo.php">
                         <li
                             class="h-16 p-4 flex items-center md:border-b-2 border-sky-500 border-opacity-0 hover:border-opacity-100 hover:text-sky-500 duration-200 cursor-pointer active">
@@ -40,7 +39,7 @@
                         </li>
                     </a>
                 <?php } ?>
-                <?php if (!isset ($_SESSION['email'])) { ?>
+                <?php if (!isset($_SESSION['email'])) { ?>
                     <a href="login.php">
                         <li
                             class="h-16 p-4 flex items-center md:border-b-2 border-sky-500 border-opacity-0 hover:border-opacity-100 hover:text-sky-500 duration-200 cursor-pointer active">
@@ -48,7 +47,7 @@
                         </li>
                     </a>
                 <?php } ?>
-                <?php if (isset ($_SESSION['email'])) { ?>
+                <?php if (isset($_SESSION['email'])) { ?>
                     <a href="logout.php">
                         <li
                             class="h-16 p-4 flex items-center md:border-b-2 border-red-600 border-opacity-0 hover:border-opacity-100 hover:text-red-600 duration-200 cursor-pointer active">
@@ -82,4 +81,8 @@
         e.name = e.name === 'menu' ? 'close' : 'menu'
         navLinks.classList.toggle('top-[0%]')
     }
+
+
+
+    
 </script>
