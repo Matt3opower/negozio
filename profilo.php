@@ -283,7 +283,7 @@ if (isset($_POST['addProduct'])) {
                                 class="mx-auto mt-2 block w-full rounded-md border-0 py-1.5 pl-2 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-blue-500 sm:text-sm sm:leading-6 focus:outline-none"
                                 placeholder="Nome" value="">
 
-                            <input type="number" name="prezzo" id="prezzo" step="0.01"
+                            <input type="number" name="prezzo" id="prezzo" step="0.01" lang="en-US"
                                 class="mx-auto mt-2 block w-full rounded-md border-0 py-1.5 pl-2 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-blue-500 sm:text-sm sm:leading-6 focus:outline-none"
                                 placeholder="Prezzo" value="">
 
@@ -302,17 +302,17 @@ if (isset($_POST['addProduct'])) {
                             </button> -->
                         </div>
                     </form>
-                    <?php if ($check_input_prod == 1) { ?>
-                        <div class="text-sm alert alert-success mt-4 mx-auto w-full " role="alert">
-                            Prodotto inserito con successo
-                        </div>
-                    <?php } ?>
-                    <?php if ($check_input_prod == 2) { ?>
-                        <div class="text-sm alert alert-danger mt-4 mx-auto w-full " role="alert">
-                            Errore nell'inserimento del prodotto
-                        </div>
-                    <?php } ?>
                 </div>
+            </div>
+        <?php } ?>
+        <?php if ($check_input_prod == 1) { ?>
+            <div class="text-sm alert alert-success mt-4 mx-auto w-full " role="alert">
+                Prodotto inserito con successo
+            </div>
+        <?php } ?>
+        <?php if ($check_input_prod == 2) { ?>
+            <div class="text-sm alert alert-danger mt-4 mx-auto w-full " role="alert">
+                Errore nell'inserimento del prodotto
             </div>
         <?php } ?>
     </div>
@@ -320,6 +320,10 @@ if (isset($_POST['addProduct'])) {
 
 
 
+
+
+    
+    
 
 
 

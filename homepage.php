@@ -155,7 +155,8 @@ if (isset($_POST['rimuovi_listino'])) {
                 foreach ($prodotti as $prodotto): ?>
                     <div class="col-span-1">
                         <form action="#" method="POST" autocomplete="off">
-                            <div class="rounded-lg overflow-hidden lg:mx-6 my-6 shadow-[0_3px_8px_rgb(0.2,0.2,0.2,0.2)] bg-white">
+                            <div
+                                class="rounded-lg overflow-hidden lg:mx-6 my-6 shadow-[0_3px_8px_rgb(0.2,0.2,0.2,0.2)] bg-white">
                                 <div class="h-80 min-w-40 mx-auto p-3">
                                     <img src="<?php
                                     //echo 'img/products/' . $prodotto['nome'] . '.webp'; 
@@ -250,6 +251,13 @@ if (isset($_POST['rimuovi_listino'])) {
             } ?>
         </div>
     </div>
+
+
+
+
+    
+
+   
 
 
 

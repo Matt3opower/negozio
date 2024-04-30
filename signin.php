@@ -178,11 +178,11 @@ if (isset($_POST['login'])) {
                     <div class="grid grid-cols-1 md:grid-cols-2 grid-rows-1">
                         <div class="flex flex-col justify-center ">
                             <button name="signin" id="signin"
-                                class="mt-12 w-32 bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded mx-auto">Registrati</button>
+                                class="mt-12 w-36 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mx-auto">Registrati</button>
                         </div>
                         <div class="flex flex-col justify-center ">
                             <button name="login" id="login"
-                                class="mt-12 w-32 bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded mx-auto">Login
+                                class="mt-12 w-36 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mx-auto">Login
                                 →</button>
                         </div>
                     </div>

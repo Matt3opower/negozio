@@ -232,7 +232,7 @@ if (isset($_POST['more'])) {
                                 <div class="text-right">
                                     <?php echo $totale_carrello . '€'; ?>
                                 </div>
-
+                            </div>
                             <div class="mt-10">
                                 <div class="">
                                     <button
