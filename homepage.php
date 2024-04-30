@@ -61,6 +61,8 @@ if (isset($_POST['aggiungi'])) {
 if (isset($_POST['rimuovi_listino'])) {
     $id_rimuovi_listino = $_POST['rimuovi_listino'];
 
+    echo $id_rimuovi_listino;
+
     $sql_rimuovi_listino = "SELECT img_path FROM prodotto WHERE id_prodotto = '$id_rimuovi_listino'";
     $result_rimuovi_listino = $db_connection->query($sql_rimuovi_listino);
 

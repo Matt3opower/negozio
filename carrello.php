@@ -293,15 +293,30 @@ if (isset($_POST['more'])) {
         </div>
 
 
-        <?php
-        if (!$check_empty_cart) {
-            echo "
-                    <div class='text-white font-bold bg-sky-500 p-2 rounded-lg w-fit mt-12 mx-auto text-2xl font-bold'>
-                        Carrello vuoto
-                    </div>
-                ";
-        }
-        ?>
+        <?php if (!$check_empty_cart) { ?>
+            <div class='text-gray-600 font-bold w-fit sm:mt-32 mt-12 mx-auto text-3xl'>
+                Carrello vuoto
+            </div>
+            <div class="flex items-center justify-center mt-16">
+                <a href="homepage.php">
+                    <button
+                        class="border-2 border-gray-300 p-2 rounded-md hover:border-blue-600 hover:bg-blue-100 duration-300 ">
+                        Continua gli acquisti
+                    </button>
+                </a>
+            </div>
+            <div class="flex items-center justify-center mt-16">
+                <!-- <img src="img/empty-cart.png" class="w-32 h-32 "> -->
+                <svg class="h-48 fill-gray-400" aria-hidden="true" focusable="false" data-prefix="far"
+                    data-icon="shopping-cart" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"
+                    class="svg-inline--fa fa-shopping-cart fa-w-18 fa-7x">
+                    <path 
+                        d="M551.991 64H144.28l-8.726-44.608C133.35 8.128 123.478 0 112 0H12C5.373 0 0 5.373 0 12v24c0 6.627 5.373 12 12 12h80.24l69.594 355.701C150.796 415.201 144 430.802 144 448c0 35.346 28.654 64 64 64s64-28.654 64-64a63.681 63.681 0 0 0-8.583-32h145.167a63.681 63.681 0 0 0-8.583 32c0 35.346 28.654 64 64 64 35.346 0 64-28.654 64-64 0-18.136-7.556-34.496-19.676-46.142l1.035-4.757c3.254-14.96-8.142-29.101-23.452-29.101H203.76l-9.39-48h312.405c11.29 0 21.054-7.869 23.452-18.902l45.216-208C578.695 78.139 567.299 64 551.991 64zM208 472c-13.234 0-24-10.766-24-24s10.766-24 24-24 24 10.766 24 24-10.766 24-24 24zm256 0c-13.234 0-24-10.766-24-24s10.766-24 24-24 24 10.766 24 24-10.766 24-24 24zm23.438-200H184.98l-31.31-160h368.548l-34.78 160z"
+                        class=""></path>
+                </svg>
+            </div>
+
+        <?php } ?>
     </div>
 
 

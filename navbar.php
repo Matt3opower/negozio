@@ -20,11 +20,11 @@
             </a>
         </div>
         <div
-            class="bg-opacity-25 backdrop-blur-md nav-links duration-500 md:static absolute bg-white md:min-h-fit min-h-[30vh] left-0 top-[-100%] md:w-auto w-full flex items-center justify-center ">
+            class="border-b-2  sm:border-0 border-blue-500 bg-opacity-25 backdrop-blur-md nav-links duration-500 md:static absolute bg-white md:min-h-fit min-h-[30vh] left-0 top-[-100%] md:w-auto w-full flex items-center justify-center ">
             <ul class="flex md:flex-row flex-col md:items-center items-center justify-center">
                 <a href="homepage.php">
                     <li
-                        class="h-16 p-4 flex items-center md:border-b-2 border-sky-500 border-opacity-0 hover:border-opacity-100 hover:text-sky-500 duration-200 cursor-pointer active">
+                        class="h-16 p-4 flex items-center md:border-b-2 border-blue-500 border-opacity-0 hover:border-opacity-100 hover:text-blue-500 duration-200 cursor-pointer active">
                         Homepage
                     </li>
                 </a>
@@ -34,7 +34,7 @@
                 <?php if (isset($_SESSION['email'])) { ?>
                     <a href="profilo.php">
                         <li
-                            class="h-16 p-4 flex items-center md:border-b-2 border-sky-500 border-opacity-0 hover:border-opacity-100 hover:text-sky-500 duration-200 cursor-pointer active">
+                            class="h-16 p-4 flex items-center md:border-b-2 border-blue-500 border-opacity-0 hover:border-opacity-100 hover:text-blue-500 duration-200 cursor-pointer active">
                             Profilo
                         </li>
                     </a>
@@ -42,7 +42,7 @@
                 <?php if (!isset($_SESSION['email'])) { ?>
                     <a href="login.php">
                         <li
-                            class="h-16 p-4 flex items-center md:border-b-2 border-sky-500 border-opacity-0 hover:border-opacity-100 hover:text-sky-500 duration-200 cursor-pointer active">
+                            class="h-16 p-4 flex items-center md:border-b-2 border-blue-500 border-opacity-0 hover:border-opacity-100 hover:text-blue-500 duration-200 cursor-pointer active">
                             Login
                         </li>
                     </a>
@@ -50,7 +50,7 @@
                 <?php if (isset($_SESSION['email'])) { ?>
                     <a href="logout.php">
                         <li
-                            class="h-16 p-4 flex items-center md:border-b-2 border-red-600 border-opacity-0 hover:border-opacity-100 hover:text-red-600 duration-200 cursor-pointer active">
+                            class="h-16 p-4 flex items-center md:border-b-2 border-red-500 border-opacity-0 hover:border-opacity-100 hover:text-red-500 duration-200 cursor-pointer active">
                             Logout
                         </li>
                     </a>
@@ -60,7 +60,7 @@
         <div class="flex items-center gap-6 justify-end mr-3">
             <div class="w-3/12 lg:w-1/12 flex justify-end">
                 <a href="carrello.php">
-                    <svg class="h-8 p-1 hover:text-sky-500 duration-200" aria-hidden="true" focusable="false"
+                    <svg class="h-8 p-1 hover:text-blue-500 duration-200" aria-hidden="true" focusable="false"
                         data-prefix="far" data-icon="shopping-cart" role="img" xmlns="http://www.w3.org/2000/svg"
                         viewBox="0 0 576 512" class="svg-inline--fa fa-shopping-cart fa-w-18 fa-7x">
                         <path fill="currentColor"
