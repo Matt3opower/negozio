@@ -123,35 +123,41 @@ if (isset($_POST['more'])) {
         // Controlla se l'array $_SESSION['carrello'] è vuoto
         if (!empty($_SESSION['carrello'])) {
             ?>
-            <div class="lg:grid lg:grid-cols-10 mb-20 lg:mx-44 mt-14">
+            <div class="lg:grid lg:grid-cols-10 mb-20 min-[1280px]:mx-36 mt-14">
                 <div class=" lg:col-span-7 p-3">
                     <div>
                         <div class="grid gap-4">
                             <?php foreach ($_SESSION['carrello'] as $dettagliProdotto): ?>
                                 <form action="#" method="post">
                                     <!-- effettiva riga -->
-                                    <div class="bg-white shadow-sm rounded-[20px] grid grid-cols-5 p-1">
-                                        <div class="py-4 px-6 ">
-                                            <div class="h-24 w-24">
+                                    <div class="bg-white shadow-sm rounded-[20px] grid sm:grid-rows-1 sm:grid-cols-5 p-1">
+                                        <div class="py-4 px-6 flex justify-center max-[640px]:col-span-2 sm:col-span-0">
+                                            <div class="h-36 w-36 md:h-24 md:w-24">
                                                 <img src="<?php echo $dettagliProdotto['img_path']; ?>"
                                                     class="w-full h-full object-contain">
                                             </div>
+
                                         </div>
-                                        <div class="py-4 px-6 flex justify-center items-center">
+                                        <div
+                                            class="bg-[#e5e7eb] h-0 max-[640px]:h-[1px] mx-10 my-3 max-[640px]:col-span-2 sm:hidden">
+                                        </div>
+                                        <div class="py-4 px-6 sm:flex text-center sm:justify-center sm:items-center col-span-1">
                                             <?php echo $dettagliProdotto['nome']; ?>
                                         </div>
-                                        <div class="py-4 px-6 flex justify-center items-center">
+                                        <div class="py-4 px-6 sm:flex text-center sm:justify-center sm:items-center col-span-1">
                                             <?php
                                             echo $dettagliProdotto['prezzo'] * $dettagliProdotto['quantita'] . " €";
                                             $totale_carrello += $dettagliProdotto['prezzo'] * $dettagliProdotto['quantita'];
                                             ?>
                                         </div>
+
                                         <div class="py-4 px-6 flex justify-center items-center">
                                             <button
                                                 class='p-2 mx-2 rounded-lg text-white font-bold w-8 h-8 flex-col justify-center items-center'
                                                 id="more" name="more" type="submit"
                                                 value="<?php echo $dettagliProdotto['id']; ?>" title="Aggiungi 1 prodotto">
-                                                <svg width="24" height="24" class="fill-gray-500 hover:fill-blue-500 duration-300">
+                                                <svg width="24" height="24"
+                                                    class="fill-gray-500 hover:fill-blue-500 duration-300">
                                                     <path
                                                         d="M11.883 3.007L12 3a1 1 0 0 1 .993.883L13 4v7h7a1 1 0 0 1 .993.883L21 12a1 1 0 0 1-.883.993L20 13h-7v7a1 1 0 0 1-.883.993L12 21a1 1 0 0 1-.993-.883L11 20v-7H4a1 1 0 0 1-.993-.883L3 12a1 1 0 0 1 .883-.993L4 11h7V4a1 1 0 0 1 .883-.993L12 3l-.117.007z" />
                                                 </svg>
@@ -161,7 +167,8 @@ if (isset($_POST['more'])) {
                                                 class='p-2 mx-2 rounded-lg text-white font-bold w-8 h-8 flex-col justify-center items-center'
                                                 id="less" name="less" type="submit"
                                                 value="<?php echo $dettagliProdotto['id']; ?>" title="Togli 1 prodotto">
-                                                <svg width="24" height="24" class="fill-gray-500 hover:fill-blue-500 duration-300">
+                                                <svg width="24" height="24"
+                                                    class="fill-gray-500 hover:fill-blue-500 duration-300">
                                                     <path
                                                         d="M18 13H6c-.55 0-1-.45-1-1s.45-1 1-1h12c.55 0 1 .45 1 1s-.45 1-1 1z" />
                                                 </svg>
@@ -175,9 +182,10 @@ if (isset($_POST['more'])) {
                                                     class='p-2 rounded-lg text-white font-bold w-8 h-8  flex-col justify-center items-center'
                                                     id="rimuovi" name="rimuovi" type="submit"
                                                     value="<?php echo $dettagliProdotto['id']; ?>" title="Rimuovi dal carrello">
-                                                    <svg width="24" height="24" class="stroke-gray-500 hover:stroke-red-500 duration-300">
-                                                        <g fill="none"  stroke-width="2"
-                                                            stroke-linecap="round" stroke-linejoin="round">
+                                                    <svg width="24" height="24"
+                                                        class="stroke-gray-500 hover:stroke-red-500 duration-300">
+                                                        <g fill="none" stroke-width="2" stroke-linecap="round"
+                                                            stroke-linejoin="round">
                                                             <path d="M4 7h16"></path>
                                                             <path d="M10 11v6"></path>
                                                             <path d="M14 11v6"></path>
@@ -206,7 +214,7 @@ if (isset($_POST['more'])) {
             if (!empty($_SESSION['carrello'])) {
                 ?>
                 <div class="lg:col-span-3 p-3">
-                    <div class="shadow-md sm:rounded-[20px] bg-white p-3">
+                    <div class="shadow-md rounded-[20px] bg-white p-3">
                         <form action='#' method='POST'>
                             <div class="grid grid-cols-2 grid-rows-1">
                                 <div>
