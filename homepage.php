@@ -167,7 +167,7 @@ if (isset($_POST['rimuovi_listino'])) {
                                     ?>" class="w-full h-full object-contain">
                                 </div>
                                 <div class="rounded-lg p-3">
-                                    <p class="font-size text-2xl mb-3">
+                                    <p class="font-size text-2xl mb-3 truncate max-[640px]:max-w-[150px] max-w-[500px]" title="<?php echo $prodotto['nome'] ?>">
                                         <?php echo $prodotto['nome'] ?>
                                     </p>
                                     <div class="h-[1px] bg-[#e5e7eb] w-full mb-3"></div>

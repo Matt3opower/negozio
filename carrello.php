@@ -130,7 +130,7 @@ if (isset($_POST['more'])) {
                             <?php foreach ($_SESSION['carrello'] as $dettagliProdotto): ?>
                                 <form action="#" method="post">
                                     <!-- effettiva riga -->
-                                    <div class="bg-white shadow-sm rounded-[20px] grid sm:grid-rows-1 sm:grid-cols-5 p-1">
+                                    <div class="bg-white shadow-sm rounded-[20px] grid sm:grid-rows-1 sm:grid-cols-5 p-1 ">
                                         <div class="py-4 px-6 flex justify-center max-[640px]:col-span-2 sm:col-span-0">
                                             <div class="h-36 w-36 md:h-24 md:w-24">
                                                 <img src="<?php echo $dettagliProdotto['img_path']; ?>"
@@ -141,9 +141,13 @@ if (isset($_POST['more'])) {
                                         <div
                                             class="bg-[#e5e7eb] h-0 max-[640px]:h-[1px] mx-10 my-3 max-[640px]:col-span-2 sm:hidden">
                                         </div>
-                                        <div class="py-4 px-6 sm:flex text-center sm:justify-center sm:items-center col-span-1">
-                                            <?php echo $dettagliProdotto['nome']; ?>
+                                        <div class="py-4 px-6 max-w-1/3 sm:flex text-center sm:justify-center sm:items-center col-span-1">
+                                            <p class="truncate max-w-[150px]"
+                                                title="<?php echo $dettagliProdotto['nome']; ?>">
+                                                <?php echo $dettagliProdotto['nome']; ?>
+                                            </p>
                                         </div>
+
                                         <div class="py-4 px-6 sm:flex text-center sm:justify-center sm:items-center col-span-1">
                                             <?php
                                             echo $dettagliProdotto['prezzo'] * $dettagliProdotto['quantita'] . " €";

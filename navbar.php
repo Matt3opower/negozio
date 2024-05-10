@@ -20,7 +20,7 @@
             </a>
         </div>
         <div
-            class="border-b-2  sm:border-0 border-blue-500 bg-opacity-25 backdrop-blur-md nav-links duration-500 md:static absolute bg-white md:min-h-fit min-h-[30vh] left-0 top-[-100%] md:w-auto w-full flex items-center justify-center ">
+            class="border-b-2 sm:border-0 border-blue-500 bg-opacity-25 backdrop-blur-md nav-links duration-500 md:static absolute bg-white md:min-h-fit min-h-[30vh] left-0 top-[-100%] md:w-auto w-full flex items-center justify-center ">
             <ul class="flex md:flex-row flex-col md:items-center items-center justify-center">
                 <a href="homepage.php">
                     <li
