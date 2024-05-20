@@ -108,9 +108,9 @@ if (isset($_POST['login'])) {
 </head>
 
 <body class="bg-white sm:bg-[#f8f8f8]">
-<?php
+    <?php
     include "navbar.php";
-?>
+    ?>
     <form action="#" method="POST">
         <div class="form-login p-6 lg:w-[1000px] lg:h-[450px] mt-8 lg:mt-0 bg-white/0 sm:bg-white/100 w-screen">
             <div class="grid grid-cols-1 md:grid-cols-2 grid-rows-1 h-full">
@@ -149,7 +149,8 @@ if (isset($_POST['login'])) {
                         </div>
                         <div class="flex flex-col justify-center ">
                             <button name="signin" id="signin"
-                                class="mt-12 w-36 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mx-auto">Registrati →</button>
+                                class="mt-12 w-36 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mx-auto">Registrati
+                                →</button>
                         </div>
                     </div>
                     <div class="mx-auto mt-6">
@@ -173,29 +174,32 @@ if (isset($_POST['login'])) {
         </div>
     </form>
 
-    <?php
-    if (!$errore1) {
-        echo "
-                                <div class='alert alert-danger mt-4' role='alert'>
-                                Non esistono utenti con queste credenziali
-                                </div>
-                            ";
-    }
-    if (!$errore2) {
-        echo "
-                                <div class='alert alert-danger mt-4' role='alert'>
-                                Cf o Password errati
-                                </div>
-                            ";
-    }
-    if (!$errore3) {
-        echo "
-                            <div class='alert alert-danger mt-4' role='alert'>
-                            Cf o Password vuoti
-                            </div>
-                        ";
-    }
-    ?>
+    <div class="flex justify-center items-center">
+        <?php
+        if (!$errore1) { ?>
+            <div
+                class="mt-4 flex items-center justify-center mx-auto bg-red-300 border-2 border-red-500 rounded-lg p-3 mx-5 max-w-[700px]">
+                Non esistono utenti con queste credenziali
+            </div>
+        <?php } ?>
+        <?php
+        if (!$errore2) { ?>
+            <div
+                class="mt-4 flex items-center justify-center mx-auto bg-red-300 border-2 border-red-500 rounded-lg p-3 mx-5 max-w-[700px]">
+                Email o Password errati
+            </div>
+
+        <?php } ?>
+        <?php
+        if (!$errore3) { ?>
+            <div
+                class="mt-4 flex items-center justify-center mx-auto bg-red-300 border-2 border-red-500 rounded-lg p-3 mx-5 max-w-[700px]">
+                Cf o Password vuoti
+            </div>
+        <?php } ?>
+    </div>
+
+
 
 
 

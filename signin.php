@@ -4,7 +4,8 @@ include "functions.php";
 session_start();
 
 
-
+$check1 = true;
+$check2 = true;
 if (isset($_POST['signin'])) {
     $email = $_POST["email"];
     $password = password_hash($_POST["password"], PASSWORD_DEFAULT);
@@ -23,8 +24,7 @@ if (isset($_POST['signin'])) {
     $num_rows_duplicate = $result_duplicate->num_rows;
 
 
-    $check1 = true;
-    $check2 = true;
+
 
     if ($nome == null or $cognome == null or $email == null or $password == null or $indirizzo == null or $citta == null or $provincia == null) {
         $check1 = false;
@@ -40,20 +40,7 @@ if (isset($_POST['signin'])) {
         echo "<script>window.location.href = 'login.php';</script>";
     }
 
-    if (!$check1) {
-        echo "
-        <div class='alert alert-danger mt-4 w-[1000px] mx-auto' role='alert'>
-            Tutti i campi devono essere riempiti
-        </div>
-        ";
-    }
-    if (!$check2) {
-        echo "
-        <div class='alert alert-danger mt-4 w-[1000px] mx-auto' role='alert'>
-            L'email inserita è già presente
-        </div>
-        ";
-    }
+
 }
 
 
@@ -190,6 +177,26 @@ if (isset($_POST['login'])) {
             </div>
         </div>
     </form>
+
+    <div class="flex justify-center items-center">
+        <?php
+        if (!$check1) { ?>
+            <div
+                class="mt-4 flex items-center justify-center mx-auto bg-red-300 border-2 border-red-500 rounded-lg p-3 mx-5 max-w-[700px]">
+                Tutti i campi devono essere riempiti
+            </div>
+        <?php } ?>
+
+        <?php
+        if (!$check2) { ?>
+            <div
+                class="mt-4 flex items-center justify-center mx-auto bg-red-300 border-2 border-red-500 rounded-lg p-3 mx-5 max-w-[700px]">
+                L'email inserita è già presente
+            </div>
+        <?php } ?>
+    </div>
+
+
 
 
 
