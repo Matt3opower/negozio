@@ -110,15 +110,31 @@ if (isset($_POST['rimuovi_listino'])) {
     include "navbar.php";
     ?>
     <div class="container">
-        <?php
-        if (empty($prodotti)) {
-            echo "
-                    <div class='text-white font-bold bg-sky-500 p-2 rounded-lg w-fit mt-12 mx-auto text-2xl font-bold'>
-                        Non sono presenti articoli
-                    </div>
-                ";
-        }
-        ?>
+        <?php if (empty($prodotti)) { ?>
+            <div class='text-gray-600 font-bold w-fit sm:mt-32 mt-12 mx-auto text-3xl'>
+                Non sono presenti articoli
+            </div>
+            <?php if(!$_SESSION['email']) {?>
+            <div class="flex items-center justify-center mt-16">
+                <a href="profilo.php">
+                    <button
+                        class="border-2 border-gray-300 p-2 rounded-md hover:border-blue-600 hover:bg-blue-100 duration-300 ">
+                        Vai al tuo profilo
+                    </button>
+                </a>
+            </div>
+            <?php } ?>
+            <div class="flex items-center justify-center mt-16">                
+                <svg class="h-48" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 24 24">
+                    <g fill="none" stroke="#9ca3af" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="9"></circle>
+                        <path d="M12 8v4"></path>
+                        <path d="M12 16h.01"></path>
+                    </g>
+                </svg>
+            </div>
+        <?php } ?>
+
 
 
         <?php if (!$check_qnt) { ?>
@@ -167,7 +183,8 @@ if (isset($_POST['rimuovi_listino'])) {
                                     ?>" class="w-full h-full object-contain">
                                 </div>
                                 <div class="rounded-lg p-3">
-                                    <p class="font-size text-2xl mb-3 truncate max-[640px]:max-w-[150px] max-w-[500px]" title="<?php echo $prodotto['nome'] ?>">
+                                    <p class="font-size text-2xl mb-3 truncate max-[640px]:max-w-[150px] max-w-[500px]"
+                                        title="<?php echo $prodotto['nome'] ?>">
                                         <?php echo $prodotto['nome'] ?>
                                     </p>
                                     <div class="h-[1px] bg-[#e5e7eb] w-full mb-3"></div>
@@ -257,9 +274,9 @@ if (isset($_POST['rimuovi_listino'])) {
 
 
 
-    
 
-   
+
+
 
 
 
