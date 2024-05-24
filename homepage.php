@@ -114,7 +114,7 @@ if (isset($_POST['rimuovi_listino'])) {
             <div class='text-gray-600 font-bold w-fit sm:mt-32 mt-12 mx-auto text-3xl'>
                 Non sono presenti articoli
             </div>
-            <?php if($_SESSION['email']) {?>
+            <?php if(isset($_SESSION['email'])) {?>
             <div class="flex items-center justify-center mt-16">
                 <a href="profilo.php">
                     <button

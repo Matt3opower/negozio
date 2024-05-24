@@ -149,8 +149,14 @@ if (isset($_POST['login'])) {
                         </div>
                         <div class="flex flex-col justify-center ">
                             <button name="signin" id="signin"
-                                class="mt-12 w-36 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mx-auto">Registrati
-                                →</button>
+                                class="flex mt-12 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mx-auto items-center justify-center">Registrati
+                                <svg class="h-6 ml-2" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+                                    viewBox="0 0 512 512">
+                                    <path
+                                        d="M256 48C141.13 48 48 141.13 48 256s93.13 208 208 208s208-93.13 208-208S370.87 48 256 48zm91.36 212.65a16 16 0 0 1-22.63.09L272 208.42V342a16 16 0 0 1-32 0V208.42l-52.73 52.32A16 16 0 1 1 164.73 238l80-79.39a16 16 0 0 1 22.54 0l80 79.39a16 16 0 0 1 .09 22.65z"
+                                        fill="currentColor"></path>
+                                </svg>
+                            </button>
                         </div>
                     </div>
                     <div class="mx-auto mt-6">
