@@ -71,6 +71,7 @@ if (isset($_POST['login'])) {
             background-color: white;
             border-radius: 25px;
             position: absolute;
+            z-index: 10;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
@@ -84,10 +85,10 @@ if (isset($_POST['login'])) {
     include "navbar.php";
     ?>
     <form action="#" method="POST">
-        <div class="form-login p-6 lg:w-[1000px] lg:h-[450px] mt-8 lg:mt-0 bg-white/0 sm:bg-white/100 w-screen">
+        <div class="form-login p-6 lg:w-[1000px] lg:h-[450px] mt-16 lg:mt-0 bg-white/0 sm:bg-white/100 w-screen">
             <div class="grid grid-cols-1 md:grid-cols-2 grid-rows-1 h-full">
                 <div class="flex justify-center items-center">
-                    <img src="img/logo.png" alt="" class="lg:w-full lg:h-auto h-32 w-32">
+                    <img src="img/logo.png" alt="" class="h-0 w-0 md:w-full md:h-auto md:h-32 md:w-32">
                 </div>
 
 

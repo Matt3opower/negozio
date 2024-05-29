@@ -1,9 +1,7 @@
 <?php
+session_start();
 include "connessione.php";
 include "functions.php";
-session_start();
-
-
 
 if (isset($_SESSION['email'])) {
     header("Location: homepage.php");
@@ -12,8 +10,6 @@ if (isset($_SESSION['email'])) {
 if (isset($_POST['signin'])) {
     echo "<script>window.location.href = 'signin.php';</script>";
 }
-
-
 
 $errore1 = true;
 $errore2 = true;
@@ -38,8 +34,6 @@ if (isset($_POST['login'])) {
         $check = false;
     }
 
-
-
     if ($check) {
         if ($conta == 1) {
             $row = $result->fetch_assoc();
@@ -53,9 +47,6 @@ if (isset($_POST['login'])) {
 
         }
         if ($controllo) {
-            if (!isset($_SESSION['email'])) {
-                session_start();
-            }
             $_SESSION['email'] = $email;
             $_SESSION['password'] = $passc;
             //COOKIE
@@ -112,10 +103,10 @@ if (isset($_POST['login'])) {
     include "navbar.php";
     ?>
     <form action="#" method="POST">
-        <div class="form-login p-6 lg:w-[1000px] lg:h-[450px] mt-8 lg:mt-0 bg-white/0 sm:bg-white/100 w-screen">
+        <div class="form-login p-6 lg:w-[1000px] lg:h-[450px] mt-12 lg:mt-0 bg-white/0 sm:bg-white/100 w-screen">
             <div class="grid grid-cols-1 md:grid-cols-2 grid-rows-1 h-full">
                 <div class="flex justify-center items-center">
-                    <img src="img/logo.png" alt="" class="lg:w-full lg:h-auto h-32 w-32">
+                    <img src="img/logo.png" alt="" class="h-0 w-0 lg:w-full lg:h-auto lg:h-32 lg:w-32">
                 </div>
                 <div class="flex flex-col justify-center">
                     <div class="my-3">

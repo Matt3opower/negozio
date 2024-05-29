@@ -114,18 +114,19 @@ if (isset($_POST['rimuovi_listino'])) {
             <div class='text-gray-600 font-bold w-fit sm:mt-32 mt-12 mx-auto text-3xl'>
                 Non sono presenti articoli
             </div>
-            <?php if(isset($_SESSION['email'])) {?>
-            <div class="flex items-center justify-center mt-16">
-                <a href="profilo.php">
-                    <button
-                        class="border-2 border-gray-300 p-2 rounded-md hover:border-blue-600 hover:bg-blue-100 duration-300 ">
-                        Vai al tuo profilo
-                    </button>
-                </a>
-            </div>
+            <?php if (isset($_SESSION['email'])) { ?>
+                <div class="flex items-center justify-center mt-16">
+                    <a href="profilo.php">
+                        <button
+                            class="border-2 border-gray-300 p-2 rounded-md hover:border-blue-600 hover:bg-blue-100 duration-300 ">
+                            Vai al tuo profilo
+                        </button>
+                    </a>
+                </div>
             <?php } ?>
-            <div class="flex items-center justify-center mt-16">                
-                <svg class="h-48" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 24 24">
+            <div class="flex items-center justify-center mt-16">
+                <svg class="h-48" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+                    viewBox="0 0 24 24">
                     <g fill="none" stroke="#9ca3af" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                         <circle cx="12" cy="12" r="9"></circle>
                         <path d="M12 8v4"></path>
@@ -176,11 +177,13 @@ if (isset($_POST['rimuovi_listino'])) {
                             <div
                                 class="rounded-lg overflow-hidden lg:mx-6 my-6 shadow-[0_3px_8px_rgb(0.2,0.2,0.2,0.2)] bg-white">
                                 <div class="h-80 min-w-40 mx-auto p-3 ">
-                                    <img src="<?php
-                                    //echo 'img/products/' . $prodotto['nome'] . '.webp'; 
-                                    echo $prodotto['img_path'];
-                                    //$sql_img = "SELECT img_path FROM prodotto WHERE ";
-                                    ?>" class="w-full h-full object-contain">
+                                    <?php if (file_exists($prodotto['img_path'])) { ?>
+                                        <img src="<?php echo $prodotto['img_path']; ?>" class="w-full h-full object-contain">
+                                    <?php } else { ?>
+                                        <div class="flex justify-center items-center h-full">
+                                            <?php echo "Immagine non trovata"; ?>
+                                        </div>
+                                    <?php } ?>
                                 </div>
                                 <div class="rounded-lg p-3">
                                     <p class="font-size text-2xl mb-3 truncate max-[640px]:max-w-[150px] max-w-[500px]"

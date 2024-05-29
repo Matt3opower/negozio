@@ -12,7 +12,7 @@
 
 
 
-<header class="bg-white z-index-20 md:sticky top-0 shadow-md">
+<header class="bg-white z-index-20 md:sticky top-0 shadow-md" style="absolute z-index-20 position-fixed">
     <nav class="flex mx-auto justify-between">
         <div>
             <a href="homepage.php">
